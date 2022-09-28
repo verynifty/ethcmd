@@ -2,6 +2,8 @@
 
 <template>
   <div>
+    SAMPLE LINK
+  <div><router-link to="/address/0x57f0b53926dd62f2e26bc40b30140abea474da94">VNFT</router-link></div>
     <div class="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" class="divide-y divide-gray-200">
         <li v-for="fav in favorites.$state.contracts" :key="fav.address">
