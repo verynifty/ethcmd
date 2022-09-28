@@ -156,9 +156,7 @@ let getFunctionsRaw = function () {
     return ABI
   }
   return ABI.filter(function (func) {
-    if (filter.value != null && filter.value != "") {
       return func.name.toLowerCase().includes(filter.value.toLowerCase());
-    }
   });
 };
 let getFunctions = computed(getFunctionsRaw);
