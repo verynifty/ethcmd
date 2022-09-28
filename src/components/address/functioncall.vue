@@ -253,21 +253,27 @@ let inputs = ref([]);
 
 let showMore = ref(false);
 
+async function call() {
+  console.log("CALL");
+  await contracts.callContract(props.address, props.func, inputs.value);
+}
+
 watch(
   () => props.func,
-  function () {
+  async function () {
     inputs.value = [];
     for (const input of props.func.inputs) {
       console.log(input);
       inputs.value.push({ value: "" });
     }
+    if (inputs.value.length == 0) {
+      console.log("CALL")
+      await call();
+    }
   }
 );
 
-async function call() {
-  console.log("CALL");
-  await contracts.callContract(props.address, props.func, inputs.value);
-}
+
 
 console.log(props.func);
 </script>
