@@ -7,6 +7,9 @@
       lang="solidity"
       theme="chaos"
       style="height: 600px"
+      :readonly="true"
+      :printMargin="false"
+      :wrap="true"
     />
   </div>
 </template>
