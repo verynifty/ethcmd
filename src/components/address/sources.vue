@@ -8,7 +8,7 @@
           <ul class="space-y-2">
             <li v-for="source in getSources">
               <div
-                @click="onSourceClick(func)"
+                @click="onSourceClick(source)"
                 class="
                   flex
                   items-center
@@ -47,10 +47,10 @@ let getSourcesRaw = function () {
 };
 let getSources = computed(getSourcesRaw);
 
-async function onFunctionClick(func) {
-  console.log("ONCLICK");
-  selected.value = func;
-  emit("selected", func);
+async function onSourceClick(source) {
+  console.log("ONCLICK", source);
+  selected.value = source;
+  emit("selected", source);
 }
 
 const selected = ref(getSourcesRaw()[0]);

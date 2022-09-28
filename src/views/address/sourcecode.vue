@@ -3,11 +3,10 @@
     <AddressHeader :contract="contract" />
     <div class="grid grid-cols-12">
       <div class="col-span-4">
-        <AddressSources :contract="contract" @selected="onFuncSelected" />
+        <AddressSources :contract="contract" @selected="onSourceSelected" />
       </div>
       <div class="col-span-8">
-        <AddressFunctionCall :func="currentFunction" :address="address" />
-        <History :address="address" />
+        <AddressSourceView :contract="contract" :sourceFile="currentSource" />
       </div>
     </div>
   </div>
@@ -16,9 +15,12 @@
 console.log("FHJDGHJGFJSHFGDHJ")
 import AddressHeader from "@/components/address/header.vue";
 import AddressSources from "@/components/address/sources.vue";
+import AddressSourceView from "@/components/address/sourceview.vue";
 
 import { useRoute } from "vue-router";
 import { ref, unref, onMounted } from "vue";
+
+let currentSource = ref(null);
 
 const route = useRoute();
 const address = route.params.address.toLowerCase();
@@ -32,6 +34,9 @@ console.log(contracts);
 await contracts.getContract(address);
 contract.value = contracts.$state.contracts[address];
 
+function onSourceSelected(func) {
+  currentSource.value = unref(func);
+}
 
 </script>
 <style>
