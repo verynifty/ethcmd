@@ -11,8 +11,8 @@ import './assets/main.css'
 const app = createApp(App)
 
 import { VAceEditor } from 'vue3-ace-editor';
-import 'ace-builds/src-noconflict/mode-json';
 import 'ace-mode-solidity/build/remix-ide/mode-solidity.js';
+import 'ace-builds/src-noconflict/theme-chaos';
 
 app.component("v-ace-editor", VAceEditor)
 

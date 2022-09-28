@@ -5,7 +5,7 @@
       v-model:value="source"
       @init="editorInit"
       lang="solidity"
-      theme="chrome"
+      theme="chaos"
       style="height: 600px"
     />
   </div>
