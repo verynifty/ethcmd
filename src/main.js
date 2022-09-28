@@ -10,6 +10,10 @@ import './assets/main.css'
 
 const app = createApp(App)
 
+import { VAceEditor } from 'vue3-ace-editor';
+
+app.component("v-ace-editor", VAceEditor)
+
 app.use(createPinia())
 app.use(timeago)
 
