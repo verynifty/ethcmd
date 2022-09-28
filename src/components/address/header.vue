@@ -88,10 +88,10 @@
     <div class="mt-4">
       <div class="">
         <nav class="-mb-px flex space-x-8 ml-5">
-          <a
+          <router-link
             v-for="tab in tabs"
             :key="tab.name"
-            :href="tab.href"
+            :to="tab.href"
             :class="[
               tab.current
                 ? 'border-indigo-500 text-indigo-600'
@@ -99,7 +99,7 @@
               'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm',
             ]"
             :aria-current="tab.current ? 'page' : undefined"
-            >{{ tab.name }}</a
+            >{{ tab.name }}</router-link
           >
         </nav>
       </div>
@@ -116,11 +116,11 @@ const props = defineProps(["contract"]);
 let tabs = [
   {
     name: "Functions",
-    href: "/",
+    href: "/address/" + props.contract.address,
   },
   {
     name: "Source",
-    href: "/",
+    href: "/address/" + props.contract.address + "/sourcecode",
   },
 ];
 </script>

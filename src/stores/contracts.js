@@ -35,6 +35,7 @@ async function _loadContractFromEtherscan(address) {
     } else {
         obj.implementation = null;
     }
+    console.log("CONTRACT RESULT", obj)
     return obj;
 }
 
@@ -52,7 +53,6 @@ export const useContractStore = defineStore({
                 return this.$state.contracts[address.toLowerCase()]
             }
             if (ABI == null) {
-                console.log("STATE", this.$state)
                 this.$state.contracts[address.toLowerCase()] = await _loadContractFromEtherscan(address)
             } else {
 

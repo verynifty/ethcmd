@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AddressView from '../views/address/index.vue'
+import AddressSourceView from '../views/address/sourcecode.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/address/:address/sourcecode',
+      name: 'addresssource',
+      component: AddressSourceView
     },
     {
       path: '/address/:address/',
