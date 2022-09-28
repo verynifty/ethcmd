@@ -4,7 +4,7 @@
     <v-ace-editor
       v-model:value="source"
       @init="editorInit"
-      lang="html"
+      lang="solidity"
       theme="chrome"
       style="height: 600px"
     />
