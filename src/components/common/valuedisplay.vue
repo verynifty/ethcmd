@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div v-if="type == 'uint256'">
+    <div v-if="type.startsWith('uint')">
       {{ type }} - {{ name }}
       <form>
         <div

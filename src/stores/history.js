@@ -26,6 +26,20 @@ export const useHistoryStore = defineStore({
                 type: "Read"
             })
         },
+        async addSend(callCounter, address, func, params, calldata, block, hash) {
+            this.$state.history.unshift({
+                address: address.toLowerCase(),
+                func: func,
+                params: params,
+                calldata: calldata,
+                callCounter: callCounter,
+                block: block,
+                result: null,
+                error: null,
+                type: "Send",
+                hash: hash
+            })
+        },
         async pushResult(callCounter, error, result) {
             console.log(this.$state.history)
             let index = 0

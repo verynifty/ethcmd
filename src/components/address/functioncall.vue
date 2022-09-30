@@ -182,7 +182,7 @@
         </div>
         <div class="sm:col-span-2 sm:flex sm:justify-end">
           <div v-if="func.stateMutability != 'view'">
-            <button
+            <!--<button
               class="
                 bg-transparent
                 hover:bg-blue-500
@@ -197,9 +197,9 @@
               "
             >
               Simulate
-            </button>
+            </button> -->
             <button
-              @click="call"
+              @click="send"
               class="
                 bg-transparent
                 hover:bg-blue-500
@@ -256,6 +256,11 @@ let showMore = ref(false);
 async function call() {
   console.log("CALL");
   await contracts.callContract(props.address, props.func, inputs.value);
+}
+
+async function send() {
+  console.log("SEND");
+  await contracts.sendContract(props.address, props.func, inputs.value);
 }
 
 watch(
