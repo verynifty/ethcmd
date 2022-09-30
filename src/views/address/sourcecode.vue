@@ -12,7 +12,6 @@
   </div>
 </template>
 <script setup>
-console.log("FHJDGHJGFJSHFGDHJ")
 import AddressHeader from "@/components/address/header.vue";
 import AddressSources from "@/components/address/sources.vue";
 import AddressSourceView from "@/components/address/sourceview.vue";

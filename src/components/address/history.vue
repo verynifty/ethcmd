@@ -31,19 +31,11 @@
               <div class="mt-2 sm:flex sm:justify-between">
                 <div class="sm:flex">
                   <p class="flex items-center text-sm text-gray-500">
-                      <ul >
+                    <ul >
                     <li v-bind:key="index" v-for="(o, index) in h.func.outputs">
-                        {{o.name}}
-                      {{o.type}}
-                      <span v-if="typeof (h.result) == 'object'">
-                      {{ o.name != '' ? h.result[o.name] : h.result["" + (index + 1)]}}
-                      </span>
-                      <span v-else>
-                          {{ h.result}}
-                          </span>
+                        <ValueDisplay  :name="o.name" :type="o.type" :value="typeof (h.result) == 'object' ? o.name != '' ? h.result[o.name] : h.result['' + (index + 1)] : h.result" />
                     </li>
                     </ul>
-                    
                   </p>
                 </div>
                 <div
@@ -67,6 +59,8 @@
 </template>
 
 <script setup>
+import ValueDisplay from "@/components/common/valuedisplay.vue";
+
 import { useHistoryStore } from "@/stores/history";
 let history = useHistoryStore();
 console.log("HISTORY", history.contractHistory);
