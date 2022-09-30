@@ -38,7 +38,7 @@
           />
           <button
             type="button"
-             @click="display = 'raw'"
+            @click="display = 'raw'"
             class="
               p-2
               text-gray-500
@@ -47,6 +47,7 @@
               hover:text-gray-900 hover:bg-gray-100
               dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600
             "
+             v-bind:class="{ 'bg-gray-100': display == 'raw' }"
           >
             <svg
               class="w-3 h-3"
@@ -65,7 +66,7 @@
             </svg>
           </button>
           <button
-          @click="display = 'ether'"
+            @click="display = 'ether'"
             type="button"
             class="
               p-2
@@ -75,6 +76,7 @@
               hover:text-gray-900 hover:bg-gray-100
               dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600
             "
+             v-bind:class="{ 'bg-gray-100': display == 'ether' }"
           >
             <svg
               class="w-3 h-3"
@@ -104,14 +106,13 @@ import { watch, ref, computed } from "vue";
 
 const props = defineProps(["value", "type", "name"]);
 
-let display = ref("raw")
+let display = ref("raw");
 
 function getValue() {
-    if (display.value == "raw") {
-        return props.value;
-    } else if (display.value == "ether") {
-        return parseInt(props.value) / 1e18
-    }
-  
+  if (display.value == "raw") {
+    return props.value;
+  } else if (display.value == "ether") {
+    return parseInt(props.value) / 1e18;
+  }
 }
 </script>
