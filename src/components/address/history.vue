@@ -24,13 +24,19 @@
                       text-green-800
                     "
                   >
-                    {{ h.type }}
+                    {{ h.type }} 
+                    @{{ h.block.number }} 
+                    <timeago class="ml-1"
+                      :autoUpdate="30"
+                      :datetime="h.block.timestamp * 1000"
+                    />
                   </p>
+            
                 </div>
               </div>
-              <div class="mt-2 sm:flex sm:justify-between">
-                <div class="sm:flex">
-                  <p class="flex items-center text-sm text-gray-500">
+              <div class="mt-2 ">
+                <div class="">
+                  <p class=" text-sm text-gray-500">
                     <ul >
                     <li v-bind:key="index" v-for="(o, index) in h.func.outputs">
                         <ValueDisplay  :name="o.name" :type="o.type" :value="typeof (h.result) == 'object' ? o.name != '' ? h.result[o.name] : h.result['' + (index + 1)] : h.result" />
@@ -41,13 +47,7 @@
                 <div
                   class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0"
                 >
-                  <p>
-                    @ {{ h.block.number }}
-                    <timeago
-                      :autoUpdate="30"
-                      :datetime="h.block.timestamp * 1000"
-                    />
-                  </p>
+                 
                 </div>
               </div>
             </div>
