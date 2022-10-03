@@ -18,7 +18,15 @@ async function _loadContractFromEtherscan(address) {
     let obj = {}
     obj.ABI = JSON.parse(result.ABI)
     obj.address = address;
-    obj.sourceCode = JSON.parse(result.SourceCode.substring(1).slice(0, -1));
+    if (result.SourceCode.startsWith('{{')) {
+        obj.sourceCode = JSON.parse(result.SourceCode.substring(1).slice(0, -1));
+    } else {
+        let key = result.ContractName + ".sol"
+        obj.sourceCode = {sources: {}}
+        obj.sourceCode.sources[key] = {
+            "content": result.SourceCode
+        }
+    }
     obj.name = result.ContractName;
     obj.compilerVersion = result.CompilerVersion
     obj.optimizationUsed = result.OptimizationUsed
@@ -50,6 +58,16 @@ export const useContractStore = defineStore({
         // doubleCount: (state) => state.counter * 2,
     },
     actions: {
+        async guessContract(address) {
+            let contract = null;
+            address = address.toLowerCase()
+            console.log(address.length);
+            if (address.length == 42 && address.startsWith('0x')) {
+                contract = await this.getContract(address)
+                return contract;
+            }
+
+        },
         async getContract(address, ABI) {
             if (this.$state.contracts[address.toLowerCase()] != null) {
                 return this.$state.contracts[address.toLowerCase()]

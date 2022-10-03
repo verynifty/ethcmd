@@ -2,6 +2,7 @@
 
 <template>
   <div>
+    <ContractSearch />
    FAVORITES:
     <div class="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" class="divide-y divide-gray-200">
@@ -57,6 +58,8 @@
 </template>
 
 <script setup>
+import ContractSearch from "@/components/address/search.vue";
+
 import { useFavoritesStore } from "@/stores/favorites";
 let favorites = useFavoritesStore();
 </script>
