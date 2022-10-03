@@ -4,6 +4,8 @@ import { useWeb3Store } from "@/stores/web3";
 import { useHistoryStore } from "@/stores/history";
 
 import axios from 'axios';
+import JSZip from 'jszip';
+import FileSaver from 'file-saver';
 
 async function _loadContractFromEtherscan(address) {
     let etherscan = "BJHUCAG1SPHZ5FNA1WR5ZNXVB8X5D6QU1V"
@@ -107,6 +109,20 @@ export const useContractStore = defineStore({
             })
             // console.log("RESULT", res)
             history.addCall(counter, address, func, callParams, res, block)
+        },
+        async downloadSources(address) {
+            const zip = new JSZip();
+            let ct = this.$state.contracts[address.toLowerCase()];
+            let srcs = ct.sourceCode.sources;
+            for (const path in srcs) {
+                if (Object.hasOwnProperty.call(srcs, path)) {
+                    const element = srcs[path];
+                    zip.file(path, element.content)
+                }
+            }
+            zip.generateAsync({ type: 'blob' }).then(function (content) {
+                FileSaver.saveAs(content, ct.name + '.zip');
+            });
         }
     },
 });

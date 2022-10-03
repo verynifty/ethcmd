@@ -6,6 +6,20 @@
         <AddressSources :contract="contract" @selected="onSourceSelected" />
       </div>
       <div class="col-span-8">
+        <button
+        @click="downloadSources"
+          class="
+            bg-blue-500
+            hover:bg-blue-700
+            text-white
+            font-bold
+            py-2
+            px-4
+            rounded
+          "
+        >
+          DOWNLOAD ALL SOURCES
+        </button>
         <AddressSourceView :contract="contract" :sourceFile="currentSource" />
       </div>
     </div>
@@ -37,6 +51,9 @@ function onSourceSelected(func) {
   currentSource.value = unref(func);
 }
 
+function downloadSources() {
+  contracts.downloadSources(address)
+}
 </script>
 <style>
 </style>
