@@ -34,7 +34,7 @@
             
                 </div>
               </div>
-              <div class="mt-2 ">
+              <div class="mt-2 " v-if="h.hash == null">
                 <div class="">
                   <p class=" text-sm text-gray-500">
                     <ul >
@@ -42,6 +42,18 @@
                         <ValueDisplay  :name="o.name" :type="o.type" :value="typeof (h.result) == 'object' ? o.name != '' ? h.result[o.name] : h.result['' + (index + 1)] : h.result" />
                     </li>
                     </ul>
+                  </p>
+                </div>
+                <div
+                  class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0"
+                >
+                 
+                </div>
+              </div>
+                <div class="mt-2 " v-if="h.hash != null">
+                <div class="">
+                  <p class=" text-sm text-gray-500">
+                   Pending transaction <a :href="'https://etherscan.io/tx/' + h.hash" >{{ h.hash }}</a>
                   </p>
                 </div>
                 <div
