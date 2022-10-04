@@ -8,11 +8,19 @@ export const useHistoryStore = defineStore({
         callCounter: 0
     }),
     getters: {
-        contractHistory: function() {
-            return this.$state.history;
-        }
+        contractHistory: (state) => (address) => {
+            return state.history.filter(h => h.address === address)
+          }
     },
     actions: {
+        save() {
+            localStorage.setItem("HistoryCallsAndSend", JSON.stringify(this.$state.history))
+        },
+        load() {
+            let cache = localStorage.getItem("HistoryCallsAndSend");
+            this.$state.history = cache == null ? [] : JSON.parse(cache);
+            this.$state.callCounter = cache == 0 ? 0 : this.$state.callCounter + 1;
+        },
         async addCall(callCounter, address, func, params, block) {
             this.$state.history.unshift({
                 address: address.toLowerCase(),
@@ -24,6 +32,7 @@ export const useHistoryStore = defineStore({
                 error: null,
                 type: "Read"
             })
+            this.save()
         },
         async addSend(callCounter, address, func, params, block, hash) {
             this.$state.history.unshift({
@@ -37,6 +46,7 @@ export const useHistoryStore = defineStore({
                 type: "Send",
                 hash: hash
             })
+            this.save()
         },
         async pushCallResult(callCounter, error, result) {
             console.log(this.$state.history)
@@ -52,6 +62,8 @@ export const useHistoryStore = defineStore({
             //let index = this.$state.history.findIndex((e) => {e.callCounter == callCounter } )
             console.log("RES", index, callCounter, error, result)
             this.$state.history[index].result = result;
+            this.save()
+
         },
         async pushSendResult(callCounter, error, result) {
             console.log(this.$state.history)
@@ -67,6 +79,7 @@ export const useHistoryStore = defineStore({
             //let index = this.$state.history.findIndex((e) => {e.callCounter == callCounter } )
             console.log("RES", index, callCounter, error, result)
             this.$state.history[index].result = result;
+            this.save()
         },
         getCallCOunter() {
             this.$state.callCounter++;

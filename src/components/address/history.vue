@@ -4,7 +4,7 @@
 
     <div class="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" class="divide-y divide-gray-200">
-        <li v-bind:key="hindex" v-for="(h, hindex) in history.contractHistory">
+        <li v-bind:key="hindex" v-for="(h, hindex) in history.contractHistory(address)">
           <div class="block hover:bg-gray-50">
             <div class="px-4 py-4 sm:px-6">
               <div class="flex items-center justify-between">
