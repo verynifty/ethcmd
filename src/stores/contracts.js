@@ -94,15 +94,15 @@ export const useContractStore = defineStore({
             let block = await web3.web3.eth.getBlock(blockNumber);
             let res = ctx.methods[func.name](...callParams).call({}, function (error, result) {
                 try {
-                    // console.log("PUSH RESULT, ", counter, error, result)
-                    history.pushResult(counter, error, result)
+                     console.log("PUSH RESULT, ", counter, error, result)
+                    history.pushCallResult(counter, error, result)
                 } catch (err) {
                     console.log(err)
                 }
 
             })
             // console.log("RESULT", res)
-            history.addCall(counter, address, func, callParams, res, block)
+            history.addCall(counter, address, func, callParams, block)
         },
         async sendContract(address, func, params, blockNumber = "latest") {
             const web3 = useWeb3Store();
@@ -116,7 +116,15 @@ export const useContractStore = defineStore({
             let counter = history.getCallCOunter()
             console.log(counter)
             let block = await web3.web3.eth.getBlock(blockNumber);
-            let res = ctx.methods[func.name](...callParams).call({}, function (error, result) {
+            console.log(web3.account)
+            let bb = await ctx.methods[func.name](...callParams).send({
+                from: web3.account
+            }, function(error, hash) {
+                console.log("HASH", hash)
+                history.addSend(counter, address, func, callParams, block, hash)
+            });
+            console.log("BBBB", bb)
+            /*{}, function (error, result) {
                 try {
                     // console.log("PUSH RESULT, ", counter, error, result)
                     history.pushResult(counter, error, result)
@@ -125,8 +133,8 @@ export const useContractStore = defineStore({
                 }
 
             })
+            */
             // console.log("RESULT", res)
-            history.addCall(counter, address, func, callParams, res, block)
         },
         async downloadSources(address) {
             const zip = new JSZip();

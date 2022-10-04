@@ -13,12 +13,11 @@ export const useHistoryStore = defineStore({
         }
     },
     actions: {
-        async addCall(callCounter, address, func, params, calldata, block) {
+        async addCall(callCounter, address, func, params, block) {
             this.$state.history.unshift({
                 address: address.toLowerCase(),
                 func: func,
                 params: params,
-                calldata: calldata,
                 callCounter: callCounter,
                 block: block,
                 result: null,
@@ -26,12 +25,11 @@ export const useHistoryStore = defineStore({
                 type: "Read"
             })
         },
-        async addSend(callCounter, address, func, params, calldata, block, hash) {
+        async addSend(callCounter, address, func, params, block, hash) {
             this.$state.history.unshift({
                 address: address.toLowerCase(),
                 func: func,
                 params: params,
-                calldata: calldata,
                 callCounter: callCounter,
                 block: block,
                 result: null,
@@ -40,7 +38,22 @@ export const useHistoryStore = defineStore({
                 hash: hash
             })
         },
-        async pushResult(callCounter, error, result) {
+        async pushCallResult(callCounter, error, result) {
+            console.log(this.$state.history)
+            let index = 0
+            for (const e of this.$state.history) {
+                if (e.callCounter == callCounter) {
+                    console.log("FOUND", true)
+                    break
+                } 
+                index++;
+                console.log(false, index)
+            }
+            //let index = this.$state.history.findIndex((e) => {e.callCounter == callCounter } )
+            console.log("RES", index, callCounter, error, result)
+            this.$state.history[index].result = result;
+        },
+        async pushSendResult(callCounter, error, result) {
             console.log(this.$state.history)
             let index = 0
             for (const e of this.$state.history) {
