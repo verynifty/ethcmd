@@ -11,7 +11,7 @@ async function _loadContractFromEtherscan(address) {
     let etherscan = "BJHUCAG1SPHZ5FNA1WR5ZNXVB8X5D6QU1V"
     // We try to get it from Etherscan
     let rSourceCode = await axios.get(
-        `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscan}`
+        process.env.VITE_ETHERSCAN_API + `/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscan}`
     );
     let result = rSourceCode.data.result[0];
     console.log(rSourceCode)
