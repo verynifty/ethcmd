@@ -33,6 +33,7 @@ export const useFavoritesStore = defineStore({
         },
         removeFavoriteContract(address) {
             this.$state.contracts[address.toLowerCase()] = null;
+            delete this.$state.contracts[address.toLowerCase()]
             this.saveContracts()
         }
     },

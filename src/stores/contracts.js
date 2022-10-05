@@ -8,7 +8,7 @@ import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
 async function _loadContractFromEtherscan(address) {
-    let etherscan = "BJHUCAG1SPHZ5FNA1WR5ZNXVB8X5D6QU1V"
+    let etherscan = process.env.ETHERSCAN_API_KEY;
     // We try to get it from Etherscan
     let rSourceCode = await axios.get(
         process.env.ETHERSCAN_API + `/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscan}`
