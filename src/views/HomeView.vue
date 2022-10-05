@@ -83,9 +83,10 @@
                     leave-active-class="transition ease-in duration-75"
                     leave-from-class="transform opacity-100 scale-100"
                     leave-to-class="transform opacity-0 scale-95"
+                    @click.stop
                   >
                     <MenuItems
-                      @click.stop="favorites.removeFavoriteContract(fav.address)"
+                      @click.prevent="favorites.removeFavoriteContract(fav.address)"
                       class="
                         absolute
                         right-0
