@@ -16,7 +16,7 @@
         text-base
         font-medium
       "
-      >{{ web3.account }}</a
+      >{{ web3.accountShort }}</a
     >
     <a
       v-else

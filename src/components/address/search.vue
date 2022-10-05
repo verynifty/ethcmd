@@ -82,17 +82,24 @@
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 import { watch, ref, computed } from "vue";
 import { useContractStore } from "@/stores/contracts";
+
 let contracts = useContractStore();
 
 const q = ref("");
 
+
 watch(
   () => q.value,
-  async function () {
+  async function (a,b,d) {
     let c = await contracts.guessContract(q.value)
+    if (c != null) {
+      router.push('/address/' + c.address)
+    }
   }
 );
 </script>

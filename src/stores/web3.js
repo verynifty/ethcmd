@@ -28,7 +28,9 @@ export const useWeb3Store = defineStore({
         account: null,
     }),
     getters: {
-        // doubleCount: (state) => state.counter * 2,
+        accountShort: function(state) {
+            return (state.account.substring(0,6) + '...' + state.account.slice(-6))
+        }
     },
     actions: {
         async setWeb3(opt = {}) {
@@ -57,6 +59,7 @@ export const useWeb3Store = defineStore({
             this.web3 = new Web3(provider);
             let accounts = await this.web3.eth.getAccounts();
             this.account = accounts[0];
+
             console.log(`connected as ${this.account}`);
 
             provider.on("accountsChanged", (accounts) => {
