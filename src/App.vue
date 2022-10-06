@@ -3,7 +3,7 @@
 <template>
 <div class="flex flex-col h-screen">
   <Header class="" />
-  <div class="bg-green-500 flex flex-grow overflow-hidden">
+  <div class="bg-green-500  flex-grow overflow-hidden">
   <Suspense>
     <RouterView class="" />
   </Suspense>

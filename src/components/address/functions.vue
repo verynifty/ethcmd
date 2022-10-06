@@ -1,7 +1,7 @@
 <template>
       <aside class="w-full flex-col h-full overflow-hidden" aria-label="Sidebar">
         <div
-          class="overflow-y-hidden h-full py-1 px-2 bg-gray-50 rounded dark:bg-gray-800 flex flex-col h-full"
+          class="overflow-y-hidden h-full py-1 px-2 bg-gray-50  dark:bg-gray-800 flex flex-col h-full"
         >
           <div class="relative mb-2">
             <div
