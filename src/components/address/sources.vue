@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div>
-      <aside class="w-full" aria-label="Sidebar">
+      <aside class="w-full flex-col h-full overflow-hidden" aria-label="Sidebar">
         <div
-          class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800"
+          class="overflow-y-hidden h-full py-1 px-2 bg-gray-50  dark:bg-gray-800 flex flex-col h-full"
         >
-          <div class="relative mb-6">
+          <div class="relative mb-2">
             <div
               class="
                 flex
@@ -57,8 +55,9 @@
               v-model="filter"
             />
           </div>
-          <ul class="space-y-2">
-            <li v-for="source in getSources">
+
+          <ul class="h-full overflow-scroll">
+           <li v-for="source in getSources">
               <div
                 @click="onSourceClick(source)"
                 class="
@@ -80,9 +79,8 @@
           </ul>
         </div>
       </aside>
-    </div>
-  </div>
 </template>
+
 
 <script setup>
 import { ref, computed } from "vue";
