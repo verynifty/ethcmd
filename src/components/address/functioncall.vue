@@ -11,7 +11,7 @@
         Personal details and application.
       </p>
     </div>
-    <div class="border-t border-gray-200">
+    <div class="">
       <dl>
         <div
           v-for="(input, index) in func.inputs"

@@ -3,9 +3,9 @@
     <div>
       <aside class="w-full" aria-label="Sidebar">
         <div
-          class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800"
+          class="overflow-y-auto py-2 px-3 bg-gray-50 rounded dark:bg-gray-800"
         >
-          <div class="relative mb-6">
+          <div class="relative mb-2">
             <div
               class="
                 flex
@@ -58,16 +58,16 @@
             />
           </div>
 
-          <ul class="space-y-2">
+          <ul class="">
             <li v-for="func in getFunctions">
               <div
                 @click="onFunctionClick(func)"
                 class="
                   flex
                   items-center
-                  p-2
-                  text-base
-                  font-normal
+                  p-1
+                  text-s
+                  font-light
                   text-gray-900
                   rounded-lg
                   dark:text-white

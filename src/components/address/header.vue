@@ -1,5 +1,5 @@
 <template>
-  <div class="relative border-b border-gray-200 pb-5 sm:pb-0 mt-5 mb-5">
+  <div class="relative border-b border-gray-200  bg-gray-50 pb-5 sm:pb-0 pt-2">
     <div class="md:flex md:items-center md:justify-between">
       <h3 class="text-lg font-medium leading-6 text-black ml-4">
         {{ contract.name }} - {{ contract.address }}

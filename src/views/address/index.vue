@@ -2,10 +2,10 @@
   <div class="address">
     <AddressHeader :contract="contract" />
     <div class="grid grid-cols-12">
-      <div class="col-span-4">
+      <div class="col-span-3">
         <AddressFunctions :contract="contract" @selected="onFuncSelected" />
       </div>
-      <div class="col-span-8">
+      <div class="col-span-9">
         <AddressFunctionCall :func="currentFunction" :address="address" />
         <History :address="address" />
       </div>

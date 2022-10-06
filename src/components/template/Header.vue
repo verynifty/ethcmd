@@ -3,10 +3,10 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
         <div class="flex justify-start lg:w-0 lg:flex-1">
-          <a href="#">
-            <span class="sr-only">Your Company</span>
-            <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-          </a>
+          <router-link class="flex items-center" to="/">
+            <svg class="h-8 w-auto sm:h-9" height="512px" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="comp_x5F_116-Ethereum"><g><polygon points="    277.438,370.529 277.438,470.299 399.954,296.348   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    385.532,227.682 275.209,42.348 275.209,177.107   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    277.438,219.138 277.438,318.961 372.419,262.729   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    123.925,230.375 237.438,39.654 237.438,178.331   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    238.002,216.348 238.002,321.752 137.438,262.375   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    237.438,370.227 237.438,472.346 112.046,294.301   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/></g></g><g id="Layer_1"/></svg>
+            <span><div class="font-bold">ETHCMD</div><div class="text-xs font-light text-right">> mainnet</div></span>
+          </router-link>
         </div>
         <div class="-my-2 -mr-2 md:hidden">
           <PopoverButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
