@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <div>
-      <aside class="w-full" aria-label="Sidebar">
+      <aside class="w-full flex-col h-full overflow-hidden" aria-label="Sidebar">
         <div
-          class="overflow-y-auto py-2 px-3 bg-gray-50 rounded dark:bg-gray-800"
+          class="overflow-y-hidden h-full py-1 px-2 bg-gray-50 rounded dark:bg-gray-800 flex flex-col h-full"
         >
           <div class="relative mb-2">
             <div
@@ -58,7 +56,7 @@
             />
           </div>
 
-          <ul class="">
+          <ul class="h-full overflow-scroll">
             <li v-for="func in getFunctions">
               <div
                 @click="onFunctionClick(func)"
@@ -137,8 +135,6 @@
           </ul>
         </div>
       </aside>
-    </div>
-  </div>
 </template>
 
 <script setup>

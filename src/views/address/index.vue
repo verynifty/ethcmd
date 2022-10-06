@@ -1,11 +1,11 @@
 <template>
-  <div class="address">
+  <div class="address flex flex-col h-full">
     <AddressHeader :contract="contract" />
-    <div class="grid grid-cols-12">
-      <div class="col-span-3">
+    <div class="grid grid-cols-12 h-full overflow-hidden">
+      <div class="col-span-3 h-full overflow-hidden">
         <AddressFunctions :contract="contract" @selected="onFuncSelected" />
       </div>
-      <div class="col-span-9">
+      <div class="col-span-9 h-full overflow-scroll">
         <AddressFunctionCall :func="currentFunction" :address="address" />
         <History :address="address" />
       </div>

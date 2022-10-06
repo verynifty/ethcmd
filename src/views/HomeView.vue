@@ -1,7 +1,7 @@
 
 
 <template>
-  <div>
+  <div class="h-full">
     <ContractSearch />
 
     FAVORITES:

@@ -1,10 +1,14 @@
 
 
 <template>
-  <Header />
+<div class="flex flex-col h-screen">
+  <Header class="" />
+  <div class="bg-green-500 flex flex-grow overflow-hidden">
   <Suspense>
-    <RouterView />
+    <RouterView class="" />
   </Suspense>
+  </div>
+  </div>
 </template>
 
 <script setup>
