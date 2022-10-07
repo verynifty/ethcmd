@@ -1,9 +1,46 @@
 <template>
-  <div class="relative border-b border-gray-200  bg-gray-50 pb-5 sm:pb-0 pt-2">
+  <div class="relative border-b border-gray-200 bg-gray-50 pb-5 sm:pb-0 pt-2">
     <div class="md:flex md:items-center md:justify-between">
-      <h3 class="text-lg font-medium leading-6 text-black ml-4">
+      <h3 class="text-l font-medium leading-6 text-black ml-4">
+        <span
+         v-if="contract.implementationContract != null"
+          class="
+            inline-flex
+            items-center
+            rounded-full
+            bg-gray-100
+            px-3
+            py-0.5
+            text-sm
+            font-medium
+            text-gray-800
+          "
+          >Proxy</span
+        >
         {{ contract.name }} - {{ contract.address }}
+        <h3
+          v-if="contract.implementationContract != null"
+          class="text-l font-medium text-black"
+        >
+          <span
+            class="
+              inline-flex
+              items-center
+              rounded-full
+              bg-yellow-100
+              px-3
+              py-0.5
+              text-sm
+              font-medium
+              text-yellow-800
+            "
+            >Implementation</span
+          >
+          {{ contract.implementationContract.name }} -
+          {{ contract.implementationContract.address }}
+        </h3>
       </h3>
+
       <div class="mt-3 flex md:absolute md:top-3 md:right-0 md:mt-0">
         <button
           v-if="!favorites.isFavoriteContract(contract.address)"
