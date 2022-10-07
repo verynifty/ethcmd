@@ -60,17 +60,7 @@
             <li v-for="func in getFunctions">
               <div
                 @click="onFunctionClick(func)"
-                class="
-                  flex
-                  items-center
-                  p-1
-                  text-s
-                  font-light
-                  text-gray-900
-                  rounded-lg
-                  dark:text-white
-                  hover:bg-gray-100
-                  dark:hover:bg-gray-700
+                :class="['flex items-center p-1 text-s font-light text-white rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700', func.proxyImplementation == true ? 'text-yellow-100	' : ' ']
                 "
               >
                 <svg

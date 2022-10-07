@@ -3,7 +3,7 @@
         <div
           class="overflow-y-hidden h-full py-1 px-2 bg-gray-50  dark:bg-gray-800 flex flex-col h-full"
         >
-          <div class="relative mb-2">
+          <div class="relative mb-1">
             <div
               class="
                 flex
@@ -63,7 +63,7 @@
                 class="
                   flex
                   items-center
-                  p-2
+                  p-1
                   text-base
                   font-normal
                   text-gray-900
@@ -73,7 +73,7 @@
                   dark:hover:bg-gray-700
                 "
               >
-                <span class="ml-3">{{ source }}</span>
+                <span class="ml-1">{{ source }}</span>
               </div>
             </li>
           </ul>

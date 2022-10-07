@@ -22,7 +22,7 @@ async function _loadContractFromEtherscan(address) {
         obj.sourceCode = JSON.parse(result.SourceCode.substring(1).slice(0, -1));
     } else {
         let key = result.ContractName + ".sol"
-        obj.sourceCode = {sources: {}}
+        obj.sourceCode = { sources: {} }
         obj.sourceCode.sources[key] = {
             "content": result.SourceCode
         }
@@ -41,11 +41,16 @@ async function _loadContractFromEtherscan(address) {
     console.log(obj)
     if (obj.implementation != null && obj.implementation != "") {
         console.log("Loading proxy implementation at ", obj.implementation);
-        obj.implementationContract = await _loadContract(context, obj.implementation);
+        obj.implementationContract = await _loadContractFromEtherscan(obj.implementation);
+        for (const abiFunc of obj.implementationContract.ABI) {
+            let f = abiFunc;
+            f.proxyImplementation = true;
+            obj.ABI.push(f)
+        }
     } else {
         obj.implementation = null;
     }
-    console.log("CONTRACT RESULT", obj)
+    obj.ABI = obj.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
     return obj;
 }
 
@@ -94,7 +99,7 @@ export const useContractStore = defineStore({
             let block = await web3.web3.eth.getBlock(blockNumber);
             let res = ctx.methods[func.name](...callParams).call({}, function (error, result) {
                 try {
-                     console.log("PUSH RESULT, ", counter, error, result)
+                    console.log("PUSH RESULT, ", counter, error, result)
                     history.pushCallResult(counter, error, result)
                 } catch (err) {
                     console.log(err)
@@ -119,7 +124,7 @@ export const useContractStore = defineStore({
             console.log(web3.account)
             let bb = await ctx.methods[func.name](...callParams).send({
                 from: web3.account
-            }, function(error, hash) {
+            }, function (error, hash) {
                 console.log("HASH", hash)
                 history.addSend(counter, address, func, callParams, block, hash)
             });
