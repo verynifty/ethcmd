@@ -16,6 +16,9 @@ import 'ace-builds/src-noconflict/theme-chaos';
 
 app.component("v-ace-editor", VAceEditor)
 
+import JsonViewer from 'vue-json-viewer'
+app.use(JsonViewer)
+
 app.use(createPinia())
 app.use(timeago)
 

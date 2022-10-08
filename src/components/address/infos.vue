@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full  bg-gray-800 p-5">
-    <div class="w-full  bg-white shadow sm:rounded-lg">
+  <div class="w-full bg-gray-800 p-5">
+    <div class="w-full bg-white shadow sm:rounded-lg">
       <div class="px-4 py-5 sm:px-6">
         <h3 class="text-lg font-medium leading-6 text-gray-900">
           <span v-if="contract.implementationContract != null">Proxy</span>
@@ -47,7 +47,9 @@
             </dd>
           </div>
           <div class="sm:col-span-2">
-            <dt class="text-sm font-medium text-gray-500">Events</dt>
+            <dt class="text-sm font-medium text-gray-500">
+              Events ({{ contracts.contractEvents(contract.address).length }})
+            </dt>
             <dd class="mt-1 text-sm text-gray-900">
               <ul
                 role="list"
@@ -73,14 +75,23 @@
                     <span class="ml-2 w-0 flex-1 truncate">{{ ev.name }}</span>
                   </div>
                   <div class="ml-4 flex-shrink-0">
-                    <span
-                      href="#"
-                      class="text-xs font-light"
-                      >{{ ev.signature }}</span
-                    >
+                    <span href="#" class="text-xs font-light">{{
+                      ev.signature
+                    }}</span>
                   </div>
                 </li>
               </ul>
+            </dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-500">ABI</dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <json-viewer
+                :value="contract.ABI"
+                :expand-depth="3"
+                copyable
+                boxed
+              ></json-viewer>
             </dd>
           </div>
         </dl>
@@ -96,4 +107,6 @@ const props = defineProps(["contract"]);
 
 import { useContractStore } from "@/stores/contracts";
 let contracts = useContractStore();
+
+let expan
 </script>
