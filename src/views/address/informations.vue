@@ -1,8 +1,9 @@
 <template>
   <div class="address flex flex-col h-full">
     <AddressHeader :contract="contract" />
-    <div class=" h-full overflow-hidden">
+    <div class=" overflow-y-scroll ">
       <ContractInfo :contract="contract" />
+      <ContractInfo v-if="contract.implementationContract != null" :contract="contract.implementationContract" />
     </div>
   </div>
 </template>

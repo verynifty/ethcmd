@@ -7,52 +7,6 @@ import axios from 'axios';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
-async function _loadContractFromEtherscan(address) {
-    let etherscan = process.env.ETHERSCAN_API_KEY;
-    // We try to get it from Etherscan
-    let rSourceCode = await axios.get(
-        process.env.ETHERSCAN_API + `/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscan}`
-    );
-    let result = rSourceCode.data.result[0];
-    console.log(rSourceCode)
-    let obj = {}
-    obj.ABI = JSON.parse(result.ABI)
-    obj.address = address;
-    if (result.SourceCode.startsWith('{{')) {
-        obj.sourceCode = JSON.parse(result.SourceCode.substring(1).slice(0, -1));
-    } else {
-        let key = result.ContractName + ".sol"
-        obj.sourceCode = { sources: {} }
-        obj.sourceCode.sources[key] = {
-            "content": result.SourceCode
-        }
-    }
-    obj.name = result.ContractName;
-    obj.compilerVersion = result.CompilerVersion
-    obj.optimizationUsed = result.OptimizationUsed
-    obj.runs = result.Runs
-    obj.constructorArguments = result.ConstructorArguments
-    obj.EVMVersion = result.EVMVersion
-    obj.library = result.Library
-    obj.licenseType = result.LicenseType
-    obj.proxy = result.Proxy
-    obj.implementation = result.Implementation
-    obj.swarmSource = result.SwarmSource
-    console.log(obj)
-    if (obj.implementation != null && obj.implementation != "") {
-        console.log("Loading proxy implementation at ", obj.implementation);
-        obj.implementationContract = await _loadContractFromEtherscan(obj.implementation);
-        for (const abiFunc of obj.implementationContract.ABI) {
-            let f = abiFunc;
-            f.proxyImplementation = true;
-            obj.ABI.push(f)
-        }
-    } else {
-        obj.implementation = null;
-    }
-    obj.ABI = obj.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
-    return obj;
-}
 
 export const useContractStore = defineStore({
     id: "contracts",
@@ -61,6 +15,9 @@ export const useContractStore = defineStore({
     }),
     getters: {
         contractEvents: (state) => (address) => {
+            return state.contracts[address.toLowerCase()].ABI.filter(h => h.type === 'event' && h.proxyImplementation != true)
+        },
+        contractAndProxyEvents: (state) => (address) => {
             return state.contracts[address.toLowerCase()].ABI.filter(h => h.type === 'event')
         }
         // doubleCount: (state) => state.counter * 2,
@@ -81,11 +38,63 @@ export const useContractStore = defineStore({
                 return this.$state.contracts[address.toLowerCase()]
             }
             if (ABI == null) {
-                this.$state.contracts[address.toLowerCase()] = await _loadContractFromEtherscan(address)
+                this.$state.contracts[address.toLowerCase()] = await this._loadContractFromEtherscan(address)
             } else {
 
             }
             return this.$state.contracts[address.toLowerCase()]
+        },
+        async _loadContractFromEtherscan(address) {
+            const web3 = useWeb3Store();
+            let etherscan = process.env.ETHERSCAN_API_KEY;
+            // We try to get it from Etherscan
+            let rSourceCode = await axios.get(
+                process.env.ETHERSCAN_API + `/api?module=contract&action=getsourcecode&address=${address}&apikey=${etherscan}`
+            );
+            let result = rSourceCode.data.result[0];
+            console.log(rSourceCode)
+            let obj = {}
+            obj.ABI = JSON.parse(result.ABI)
+            obj.address = address;
+            if (result.SourceCode.startsWith('{{')) {
+                obj.sourceCode = JSON.parse(result.SourceCode.substring(1).slice(0, -1));
+            } else {
+                let key = result.ContractName + ".sol"
+                obj.sourceCode = { sources: {} }
+                obj.sourceCode.sources[key] = {
+                    "content": result.SourceCode
+                }
+            }
+            obj.name = result.ContractName;
+            obj.compilerVersion = result.CompilerVersion
+            obj.optimizationUsed = result.OptimizationUsed
+            obj.runs = result.Runs
+            obj.constructorArguments = result.ConstructorArguments
+            obj.EVMVersion = result.EVMVersion
+            obj.library = result.Library
+            obj.licenseType = result.LicenseType
+            obj.proxy = result.Proxy
+            obj.implementation = result.Implementation
+            obj.swarmSource = result.SwarmSource
+            console.log(obj)
+            if (obj.implementation != null && obj.implementation != "") {
+                console.log("Loading proxy implementation at ", obj.implementation);
+                obj.implementationContract = await this.getContract(obj.implementation);
+                for (const abiFunc of obj.implementationContract.ABI) {
+                    let f = Object.assign({}, abiFunc);
+                    f.proxyImplementation = true;
+                    obj.ABI.push(f)
+                }
+            } else {
+                obj.implementation = null;
+            }
+            obj.ABI = obj.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
+            for (let index = 0; index < obj.ABI.length; index++) {
+                if (obj.ABI[index].type == "event") {
+                    obj.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(obj.ABI[index])
+                }
+            }
+            return obj;
         },
         async callContract(address, func, params, blockNumber = "latest") {
             const web3 = useWeb3Store();
