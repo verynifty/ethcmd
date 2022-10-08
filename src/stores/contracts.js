@@ -60,6 +60,9 @@ export const useContractStore = defineStore({
         contracts: {},
     }),
     getters: {
+        contractEvents: (state) => (address) => {
+            return state.contracts[address.toLowerCase()].ABI.filter(h => h.type === 'event')
+        }
         // doubleCount: (state) => state.counter * 2,
     },
     actions: {
@@ -83,7 +86,6 @@ export const useContractStore = defineStore({
 
             }
             return this.$state.contracts[address.toLowerCase()]
-
         },
         async callContract(address, func, params, blockNumber = "latest") {
             const web3 = useWeb3Store();

@@ -10,7 +10,7 @@ export const useHistoryStore = defineStore({
     getters: {
         contractHistory: (state) => (address) => {
             return state.history.filter(h => h.address === address)
-          }
+        }
     },
     actions: {
         save() {
@@ -55,7 +55,7 @@ export const useHistoryStore = defineStore({
                 if (e.callCounter == callCounter) {
                     console.log("FOUND", true)
                     break
-                } 
+                }
                 index++;
                 console.log(false, index)
             }
@@ -72,7 +72,7 @@ export const useHistoryStore = defineStore({
                 if (e.callCounter == callCounter) {
                     console.log("FOUND", true)
                     break
-                } 
+                }
                 index++;
                 console.log(false, index)
             }
@@ -83,7 +83,7 @@ export const useHistoryStore = defineStore({
         },
         getCallCOunter() {
             this.$state.callCounter++;
-            return this.$state.callCounter; 
+            return this.$state.callCounter;
         }
     },
 });
