@@ -1,22 +1,20 @@
 <template>
   <div class="">
-    <div v-if="type.startsWith('uint')">
-      {{ type }} - {{ name }}
+    <div >
+    
       <form>
         <div
           class="
             flex
             grow
             items-center
-            py-2
-            px-3
-            bg-gray-50
+            p-1
+            bg-gray-100
             rounded-lg
-            dark:bg-gray-700
           "
         >
-          <input
-            readonly
+          {{ type }}
+          <div
             class="
               block
               mx-2
@@ -26,17 +24,15 @@
               bg-white
               rounded-lg
               border border-gray-300
-              focus:ring-blue-500 focus:border-blue-500
-              dark:bg-gray-800
-              dark:border-gray-600
-              dark:placeholder-gray-400
-              dark:text-white
-              dark:focus:ring-blue-500
-              dark:focus:border-blue-500
-            "
-            :value="getValue()"
-          />
+                          break-all	
+
+            ">
+
+            {{getValue()}}
+            </div>
+          
           <button
+          v-if="type.startsWith('uint')"
             type="button"
             @click="display = 'raw'"
             class="
@@ -66,6 +62,7 @@
             </svg>
           </button>
           <button
+          v-if="type.startsWith('uint')"
             @click="display = 'ether'"
             type="button"
             class="
@@ -97,7 +94,6 @@
         </div>
       </form>
     </div>
-    <div v-else>{{ type }} {{ name }} {{ getValue() }}</div>
   </div>
 </template>
 
