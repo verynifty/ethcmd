@@ -63,6 +63,9 @@
                 :class="['flex items-center p-1 text-s font-light text-white rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700', func.proxyImplementation == true ? 'text-yellow-100	' : ' ']
                 "
               >
+              <span class="mr-1">
+                {{func.id}}
+              </span>
                 <svg
                   v-if="func.stateMutability == 'view'"
                   class="w-6 h-6 text-gray-500"
@@ -119,7 +122,7 @@
                   />
                 </svg>
 
-                <span class="ml-3">{{ func.name }}</span>
+                <span class="ml-1"> {{ func.name }}</span>
               </div>
             </li>
           </ul>
@@ -129,6 +132,10 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
 
 const emit = defineEmits(["selected"]);
 
@@ -148,12 +155,32 @@ let getFunctionsRaw = function () {
 };
 let getFunctions = computed(getFunctionsRaw);
 
+let selected = ref({})
 async function onFunctionClick(func) {
+  router.push({path: router.currentRoute.value.path, query: {function: func.id} });
   console.log("ONCLICK");
   selected.value = func;
   emit("selected", func);
 }
 
-const selected = ref(getFunctionsRaw()[0]);
-emit("selected", selected);
+function getFuncById(id) {
+ let fs = getFunctionsRaw();
+ for (const f of fs) {
+   if (f.id == id) {
+     return f;
+   }
+ }
+}
+
+
+let queryFunc = route.query.function
+console.log(queryFunc)
+if (queryFunc != null) {
+  queryFunc = parseInt(queryFunc)
+} else {
+  queryFunc = 1;
+}
+
+onFunctionClick(getFuncById(queryFunc))
+
 </script>

@@ -89,9 +89,15 @@ export const useContractStore = defineStore({
                 obj.implementation = null;
             }
             obj.ABI = obj.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
+            let eventCount = 1;
+            let functionCount = 1;
+
             for (let index = 0; index < obj.ABI.length; index++) {
                 if (obj.ABI[index].type == "event") {
                     obj.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(obj.ABI[index])
+                    obj.ABI[index].id = eventCount++;
+                } else if (obj.ABI[index].type != "constructor") {
+                    obj.ABI[index].id = functionCount++;
                 }
             }
             return obj;
