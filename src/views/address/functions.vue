@@ -5,16 +5,20 @@
       <div class="col-span-3 h-full overflow-hidden">
         <AddressFunctions :contract="contract" @selected="onFuncSelected" />
       </div>
-      <div class="col-span-9 h-full overflow-scroll">
-        <AddressFunctionCall :func="currentFunction" :address="address" />
-        <History :address="address" />
+      <div class="col-span-9 h-full overflow-scroll bg-white p-1">
+        <div class="bg-white p-2 shadow sm:rounded-lg m-2">
+          <AddressFunctionCall :func="currentFunction" :address="address" />
+        </div>
+
+        <div class="bg-white p-2 shadow sm:rounded-lg m-2">
+          <History :address="address" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
-
-console.log("ADDRESS INIT ")
+console.log("ADDRESS INIT ");
 import AddressHeader from "@/components/address/header.vue";
 import AddressFunctions from "@/components/address/functions.vue";
 import AddressFunctionCall from "@/components/address/functioncall.vue";

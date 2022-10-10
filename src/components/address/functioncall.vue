@@ -5,10 +5,10 @@
   >
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-lg font-medium leading-6 text-gray-900">
-        {{ func.name }}
+        {{func.id}} {{ func.name }}
       </h3>
       <p class="mt-1 max-w-2xl text-sm text-gray-500">
-        Personal details and application.
+        
       </p>
     </div>
     <div class="">
@@ -271,7 +271,7 @@ watch(
       console.log(input);
       inputs.value.push({ value: "" });
     }
-    if (inputs.value.length == 0) {
+    if (inputs.value.length == 0 && props.func.stateMutability == 'view') {
       console.log("CALL")
       await call();
     }

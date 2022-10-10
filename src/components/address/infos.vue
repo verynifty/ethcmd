@@ -42,7 +42,7 @@
             <dt class="text-sm font-medium text-gray-500">
               Constructor Arguments
             </dt>
-            <dd class="mt-1 text-sm text-gray-900">
+            <dd class="mt-1 text-sm text-gray-900 break-all">
               0x{{ contract.constructorArguments }}
             </dd>
           </div>
