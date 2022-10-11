@@ -61,9 +61,12 @@ export const useHistoryStore = defineStore({
             }
             //let index = this.$state.history.findIndex((e) => {e.callCounter == callCounter } )
             console.log("RES", index, callCounter, error, result)
-            this.$state.history[index].result = result;
+            if (error) {
+                this.$state.history[index].error = error;
+            } else {
+                this.$state.history[index].result = result;
+            }
             this.save()
-
         },
         async pushSendResult(callCounter, error, result) {
             console.log(this.$state.history)

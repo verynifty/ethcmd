@@ -42,6 +42,9 @@
                       <ValueDisplay  :name="o.name" :type="o.type" :value="typeof (h.result) == 'object' ? (o.name != '' ? h.result[o.name] : h.result['' + (index + 1)]) : h.result" />
                     </li>
                     </ul>
+                    <div v-else-if="h.error != null">
+                      <pre class="text-red-700">{{h.error.message}}</pre>
+                    </div>
                     <div v-else>
                       <div role="status">
                         <svg aria-hidden="true" class="mr-2 w-6 h-6 text-gray-200 animate-spin  fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

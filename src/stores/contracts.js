@@ -115,13 +115,7 @@ export const useContractStore = defineStore({
             console.log(counter)
             let block = await web3.web3.eth.getBlock(blockNumber);
             let res = ctx.methods[func.name](...callParams).call({}, function (error, result) {
-                try {
-                    console.log("PUSH RESULT, ", counter, error, result)
-                    history.pushCallResult(counter, error, result)
-                } catch (err) {
-                    console.log(err)
-                }
-
+                history.pushCallResult(counter, error, result)
             })
             // console.log("RESULT", res)
             history.addCall(counter, address, func, callParams, block)
