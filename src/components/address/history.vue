@@ -43,7 +43,7 @@
                     </li>
                     </ul>
                     <div v-else-if="h.error != null">
-                      <div class="text-red-700  break-all	">{{h.error.message}}</div>
+                      <div class="text-red-700  break-all	">{{h.error}}</div>
                     </div>
                     <div v-else>
                       <div role="status">

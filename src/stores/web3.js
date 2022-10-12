@@ -33,9 +33,13 @@ export const useWeb3Store = defineStore({
     getters: {
         accountShort: function(state) {
             return (state.account.substring(0,6) + '...' + state.account.slice(-6))
-        }
+        },
+
     },
     actions: {
+        getEthers: function() {
+            return (toRaw(this.ethers))
+        },
         async setWeb3(opt = {}) {
             if (opt.tryFromCache == true && web3Modal.cachedProvider) {
                 console.log("Try connect from cache");

@@ -7,6 +7,13 @@ import axios from 'axios';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
 
+function getBlockNumber(x, base) {
+    const parsed = Number.parseInt(x, base);
+    if (Number.isNaN(parsed)) {
+        return "latest";
+    }
+    return parsed;
+}
 
 export const useContractStore = defineStore({
     id: "contracts",
@@ -112,12 +119,24 @@ export const useContractStore = defineStore({
                 callParams.push(p.value)
             }
             let counter = history.getCallCOunter()
-            let block = await web3.web3.eth.getBlock(blockNumber);
+            let block = await web3.getEthers().getBlock(getBlockNumber(blockNumber));
             history.addCall(counter, address, func, callParams, block)
             console.log("HJSDJDSHJSDHSDJKHDSJK")
-                let res = await ctx[func.name](...callParams)
+            try {
+                let res = await ctx[func.name](...callParams, {
+                    blockTag: getBlockNumber(blockNumber),
+                    from: from
+                })
                 console.log("RESS", res)
                 history.pushCallResult(counter, null, res)
+            } catch (e) {
+                console.log("&&&")
+                console.log(e)
+                console.log(JSON.stringify(e))
+                history.pushCallResult(counter, JSON.parse(JSON.stringify(e)), null)
+
+            }
+          
 
 
             // console.log("RESULT", res)
@@ -125,16 +144,16 @@ export const useContractStore = defineStore({
         async sendContract(address, func, params, blockNumber = "latest") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
-
+            console.log("@@@@@@", web3)
             var ctx = new web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
-            
+
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
             }
             let counter = history.getCallCOunter()
             console.log(counter)
-            let block = await web3.web3.eth.getBlock(blockNumber);
+            let block = await web3.getEthers().getBlock(getBlockNumber(blockNumber));
             console.log(web3.account)
             let bb = await ctx.methods[func.name](...callParams).send({
                 from: web3.account
@@ -142,7 +161,6 @@ export const useContractStore = defineStore({
                 console.log("HASH", hash)
                 history.addSend(counter, address, func, callParams, block, hash)
             });
-            console.log("BBBB", bb)
             /*{}, function (error, result) {
                 try {
                     // console.log("PUSH RESULT, ", counter, error, result)
