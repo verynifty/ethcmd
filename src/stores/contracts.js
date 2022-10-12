@@ -105,7 +105,8 @@ export const useContractStore = defineStore({
         async callContract(address, func, params, from, blockNumber = "latest") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
-            var ctx = new web3.web3.eth.Contract(this.$state.contracts[address.toLowerCase()].ABI, address);
+            var ctx = await web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
+            console.log(ctx)
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
@@ -114,15 +115,10 @@ export const useContractStore = defineStore({
             let block = await web3.web3.eth.getBlock(blockNumber);
             history.addCall(counter, address, func, callParams, block)
             console.log("HJSDJDSHJSDHSDJKHDSJK")
-            try {
-                let res = await ctx.methods[func.name](...callParams).call({
-                    blockNumber: blockNumber
-                }, blockNumber)
+                let res = await ctx[func.name](...callParams)
+                console.log("RESS", res)
                 history.pushCallResult(counter, null, res)
-            } catch (e) {
-                console.log("ERRORR DECTE", e)
-                history.pushCallResult(counter, e, null)
-            }
+
 
             // console.log("RESULT", res)
         },
@@ -130,7 +126,8 @@ export const useContractStore = defineStore({
             const web3 = useWeb3Store();
             const history = useHistoryStore();
 
-            var ctx = new web3.web3.eth.Contract(this.$state.contracts[address.toLowerCase()].ABI, address);
+            var ctx = new web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
+            
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)

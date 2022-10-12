@@ -15,6 +15,7 @@
     "ace-mode-solidity": "^0.1.1",
     "axios": "^0.27.2",
     "dotenv": "^16.0.3",
+    "ethers": "^5.7.1",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
     "pinia": "^2.0.21",
