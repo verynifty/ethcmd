@@ -25,10 +25,10 @@
                     "
                   >
                     {{ h.type }} 
-                    @{{ h.block.number }} 
+                    @{{ h.blockNumber }} 
                     <timeago class="ml-1"
                       :autoUpdate="30"
-                      :datetime="h.block.timestamp * 1000"
+                      :datetime="h.timestamp * 1000"
                     />
                   </p>
             
@@ -43,7 +43,7 @@
                     </li>
                     </ul>
                     <div v-else-if="h.error != null">
-                      <pre class="text-red-700">{{h.error.message}}</pre>
+                      <div class="text-red-700  break-all	">{{h.error.message}}</div>
                     </div>
                     <div v-else>
                       <div role="status">

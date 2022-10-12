@@ -45,6 +45,7 @@ export const useWeb3Store = defineStore({
                         `https://nodes.mewapi.io/rpc/eth`
                     )
                 );
+                this.web3.eth.handleRevert = true;
             } else {
                 await this.connect();
             }
@@ -57,6 +58,7 @@ export const useWeb3Store = defineStore({
         async connect() {
             const provider = await web3Modal.connect();
             this.web3 = new Web3(provider);
+            this.web3.eth.handleRevert = true;
             let accounts = await this.web3.eth.getAccounts();
             this.account = accounts[0];
 

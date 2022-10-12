@@ -1,15 +1,26 @@
 <template>
-  <div
-    v-if="func != null"
-    class="overflow-hidden bg-white "
-  >
+  <div v-if="func != null" class="overflow-hidden bg-white">
     <div class="px-4 py-5 sm:px-6">
       <h3 class="text-lg font-medium leading-6 text-gray-900">
-        {{func.id}} {{ func.name }}
+        <span
+          class="
+            bg-gray-100
+            text-gray-800 text-xs
+            font-medium
+            inline-flex
+            items-center
+            px-2.5
+            py-0.5
+            rounded
+            mr-2
+            dark:bg-gray-700 dark:text-gray-300
+          "
+        >
+          {{ func.id }}
+        </span>
+        {{ func.name }}
       </h3>
-      <p class="mt-1 max-w-2xl text-sm text-gray-500">
-        
-      </p>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500"></p>
     </div>
     <div class="">
       <dl>
@@ -94,6 +105,7 @@
             <dt class="text-sm font-medium text-gray-500">Block Number</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
+                v-model="blockNumber"
                 class="
                   shadow
                   appearance-none
@@ -111,10 +123,11 @@
               />
             </dd>
           </div>
-          <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt class="text-sm font-medium text-gray-500">Gas Price</dt>
+           <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">From address</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
+                v-model="fromAddress"
                 class="
                   shadow
                   appearance-none
@@ -251,11 +264,14 @@ import { useWeb3Store } from "@/stores/web3";
 const web3 = useWeb3Store();
 let inputs = ref([]);
 
+let fromAddress = web3.account
+let blockNumber = ref("latest");
+
 let showMore = ref(false);
 
 async function call() {
   console.log("CALL");
-  await contracts.callContract(props.address, props.func, inputs.value);
+  await contracts.callContract(props.address, props.func, inputs.value, fromAddress, blockNumber.value);
 }
 
 async function send() {
@@ -271,14 +287,12 @@ watch(
       console.log(input);
       inputs.value.push({ value: "" });
     }
-    if (inputs.value.length == 0 && props.func.stateMutability == 'view') {
-      console.log("CALL")
+    if (inputs.value.length == 0 && props.func.stateMutability == "view") {
+      console.log("CALL");
       await call();
     }
   }
 );
-
-
 
 console.log(props.func);
 </script>

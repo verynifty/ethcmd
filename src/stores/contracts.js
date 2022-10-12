@@ -102,23 +102,29 @@ export const useContractStore = defineStore({
             }
             return obj;
         },
-        async callContract(address, func, params, blockNumber = "latest") {
+        async callContract(address, func, params, from, blockNumber = "latest") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
-
             var ctx = new web3.web3.eth.Contract(this.$state.contracts[address.toLowerCase()].ABI, address);
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
             }
             let counter = history.getCallCOunter()
-            console.log(counter)
             let block = await web3.web3.eth.getBlock(blockNumber);
-            let res = ctx.methods[func.name](...callParams).call({}, function (error, result) {
-                history.pushCallResult(counter, error, result)
-            })
-            // console.log("RESULT", res)
             history.addCall(counter, address, func, callParams, block)
+            console.log("HJSDJDSHJSDHSDJKHDSJK")
+            try {
+                let res = await ctx.methods[func.name](...callParams).call({
+                    blockNumber: blockNumber
+                }, blockNumber)
+                history.pushCallResult(counter, null, res)
+            } catch (e) {
+                console.log("ERRORR DECTE", e)
+                history.pushCallResult(counter, e, null)
+            }
+
+            // console.log("RESULT", res)
         },
         async sendContract(address, func, params, blockNumber = "latest") {
             const web3 = useWeb3Store();

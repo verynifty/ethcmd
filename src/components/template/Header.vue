@@ -1,5 +1,5 @@
 <template>
-  <Popover class="relative bg-white">
+  <Popover class="relative bg-white z-10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
         <div class="flex justify-start lg:w-0 lg:flex-1">
@@ -8,6 +8,7 @@
             <span><div class="font-bold">ETHCMD</div><div class="text-xs font-light text-right">> mainnet</div></span>
           </router-link>
         </div>
+        
         <div class="-my-2 -mr-2 md:hidden">
           <PopoverButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
             <span class="sr-only">Open menu</span>
@@ -15,6 +16,7 @@
           </PopoverButton>
         </div>
         <PopoverGroup as="nav" class="hidden space-x-10 md:flex">
+            <!--
           <Popover class="relative" v-slot="{ open }">
             <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
               <span>Solutions</span>
@@ -45,10 +47,13 @@
               </PopoverPanel>
             </transition>
           </Popover>
+          -->
 
+        <!--
           <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">Pricing</a>
           <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">Docs</a>
-
+-->
+ <!--
           <Popover class="relative" v-slot="{ open }">
             <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
               <span>More</span>
@@ -87,6 +92,7 @@
               </PopoverPanel>
             </transition>
           </Popover>
+          -->
         </PopoverGroup>
         <div class="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
           <ConnectButton />
@@ -100,7 +106,7 @@
           <div class="px-5 pt-5 pb-6">
             <div class="flex items-center justify-between">
               <div>
-                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
+            <svg class="h-8 w-auto sm:h-9" height="512px" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="comp_x5F_116-Ethereum"><g><polygon points="    277.438,370.529 277.438,470.299 399.954,296.348   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    385.532,227.682 275.209,42.348 275.209,177.107   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    277.438,219.138 277.438,318.961 372.419,262.729   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    123.925,230.375 237.438,39.654 237.438,178.331   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    238.002,216.348 238.002,321.752 137.438,262.375   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    237.438,370.227 237.438,472.346 112.046,294.301   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/></g></g><g id="Layer_1"/></svg>
               </div>
               <div class="-mr-2">
                 <PopoverButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -109,6 +115,7 @@
                 </PopoverButton>
               </div>
             </div>
+            <!--
             <div class="mt-6">
               <nav class="grid gap-y-8">
                 <a v-for="item in solutions" :key="item.name" :href="item.href" class="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
@@ -125,6 +132,7 @@
               <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">Docs</a>
               <a v-for="item in resources" :key="item.name" :href="item.href" class="text-base font-medium text-gray-900 hover:text-gray-700">{{ item.name }}</a>
             </div>
+            -->
             <div>
           <ConnectButton />
 

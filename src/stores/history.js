@@ -15,11 +15,14 @@ export const useHistoryStore = defineStore({
     actions: {
         save() {
             localStorage.setItem("HistoryCallsAndSend", JSON.stringify(this.$state.history))
+            localStorage.setItem("CallCounter", this.$state.callCounter)
         },
         load() {
             let cache = localStorage.getItem("HistoryCallsAndSend");
+            let callCounter = localStorage.getItem("CallCounter");
+
             this.$state.history = cache == null ? [] : JSON.parse(cache);
-            this.$state.callCounter = cache == 0 ? 0 : this.$state.callCounter + 1;
+            this.$state.callCounter = callCounter == null ? 0 : parseInt(callCounter);
         },
         async addCall(callCounter, address, func, params, block) {
             this.$state.history.unshift({
@@ -27,7 +30,8 @@ export const useHistoryStore = defineStore({
                 func: func,
                 params: params,
                 callCounter: callCounter,
-                block: block,
+                blockNumber: block.blockNumber,
+                timestamp: block.timestamp,
                 result: null,
                 error: null,
                 type: "Read"
@@ -40,7 +44,8 @@ export const useHistoryStore = defineStore({
                 func: func,
                 params: params,
                 callCounter: callCounter,
-                block: block,
+                blockNumber: block.blockNumber,
+                timestamp: block.timestamp,
                 result: null,
                 error: null,
                 type: "Send",
@@ -60,9 +65,9 @@ export const useHistoryStore = defineStore({
                 console.log(false, index)
             }
             //let index = this.$state.history.findIndex((e) => {e.callCounter == callCounter } )
-            console.log("RES", index, callCounter, error, result)
             if (error) {
-                this.$state.history[index].error = error;
+                console.log("ERRRROOOR", error.toString().toString(), error)
+                this.$state.history[index].error = error.toString();
             } else {
                 this.$state.history[index].result = result;
             }

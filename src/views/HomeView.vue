@@ -42,7 +42,7 @@
                           <span class="truncate">{{ fav.address }}</span>
                         </p>
                       </div>
-                      <div class="hidden md:block">
+                     <!-- <div class="hidden md:block">
                         <div>
                           <p class="text-sm text-gray-900">
                             Applied on
@@ -55,7 +55,7 @@
                             {{ fav.address }}
                           </p>
                         </div>
-                      </div>
+                      </div>-->
                     </div>
                   </div>
                   <div>
