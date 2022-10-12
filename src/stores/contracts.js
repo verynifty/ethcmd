@@ -2,7 +2,7 @@
 import { defineStore } from "pinia";
 import { useWeb3Store } from "@/stores/web3";
 import { useHistoryStore } from "@/stores/history";
-
+import { ethers } from "ethers";
 import axios from 'axios';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
@@ -27,7 +27,6 @@ export const useContractStore = defineStore({
         contractAndProxyEvents: (state) => (address) => {
             return state.contracts[address.toLowerCase()].ABI.filter(h => h.type === 'event')
         }
-        // doubleCount: (state) => state.counter * 2,
     },
     actions: {
         async guessContract(address) {
@@ -100,8 +99,9 @@ export const useContractStore = defineStore({
             let functionCount = 1;
 
             for (let index = 0; index < obj.ABI.length; index++) {
+                console.log(Web3)
                 if (obj.ABI[index].type == "event") {
-                    obj.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(obj.ABI[index])
+                    obj.ABI[index].signature = Web3.eth.abi.encodeEventSignature(obj.ABI[index])
                     obj.ABI[index].id = eventCount++;
                 } else if (obj.ABI[index].type != "constructor") {
                     obj.ABI[index].id = functionCount++;
