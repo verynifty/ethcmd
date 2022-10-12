@@ -99,9 +99,8 @@ export const useContractStore = defineStore({
             let functionCount = 1;
 
             for (let index = 0; index < obj.ABI.length; index++) {
-                console.log(Web3)
                 if (obj.ABI[index].type == "event") {
-                    obj.ABI[index].signature = Web3.eth.abi.encodeEventSignature(obj.ABI[index])
+                    obj.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(obj.ABI[index])
                     obj.ABI[index].id = eventCount++;
                 } else if (obj.ABI[index].type != "constructor") {
                     obj.ABI[index].id = functionCount++;

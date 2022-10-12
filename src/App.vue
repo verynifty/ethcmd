@@ -8,7 +8,6 @@
         <RouterView class="" v-slot="{ Component }">
           <template v-if="Component">
             <Transition mode="out-in">
-              <KeepAlive>
                 <Suspense>
                   <!-- main content -->
                   <component :is="Component"></component>
@@ -113,7 +112,6 @@
                     </div></template
                   >
                 </Suspense>
-              </KeepAlive>
             </Transition>
           </template>
         </RouterView>
