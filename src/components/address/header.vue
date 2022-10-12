@@ -107,7 +107,7 @@
             :key="tab.name"
             :to="tab.href"
             :class="[
-              tab.current
+              activeTab == tab.id
                 ? 'border-indigo-500 text-indigo-600'
                 : 'border-transparent text-gray-500 hover:text-orange-500 hover:border-orange-500',
               'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm',
@@ -125,18 +125,21 @@
 import { useFavoritesStore } from "@/stores/favorites";
 let favorites = useFavoritesStore();
 
-const props = defineProps(["contract"]);
+const props = defineProps(["contract", "activeTab"]);
 
 let tabs = [
   {
+    id: "functions",
     name: "Functions",
     href: "/address/" + props.contract.address,
   },
   {
+    id: "source_code",
     name: "Source Code",
     href: "/address/" + props.contract.address + "/sourcecode",
   },
   {
+    id: "infos",
     name: "Infos",
     href: "/address/" + props.contract.address + "/infos",
   },

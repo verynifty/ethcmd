@@ -1,6 +1,6 @@
 <template>
   <div class="address flex flex-col h-full">
-    <AddressHeader :contract="contract" />
+    <AddressHeader activeTab="source_code" :contract="contract" />
     <div class="grid grid-cols-12 h-full overflow-hidden">
       <div class="col-span-4 h-full overflow-y-hidden">
         <AddressSources :contract="contract" @selected="onSourceSelected" />

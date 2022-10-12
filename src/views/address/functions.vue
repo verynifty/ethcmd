@@ -1,6 +1,6 @@
 <template>
   <div class="address flex flex-col h-full">
-    <AddressHeader :contract="contract" />
+    <AddressHeader activeTab="functions" :contract="contract" />
     <div class="grid grid-cols-12 h-full overflow-hidden">
       <div class="col-span-3 h-full overflow-hidden">
         <AddressFunctions :contract="contract" @selected="onFuncSelected" />

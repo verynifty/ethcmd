@@ -1,6 +1,6 @@
 <template>
   <div class="address flex flex-col h-full">
-    <AddressHeader :contract="contract" />
+    <AddressHeader activeTab="infos" :contract="contract" />
     <div class=" overflow-y-scroll ">
       <ContractInfo :contract="contract" />
       <ContractInfo v-if="contract.implementationContract != null" :contract="contract.implementationContract" />
