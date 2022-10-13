@@ -69,7 +69,7 @@
                 </div>
               </div>
                 <div class="mt-2 " v-if="h.hash != null">
-                <div class="">
+                <div class="animate-pulse">
                   <p class=" text-sm text-gray-500">
                    Pending transaction <a :href="'https://etherscan.io/tx/' + h.hash" >{{ h.hash }}</a>
                   </p>

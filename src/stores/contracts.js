@@ -152,7 +152,7 @@ export const useContractStore = defineStore({
             history.addSend(counter, address, func, params, block, tx.hash)
             console.log(tx)
             let txReceipt = await tx.wait() 
-            history.pushResult(counter, null, txReceipt)
+            history.pushSendResult(counter, null, txReceipt)
         },
         async downloadSources(address) {
             const zip = new JSZip();
