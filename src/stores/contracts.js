@@ -108,7 +108,7 @@ export const useContractStore = defineStore({
             }
             return obj;
         },
-        async callContract(address, func, params, from, blockNumber = "latest") {
+        async callContract(address, func, params, from, blockNumber = "latest", value = "0") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
             var ctx = await web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
@@ -124,12 +124,12 @@ export const useContractStore = defineStore({
             try {
                 let res = await ctx[func.name](...callParams, {
                     blockTag: getBlockNumber(blockNumber),
-                    from: from
+                    from: from,
+                    value: value
                 })
                 console.log("RESS", res)
                 history.pushCallResult(counter, null, res)
             } catch (e) {
-                console.log("&&&")
                 console.log(e)
                 console.log(JSON.stringify(e))
                 history.pushCallResult(counter, JSON.parse(JSON.stringify(e)), null)
@@ -140,7 +140,7 @@ export const useContractStore = defineStore({
 
             // console.log("RESULT", res)
         },
-        async sendContract(address, func, params, blockNumber = "latest") {
+        async sendContract(address, func, params, value = "0") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
             console.log("@@@@@@", web3)

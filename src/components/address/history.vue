@@ -43,7 +43,14 @@
                     </li>
                     </ul>
                     <div v-else-if="h.error != null">
-                      <div class="text-red-700  break-all	">{{h.error}}</div>
+                      <div class="text-red-700  break-all	">
+                        <json-viewer
+                :value="h.error"
+                :expand-depth="3"
+                copyable
+                boxed
+              ></json-viewer>
+                      </div>
                     </div>
                     <div v-else>
                       <div role="status">

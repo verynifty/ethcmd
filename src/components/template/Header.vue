@@ -1,22 +1,131 @@
 <template>
   <Popover class="relative bg-white z-10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
-      <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+      <div
+        class="
+          flex
+          items-center
+          justify-between
+          border-b-2 border-gray-100
+          py-6
+          md:justify-start md:space-x-10
+        "
+      >
         <div class="flex justify-start lg:w-0 lg:flex-1">
           <router-link class="flex items-center" to="/">
-            <svg class="h-8 w-auto sm:h-9" height="512px" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="comp_x5F_116-Ethereum"><g><polygon points="    277.438,370.529 277.438,470.299 399.954,296.348   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    385.532,227.682 275.209,42.348 275.209,177.107   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    277.438,219.138 277.438,318.961 372.419,262.729   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    123.925,230.375 237.438,39.654 237.438,178.331   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    238.002,216.348 238.002,321.752 137.438,262.375   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    237.438,370.227 237.438,472.346 112.046,294.301   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/></g></g><g id="Layer_1"/></svg>
-            <span><div class="font-bold">ETHCMD</div><div class="text-xs font-light text-right">> mainnet</div></span>
+            <svg
+              class="h-8 w-auto sm:h-9"
+              height="512px"
+              style="enable-background: new 0 0 512 512"
+              version="1.1"
+              viewBox="0 0 512 512"
+              width="512px"
+              xml:space="preserve"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <g id="comp_x5F_116-Ethereum">
+                <g>
+                  <polygon
+                    points="    277.438,370.529 277.438,470.299 399.954,296.348   "
+                    style="
+                      fill: none;
+                      stroke: #000000;
+                      stroke-width: 20;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-miterlimit: 10;
+                    "
+                  />
+                  <polygon
+                    points="    385.532,227.682 275.209,42.348 275.209,177.107   "
+                    style="
+                      fill: none;
+                      stroke: #000000;
+                      stroke-width: 20;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-miterlimit: 10;
+                    "
+                  />
+                  <polygon
+                    points="    277.438,219.138 277.438,318.961 372.419,262.729   "
+                    style="
+                      fill: none;
+                      stroke: #000000;
+                      stroke-width: 20;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-miterlimit: 10;
+                    "
+                  />
+                  <polygon
+                    points="    123.925,230.375 237.438,39.654 237.438,178.331   "
+                    style="
+                      fill: none;
+                      stroke: #000000;
+                      stroke-width: 20;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-miterlimit: 10;
+                    "
+                  />
+                  <polygon
+                    points="    238.002,216.348 238.002,321.752 137.438,262.375   "
+                    style="
+                      fill: none;
+                      stroke: #000000;
+                      stroke-width: 20;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-miterlimit: 10;
+                    "
+                  />
+                  <polygon
+                    points="    237.438,370.227 237.438,472.346 112.046,294.301   "
+                    style="
+                      fill: none;
+                      stroke: #000000;
+                      stroke-width: 20;
+                      stroke-linecap: round;
+                      stroke-linejoin: round;
+                      stroke-miterlimit: 10;
+                    "
+                  />
+                </g>
+              </g>
+              <g id="Layer_1" />
+            </svg>
+            <span
+              ><div class="font-bold">ETHCMD</div>
+              <div class="text-xs font-light text-right">{{networkName}}</div></span
+            >
           </router-link>
         </div>
-        
+
         <div class="-my-2 -mr-2 md:hidden">
-          <PopoverButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+          <PopoverButton
+            class="
+              inline-flex
+              items-center
+              justify-center
+              rounded-md
+              bg-white
+              p-2
+              text-gray-400
+              hover:bg-gray-100 hover:text-gray-500
+              focus:outline-none
+              focus:ring-2
+              focus:ring-inset
+              focus:ring-indigo-500
+            "
+          >
             <span class="sr-only">Open menu</span>
             <Bars3Icon class="h-6 w-6" aria-hidden="true" />
           </PopoverButton>
         </div>
         <PopoverGroup as="nav" class="hidden space-x-10 md:flex">
-            <!--
+          <!--
           <Popover class="relative" v-slot="{ open }">
             <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
               <span>Solutions</span>
@@ -49,11 +158,11 @@
           </Popover>
           -->
 
-        <!--
+          <!--
           <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">Pricing</a>
           <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">Docs</a>
 -->
- <!--
+          <!--
           <Popover class="relative" v-slot="{ open }">
             <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
               <span>More</span>
@@ -100,16 +209,140 @@
       </div>
     </div>
 
-    <transition enter-active-class="duration-200 ease-out" enter-from-class="opacity-0 scale-95" enter-to-class="opacity-100 scale-100" leave-active-class="duration-100 ease-in" leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
-      <PopoverPanel focus class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden">
-        <div class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+    <transition
+      enter-active-class="duration-200 ease-out"
+      enter-from-class="opacity-0 scale-95"
+      enter-to-class="opacity-100 scale-100"
+      leave-active-class="duration-100 ease-in"
+      leave-from-class="opacity-100 scale-100"
+      leave-to-class="opacity-0 scale-95"
+    >
+      <PopoverPanel
+        focus
+        class="
+          absolute
+          inset-x-0
+          top-0
+          origin-top-right
+          transform
+          p-2
+          transition
+          md:hidden
+        "
+      >
+        <div
+          class="
+            divide-y-2 divide-gray-50
+            rounded-lg
+            bg-white
+            shadow-lg
+            ring-1 ring-black ring-opacity-5
+          "
+        >
           <div class="px-5 pt-5 pb-6">
             <div class="flex items-center justify-between">
               <div>
-            <svg class="h-8 w-auto sm:h-9" height="512px" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="comp_x5F_116-Ethereum"><g><polygon points="    277.438,370.529 277.438,470.299 399.954,296.348   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    385.532,227.682 275.209,42.348 275.209,177.107   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    277.438,219.138 277.438,318.961 372.419,262.729   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    123.925,230.375 237.438,39.654 237.438,178.331   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    238.002,216.348 238.002,321.752 137.438,262.375   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/><polygon points="    237.438,370.227 237.438,472.346 112.046,294.301   " style="fill:none;stroke:#000000;stroke-width:20;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"/></g></g><g id="Layer_1"/></svg>
+                <svg
+                  class="h-8 w-auto sm:h-9"
+                  height="512px"
+                  style="enable-background: new 0 0 512 512"
+                  version="1.1"
+                  viewBox="0 0 512 512"
+                  width="512px"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <g id="comp_x5F_116-Ethereum">
+                    <g>
+                      <polygon
+                        points="    277.438,370.529 277.438,470.299 399.954,296.348   "
+                        style="
+                          fill: none;
+                          stroke: #000000;
+                          stroke-width: 20;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-miterlimit: 10;
+                        "
+                      />
+                      <polygon
+                        points="    385.532,227.682 275.209,42.348 275.209,177.107   "
+                        style="
+                          fill: none;
+                          stroke: #000000;
+                          stroke-width: 20;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-miterlimit: 10;
+                        "
+                      />
+                      <polygon
+                        points="    277.438,219.138 277.438,318.961 372.419,262.729   "
+                        style="
+                          fill: none;
+                          stroke: #000000;
+                          stroke-width: 20;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-miterlimit: 10;
+                        "
+                      />
+                      <polygon
+                        points="    123.925,230.375 237.438,39.654 237.438,178.331   "
+                        style="
+                          fill: none;
+                          stroke: #000000;
+                          stroke-width: 20;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-miterlimit: 10;
+                        "
+                      />
+                      <polygon
+                        points="    238.002,216.348 238.002,321.752 137.438,262.375   "
+                        style="
+                          fill: none;
+                          stroke: #000000;
+                          stroke-width: 20;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-miterlimit: 10;
+                        "
+                      />
+                      <polygon
+                        points="    237.438,370.227 237.438,472.346 112.046,294.301   "
+                        style="
+                          fill: none;
+                          stroke: #000000;
+                          stroke-width: 20;
+                          stroke-linecap: round;
+                          stroke-linejoin: round;
+                          stroke-miterlimit: 10;
+                        "
+                      />
+                    </g>
+                  </g>
+                  <g id="Layer_1" />
+                </svg>
               </div>
               <div class="-mr-2">
-                <PopoverButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                <PopoverButton
+                  class="
+                    inline-flex
+                    items-center
+                    justify-center
+                    rounded-md
+                    bg-white
+                    p-2
+                    text-gray-400
+                    hover:bg-gray-100 hover:text-gray-500
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-inset
+                    focus:ring-indigo-500
+                  "
+                >
                   <span class="sr-only">Close menu</span>
                   <XMarkIcon class="h-6 w-6" aria-hidden="true" />
                 </PopoverButton>
@@ -134,8 +367,7 @@
             </div>
             -->
             <div>
-          <ConnectButton />
-
+              <ConnectButton />
             </div>
           </div>
         </div>
@@ -146,7 +378,15 @@
 
 <script setup>
 import ConnectButton from "@/components/account/ConnectButton.vue";
-import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
+
+ const networkName = process.env.CHAINNAME;
+
+import {
+  Popover,
+  PopoverButton,
+  PopoverGroup,
+  PopoverPanel,
+} from "@headlessui/vue";
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -160,64 +400,38 @@ import {
   ShieldCheckIcon,
   Squares2X2Icon,
   XMarkIcon,
-} from '@heroicons/vue/24/outline'
-import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+} from "@heroicons/vue/24/outline";
+import { ChevronDownIcon } from "@heroicons/vue/20/solid";
 
 const solutions = [
   {
-    name: 'Analytics',
-    description: 'Get a better understanding of where your traffic is coming from.',
-    href: '#',
+    name: "Analytics",
+    description:
+      "Get a better understanding of where your traffic is coming from.",
+    href: "#",
     icon: ChartBarIcon,
   },
-  {
-    name: 'Engagement',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '#',
-    icon: CursorArrowRaysIcon,
-  },
-  { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
-  {
-    name: 'Integrations',
-    description: "Connect with third-party tools that you're already using.",
-    href: '#',
-    icon: Squares2X2Icon,
-  },
-  {
-    name: 'Automations',
-    description: 'Build strategic funnels that will drive your customers to convert',
-    href: '#',
-    icon: ArrowPathIcon,
-  },
-]
+];
 const callsToAction = [
-  { name: 'Watch Demo', href: '#', icon: PlayIcon },
-  { name: 'Contact Sales', href: '#', icon: PhoneIcon },
-]
+  { name: "Watch Demo", href: "#", icon: PlayIcon },
+  { name: "Contact Sales", href: "#", icon: PhoneIcon },
+];
 const resources = [
   {
-    name: 'Help Center',
-    description: 'Get all of your questions answered in our forums or contact support.',
-    href: '#',
+    name: "Help Center",
+    description:
+      "Get all of your questions answered in our forums or contact support.",
+    href: "#",
     icon: LifebuoyIcon,
   },
-  {
-    name: 'Guides',
-    description: 'Learn how to maximize our platform to get the most out of it.',
-    href: '#',
-    icon: BookmarkSquareIcon,
-  },
-  {
-    name: 'Events',
-    description: 'See what meet-ups and other events we might be planning near you.',
-    href: '#',
-    icon: CalendarIcon,
-  },
-  { name: 'Security', description: 'Understand how we take your privacy seriously.', href: '#', icon: ShieldCheckIcon },
-]
+];
 const recentPosts = [
-  { id: 1, name: 'Boost your conversion rate', href: '#' },
-  { id: 2, name: 'How to use search engine optimization to drive traffic to your site', href: '#' },
-  { id: 3, name: 'Improve your customer experience', href: '#' },
-]
+  { id: 1, name: "Boost your conversion rate", href: "#" },
+  {
+    id: 2,
+    name: "How to use search engine optimization to drive traffic to your site",
+    href: "#",
+  },
+  { id: 3, name: "Improve your customer experience", href: "#" },
+];
 </script>

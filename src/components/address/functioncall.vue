@@ -101,7 +101,29 @@
               <div class="w-full border-t border-gray-300" />
             </div>
           </div>
-          <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+           <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">Value (Wei)</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <input
+                v-model="weiValue"
+                class="
+                  shadow
+                  appearance-none
+                  border
+                  rounded
+                  w-full
+                  py-2
+                  px-3
+                  text-gray-700
+                  leading-tight
+                  focus:outline-none focus:shadow-outline
+                "
+                type="text"
+                placeholder=""
+              />
+            </dd>
+          </div>
+          <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"  v-if="func.stateMutability == 'view'">
             <dt class="text-sm font-medium text-gray-500">Block Number</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
@@ -123,7 +145,7 @@
               />
             </dd>
           </div>
-           <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+           <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" v-if="func.stateMutability == 'view'">
             <dt class="text-sm font-medium text-gray-500">From address</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
@@ -266,17 +288,18 @@ let inputs = ref([]);
 
 let fromAddress = web3.account
 let blockNumber = ref("latest");
+let weiValue = ref("0");
 
 let showMore = ref(false);
 
 async function call() {
   console.log("CALL");
-  await contracts.callContract(props.address, props.func, inputs.value, fromAddress, blockNumber.value);
+  await contracts.callContract(props.address, props.func, inputs.value, fromAddress, blockNumber.value, weiValue.value);
 }
 
 async function send() {
   console.log("SEND");
-  await contracts.sendContract(props.address, props.func, inputs.value);
+  await contracts.sendContract(props.address, props.func, inputs.value, weiValue.value);
 }
 
 watch(
