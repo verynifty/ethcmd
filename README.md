@@ -27,3 +27,13 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Environment
+
+```
+ETHERSCAN_API=https://api.etherscan.io
+ETHERSCAN_API_KEY=YOURKEY
+CHAINID=1
+CURRENCY=ETH
+CHAINNAME=> mainnet
+```
