@@ -127,8 +127,6 @@ export const useContractStore = defineStore({
                 })
                 history.pushCallResult(counter, null, res)
             } catch (e) {
-                console.log(e)
-                console.log(JSON.stringify(e))
                 history.pushCallResult(counter, JSON.parse(JSON.stringify(e)), null)
 
             }
@@ -143,14 +141,12 @@ export const useContractStore = defineStore({
             }
             let counter = history.getCallCOunter()
             let block = await web3.getEthers().getBlock(getBlockNumber("latest"));
-            console.log(ctx)
             let tx = await ctx[func.name](...callParams,
             {
                 from: web3.account,
                 value: value
             })
             history.addSend(counter, address, func, params, block, tx.hash)
-            console.log(tx)
             let txReceipt = await tx.wait() 
             history.pushSendResult(counter, null, txReceipt)
         },
