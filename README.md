@@ -1,6 +1,8 @@
 # ethcmd
 
-This template should help get you started developing with Vue 3 in Vite.
+An opensource simple but powerful user interface to read and write contracts on EVM compatible blockchain.
+
+* [https://twitter.com/NiftyMuseum](Muse DAO)
 
 ## Recommended IDE Setup
 
@@ -28,7 +30,9 @@ npm run dev
 npm run build
 ```
 
-### Environment
+## Environment
+
+In a .env file:
 
 ```
 ETHERSCAN_API=https://api.etherscan.io
@@ -37,3 +41,5 @@ CHAINID=1
 CURRENCY=ETH
 CHAINNAME=> mainnet
 ```
+
+##
