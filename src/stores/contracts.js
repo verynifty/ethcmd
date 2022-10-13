@@ -125,10 +125,10 @@ export const useContractStore = defineStore({
                     from: from,
                     value: value
                 })
+                console.log("RES", res)
                 history.pushCallResult(counter, null, res)
             } catch (e) {
                 history.pushCallResult(counter, JSON.parse(JSON.stringify(e)), null)
-
             }
         },
         async sendContract(address, func, params, value = "0") {

@@ -69,7 +69,20 @@ export const useHistoryStore = defineStore({
                 console.log("ERRRROOOR", error.toString().toString(), error)
                 this.$state.history[index].error = error
             } else {
-                this.$state.history[index].result = result;
+                if (Array. isArray(result)) {
+                    console.log("LENGHT", result)
+                    this.$state.history[index].result = []
+                    for (const i of result) {
+                        this.$state.history[index].result.push(i.toString())
+                    }
+                    console.log(this.$state.history[index].result)
+                }
+                else if (typeof result === 'object') {
+                    this.$state.history[index].result = result.toString()
+                }  
+                else {
+                    this.$state.history[index].result = [result];
+                }
             }
             this.save()
         },

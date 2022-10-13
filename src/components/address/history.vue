@@ -39,7 +39,7 @@
                   <p class=" text-sm text-gray-500">
                     <ul v-if="h.result != null">
                     <li  v-bind:key="index" v-for="(o, index) in h.func.outputs">
-                      <ValueDisplay  :name="o.name" :type="o.type" :value="typeof (h.result) == 'object' ? (o.name != '' ? h.result[o.name] : h.result['' + (index + 1)]) : h.result" />
+                      <ValueDisplay  :name="o.name" :type="o.type" :value="h.result[index]" />
                     </li>
                     </ul>
                     <div v-else-if="h.error != null">
