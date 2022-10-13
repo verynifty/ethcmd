@@ -78,7 +78,7 @@ export const useHistoryStore = defineStore({
                     console.log(this.$state.history[index].result)
                 }
                 else if (typeof result === 'object') {
-                    this.$state.history[index].result = result.toString()
+                    this.$state.history[index].result = [result.toString()]
                 }  
                 else {
                     this.$state.history[index].result = [result];
