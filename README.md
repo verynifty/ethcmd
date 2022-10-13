@@ -4,6 +4,10 @@ An opensource simple but powerful user interface to read and write contracts on 
 
 * [https://twitter.com/NiftyMuseum](Muse DAO)
 
+
+Try:
+* [https://ethcmd.vercel.app/](Ethereum Mainnet)
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
