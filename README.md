@@ -2,12 +2,11 @@
 
 An opensource simple but powerful user interface to read and write contracts on EVM compatible blockchain.
 
-* [https://twitter.com/NiftyMuseum](Muse DAO)
+Try an hosted version:
+* https://ethcmd.vercel.app/ (Ethereum mainnet)
 
-
-Try:
-* [https://ethcmd.vercel.app/](Ethereum Mainnet)
-
+A tool made by the MuseDAO
+https://twitter.com/NiftyMuseum
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
