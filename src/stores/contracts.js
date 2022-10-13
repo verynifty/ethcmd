@@ -112,7 +112,6 @@ export const useContractStore = defineStore({
             const web3 = useWeb3Store();
             const history = useHistoryStore();
             var ctx = await web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
-            console.log(ctx)
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
@@ -120,14 +119,12 @@ export const useContractStore = defineStore({
             let counter = history.getCallCOunter()
             let block = await web3.getEthers().getBlock(getBlockNumber(blockNumber));
             history.addCall(counter, address, func, callParams, block)
-            console.log("HJSDJDSHJSDHSDJKHDSJK")
             try {
                 let res = await ctx[func.name](...callParams, {
                     blockTag: getBlockNumber(blockNumber),
                     from: from,
                     value: value
                 })
-                console.log("RESS", res)
                 history.pushCallResult(counter, null, res)
             } catch (e) {
                 console.log(e)
@@ -135,42 +132,27 @@ export const useContractStore = defineStore({
                 history.pushCallResult(counter, JSON.parse(JSON.stringify(e)), null)
 
             }
-          
-
-
-            // console.log("RESULT", res)
         },
         async sendContract(address, func, params, value = "0") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
-            console.log("@@@@@@", web3)
-            var ctx = new web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
-
+            var ctx = await web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
             }
             let counter = history.getCallCOunter()
-            console.log(counter)
-            let block = await web3.getEthers().getBlock(getBlockNumber(blockNumber));
-            console.log(web3.account)
-            let bb = await ctx.methods[func.name](...callParams).send({
-                from: web3.account
-            }, function (error, hash) {
-                console.log("HASH", hash)
-                history.addSend(counter, address, func, callParams, block, hash)
-            });
-            /*{}, function (error, result) {
-                try {
-                    // console.log("PUSH RESULT, ", counter, error, result)
-                    history.pushResult(counter, error, result)
-                } catch (err) {
-                    console.log(err)
-                }
-
+            let block = await web3.getEthers().getBlock(getBlockNumber("latest"));
+            console.log(ctx)
+            let tx = await ctx[func.name](...callParams,
+            {
+                from: web3.account,
+                value: value
             })
-            */
-            // console.log("RESULT", res)
+            history.addSend(counter, address, func, params, block, tx.hash)
+            console.log(tx)
+            let txReceipt = await tx.wait() 
+            history.pushResult(counter, null, txReceipt)
         },
         async downloadSources(address) {
             const zip = new JSZip();

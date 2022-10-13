@@ -96,8 +96,9 @@ export const useWeb3Store = defineStore({
             });
         },
         async getContract(address, ABI) {
-            console.log(this.ethers)
-            return (new ethers.Contract(address, ABI, toRaw(this.ethers)));
+            let ct = (new ethers.Contract(address, ABI, toRaw(this.ethers)));
+            ct = ct.connect(toRaw(this.ethers).getSigner())
+            return toRaw(ct);
         },
         async disconnect() {
             let web3 = new Web3(
