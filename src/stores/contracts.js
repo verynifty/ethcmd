@@ -44,7 +44,11 @@ export const useContractStore = defineStore({
                 return this.$state.contracts[address.toLowerCase()]
             }
             if (ABI == null) {
-                this.$state.contracts[address.toLowerCase()] = await this._loadContractFromEtherscan(address)
+                let contract = await this._loadContractFromEtherscan(address);
+                if (contract == null) {
+                    console.log("ETHERSCAN FAILED")
+                }
+                this.$state.contracts[address.toLowerCase()] = contract;
             } else {
 
             }
@@ -60,6 +64,9 @@ export const useContractStore = defineStore({
             let result = rSourceCode.data.result[0];
             console.log(rSourceCode)
             let obj = {}
+            if (result.ABI == "Contract source code not verified") {
+                return null;
+            }
             obj.ABI = JSON.parse(result.ABI)
             obj.address = address;
             if (result.SourceCode.startsWith('{{')) {
