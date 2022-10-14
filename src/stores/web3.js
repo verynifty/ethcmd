@@ -29,6 +29,7 @@ export const useWeb3Store = defineStore({
     state: () => ({
         web3: null,
         account: null,
+        ethers: null,
     }),
     getters: {
         accountShort: function(state) {

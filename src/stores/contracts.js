@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useWeb3Store } from "@/stores/web3";
 import { useHistoryStore } from "@/stores/history";
 import { ethers } from "ethers";
+import { whatsabi } from "@shazow/whatsabi";
 import axios from 'axios';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
@@ -14,6 +15,8 @@ function getBlockNumber(x, base) {
     }
     return parsed;
 }
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 export const useContractStore = defineStore({
     id: "contracts",
@@ -43,10 +46,31 @@ export const useContractStore = defineStore({
             if (this.$state.contracts[address.toLowerCase()] != null) {
                 return this.$state.contracts[address.toLowerCase()]
             }
+            const web3 = useWeb3Store();
+            while (web3.getEthers() == null) {
+                await sleep(500);
+            }
+            console.log(web3)
             if (ABI == null) {
+                let bytecode = await web3.getEthers().getCode(address);
+                // DO something if bytecode is empty
+                console.log("BYTECODE", bytecode)
                 let contract = await this._loadContractFromEtherscan(address);
                 if (contract == null) {
                     console.log("ETHERSCAN FAILED")
+                    const tempabi = whatsabi.abiFromBytecode(bytecode);
+                    const signatureLookup = new whatsabi.loaders.SamczunSignatureLookup();
+                    let ABI = []
+                    console.log(tempabi)
+                    for (const abiObj of tempabi) {
+                        if (abiObj.type == "function") {
+                            console.log(abiObj)
+                            ABI.push(await signatureLookup.loadFunctions(abiObj.selector))
+                        } else if (abiObj.type == "event") {
+                            ABI.push(await signatureLookup.loadEvents(abiObj.hash))
+                        }
+                    }
+                    console.log(ABI);
                 }
                 this.$state.contracts[address.toLowerCase()] = contract;
             } else {
@@ -149,12 +173,12 @@ export const useContractStore = defineStore({
             let counter = history.getCallCOunter()
             let block = await web3.getEthers().getBlock(getBlockNumber("latest"));
             let tx = await ctx[func.name](...callParams,
-            {
-                from: web3.account,
-                value: value
-            })
+                {
+                    from: web3.account,
+                    value: value
+                })
             history.addSend(counter, address, func, params, block, tx.hash)
-            let txReceipt = await tx.wait() 
+            let txReceipt = await tx.wait()
             history.pushSendResult(counter, null, txReceipt)
         },
         async downloadSources(address) {
