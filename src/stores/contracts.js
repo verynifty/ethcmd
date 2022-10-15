@@ -50,7 +50,6 @@ export const useContractStore = defineStore({
             while (web3.getEthers() == null) {
                 await sleep(500);
             }
-            console.log(web3)
             if (ABI == null) {
                 let bytecode = await web3.getEthers().getCode(address);
                 // DO something if bytecode is empty
@@ -61,16 +60,27 @@ export const useContractStore = defineStore({
                     const tempabi = whatsabi.abiFromBytecode(bytecode);
                     const signatureLookup = new whatsabi.loaders.SamczunSignatureLookup();
                     let ABI = []
-                    console.log(tempabi)
                     for (const abiObj of tempabi) {
+                        console.log(abiObj)
                         if (abiObj.type == "function") {
-                            console.log(abiObj)
-                            ABI.push(await signatureLookup.loadFunctions(abiObj.selector))
+                            let fnc = await signatureLookup.loadFunctions(abiObj.selector)
+                            if (fnc.length > 0) {
+                                console.log(fnc[0])
+                                ABI.push("function " + fnc[0])
+                            }
                         } else if (abiObj.type == "event") {
-                            ABI.push(await signatureLookup.loadEvents(abiObj.hash))
+                            let ev = await signatureLookup.loadEvents(abiObj.hash);
+                            if (ev.length > 0) {
+                                console.log(ev[0])
+                                ABI.push("event " + ev[0])
+                            }
                         }
                     }
-                    console.log(ABI);
+                    console.log("ABIIII", ABI, ethers.utils);
+                    ABI = ABI.map((text_signature) => `  function ${text_signature.replaceAll('[]', '[] calldata')}`);
+                    console.log("ABIIII2", ABI, ethers.utils);
+                    const iface = new ethers.utils.Interface(ABI);
+                    jsonAbi = iface.format(ethers.utils.FormatTypes.json);
                 }
                 this.$state.contracts[address.toLowerCase()] = contract;
             } else {
