@@ -56,9 +56,10 @@ export const useContractStore = defineStore({
                 console.log("BYTECODE", bytecode)
                 let contract = await this._loadContractFromEtherscan(address);
                 if (contract == null) {
+                    contract = {}
                     console.log("ETHERSCAN FAILED")
                     const tempabi = whatsabi.abiFromBytecode(bytecode);
-                    const signatureLookup = new whatsabi.loaders.SamczunSignatureLookup();
+                    const signatureLookup = new whatsabi.loaders.Byte4SignatureLookup();
                     let ABI = []
                     for (const abiObj of tempabi) {
                         console.log(abiObj)
@@ -77,10 +78,12 @@ export const useContractStore = defineStore({
                         }
                     }
                     console.log("ABIIII", ABI, ethers.utils);
-                    ABI = ABI.map((text_signature) => `  function ${text_signature.replaceAll('[]', '[] calldata')}`);
+                    ABI = ABI.map((text_signature) => `${text_signature.replaceAll('[]', '[] calldata')}`);
                     console.log("ABIIII2", ABI, ethers.utils);
                     const iface = new ethers.utils.Interface(ABI);
-                    jsonAbi = iface.format(ethers.utils.FormatTypes.json);
+                    let jsonAbi = iface.format(ethers.utils.FormatTypes.json);
+                    console.log("FINAL ABI", jsonAbi)
+                    contract.ABI = jsonAbi;
                 }
                 this.$state.contracts[address.toLowerCase()] = contract;
             } else {
