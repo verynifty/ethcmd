@@ -8,7 +8,10 @@
           <div class="block hover:bg-gray-50">
             <div class="px-4 py-4 sm:px-6">
               <div class="flex items-center justify-between">
-                <p class="truncate text-sm font-medium text-indigo-600">
+                <p v-if="h.error == null" class="truncate text-sm font-medium text-indigo-600">
+                  {{ h.func.name }}(<span class="text-sm text-gray-500" v-for="(p, index) in h.params">{{p}}<span v-if="h.params.length > index + 1">, </span> </span>)
+                </p>
+                 <p v-else class="truncate text-sm font-medium text-red-600">
                   {{ h.func.name }}(<span class="text-sm text-gray-500" v-for="(p, index) in h.params">{{p}}<span v-if="h.params.length > index + 1">, </span> </span>)
                 </p>
                 <div class="ml-2 flex flex-shrink-0">
