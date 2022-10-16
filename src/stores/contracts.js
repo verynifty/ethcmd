@@ -5,8 +5,10 @@ import { useHistoryStore } from "@/stores/history";
 import { ethers } from "ethers";
 import { whatsabi } from "@shazow/whatsabi";
 import axios from 'axios';
+import qs from 'querystring';
 import JSZip from 'jszip';
 import FileSaver from 'file-saver';
+import { createReturnStatement } from "@vue/compiler-core";
 
 function getBlockNumber(x, base) {
     const parsed = Number.parseInt(x, base);
@@ -59,8 +61,22 @@ export const useContractStore = defineStore({
                     contract = {}
                     console.log("ETHERSCAN FAILED")
                     const tempabi = whatsabi.abiFromBytecode(bytecode);
-                    const signatureLookup = new whatsabi.loaders.Byte4SignatureLookup();
                     let ABI = []
+                    const signatureReturn = await axios.get(`https://sig.eth.samczsun.com/api/v1/signatures?${qs.stringify({ function: tempabi.filter(function (a) { return a.type == "function" }).map(function (a) { return a.selector }), event: tempabi.filter(function (a) { return a.type == "event" }).map(function (a) { return a.hash }) })}`);
+                    console.log(signatureReturn.data.result)
+                    for (const ev of Object.values(signatureReturn.data.result.event)) {
+                        if (ev.length > 0) {
+                            console.log(ev)
+                            ABI.push("event " + ev[0].name)
+                        }
+                    }
+                    for (const fnc of Object.values(signatureReturn.data.result.function)) {
+                        if (fnc.length > 0) {
+                            ABI.push("function " + fnc[0].name)
+                        }
+                    }
+                    /*
+                    const signatureLookup = new whatsabi.loaders.Byte4SignatureLookup();
                     for (const abiObj of tempabi) {
                         console.log(abiObj)
                         if (abiObj.type == "function") {
@@ -73,17 +89,17 @@ export const useContractStore = defineStore({
                             let ev = await signatureLookup.loadEvents(abiObj.hash);
                             if (ev.length > 0) {
                                 console.log(ev[0])
-                                ABI.push("event " + ev[0])
+                               ABI.push("function " + fnc[0])
                             }
                         }
                     }
-                    console.log("ABIIII", ABI, ethers.utils);
+                    */
                     ABI = ABI.map((text_signature) => `${text_signature.replaceAll('[]', '[] calldata')}`);
-                    console.log("ABIIII2", ABI, ethers.utils);
                     const iface = new ethers.utils.Interface(ABI);
                     let jsonAbi = iface.format(ethers.utils.FormatTypes.json);
-                    console.log("FINAL ABI", jsonAbi)
-                    contract.ABI = jsonAbi;
+                    console.log("FINAL ABI",  JSON.parse(jsonAbi))
+                    contract.ABI = JSON.parse(jsonAbi);
+                    contract.address = address;
                 }
                 this.$state.contracts[address.toLowerCase()] = contract;
             } else {

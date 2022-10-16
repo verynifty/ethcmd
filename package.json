@@ -20,6 +20,7 @@
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
     "pinia": "^2.0.21",
+    "querystring": "^0.2.1",
     "vue": "^3.2.38",
     "vue-heroicons": "^0.9.4",
     "vue-json-viewer": "^3.0.4",
