@@ -22,7 +22,7 @@
       </h3>
       <p class="mt-1 max-w-2xl text-sm text-gray-500"></p>
     </div>
-    <div class="">
+    <div  v-if="func.stateMutability != null" class="">
       <dl>
         <div
           v-for="(input, index) in func.inputs"
@@ -49,7 +49,7 @@
             />
           </dd>
         </div>
-        <div v-if="!showMore" @click="showMore = !showMore" class="relative">
+        <div v-if="func.stateMutability != null  && !showMore" @click="showMore = !showMore" class="relative">
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t border-gray-300" />
           </div>
@@ -95,7 +95,7 @@
             </button>
           </div>
         </div>
-        <div v-else>
+        <div v-else-if="func.stateMutability != null ">
           <div class="relative">
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
               <div class="w-full border-t border-gray-300" />
@@ -216,7 +216,7 @@
           </div>
         </div>
         <div class="sm:col-span-2 sm:flex sm:justify-end">
-          <div v-if="func.stateMutability != 'view'">
+          <div v-if="func.stateMutability != null && func.stateMutability != 'view'">
             <!--<button
               class="
                 bg-transparent
@@ -251,7 +251,7 @@
               Send tx
             </button>
           </div>
-          <div v-else>
+          <div v-if="func.stateMutability != null && func.stateMutability == 'view'">
             <button
               @click="call"
               class="

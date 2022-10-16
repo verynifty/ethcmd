@@ -96,11 +96,29 @@ export const useContractStore = defineStore({
                     */
                     ABI = ABI.map((text_signature) => `${text_signature.replaceAll('[]', '[] calldata')}`);
                     const iface = new ethers.utils.Interface(ABI);
-                    let jsonAbi = iface.format(ethers.utils.FormatTypes.json);
-                    console.log("FINAL ABI",  JSON.parse(jsonAbi))
-                    contract.ABI = JSON.parse(jsonAbi);
+                    let jsonAbi = JSON.parse(iface.format(ethers.utils.FormatTypes.json));
+                    /*
+                    for (let index = 0; index < jsonAbi.length; index++) {
+                        jsonAbi[index].stateMutability = "view";
+                        jsonAbi[index].constant = true;
+
+                    }
+                    */
+                    contract.ABI = jsonAbi;
                     contract.address = address;
                 }
+                contract.ABI = contract.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
+                let eventCount = 1;
+                let functionCount = 1;
+                for (let index = 0; index < contract.ABI.length; index++) {
+                    if (contract.ABI[index].type == "event") {
+                        contract.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(contract.ABI[index])
+                        contract.ABI[index].id = eventCount++;
+                    } else if (contract.ABI[index].type != "constructor") {
+                        contract.ABI[index].id = functionCount++;
+                    }
+                }
+                console.log(contract)
                 this.$state.contracts[address.toLowerCase()] = contract;
             } else {
 
@@ -142,7 +160,6 @@ export const useContractStore = defineStore({
             obj.proxy = result.Proxy
             obj.implementation = result.Implementation
             obj.swarmSource = result.SwarmSource
-            console.log(obj)
             if (obj.implementation != null && obj.implementation != "") {
                 console.log("Loading proxy implementation at ", obj.implementation);
                 obj.implementationContract = await this.getContract(obj.implementation);
@@ -153,18 +170,6 @@ export const useContractStore = defineStore({
                 }
             } else {
                 obj.implementation = null;
-            }
-            obj.ABI = obj.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
-            let eventCount = 1;
-            let functionCount = 1;
-
-            for (let index = 0; index < obj.ABI.length; index++) {
-                if (obj.ABI[index].type == "event") {
-                    obj.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(obj.ABI[index])
-                    obj.ABI[index].id = eventCount++;
-                } else if (obj.ABI[index].type != "constructor") {
-                    obj.ABI[index].id = functionCount++;
-                }
             }
             return obj;
         },
