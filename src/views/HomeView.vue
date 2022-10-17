@@ -3,11 +3,18 @@
 <template>
   <div class="h-full bg-gray-100">
     <ContractSearch />
-    <div class="w-full  p-5">
+    <div class="w-full p-5">
       <div class="w-full bg-white shadow sm:rounded-lg">
         <div class="pt-2 pl-3">Favorite contracts</div>
-        <div class="overflow-hidden bg-white ">
-          <ul role="list" class="divide-y divide-gray-200">
+        <div class="overflow-hidden bg-white">
+          <ul
+            v-if="
+              favorites.$state.contracts != null &&
+              Object.keys(favorites.$state.contracts).length == 0
+            "
+            role="list"
+            class="divide-y divide-gray-200"
+          >
             <li v-for="fav in favorites.$state.contracts" :key="fav.address">
               <router-link
                 :to="'/address/' + fav.address"
@@ -42,7 +49,7 @@
                           <span class="truncate">{{ fav.address }}</span>
                         </p>
                       </div>
-                     <!-- <div class="hidden md:block">
+                      <!-- <div class="hidden md:block">
                         <div>
                           <p class="text-sm text-gray-900">
                             Applied on
@@ -136,6 +143,9 @@
               </router-link>
             </li>
           </ul>
+          <div v-else class="m-10 text-center text-gray-600">
+            Empty, add contracts to your favs to see there.
+          </div>
         </div>
       </div>
     </div>
