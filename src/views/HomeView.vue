@@ -10,7 +10,7 @@
           <ul
             v-if="
               favorites.$state.contracts != null &&
-              Object.keys(favorites.$state.contracts).length == 0
+              Object.keys(favorites.$state.contracts).length > 0
             "
             role="list"
             class="divide-y divide-gray-200"
