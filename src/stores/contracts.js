@@ -185,6 +185,7 @@ export const useContractStore = defineStore({
             let block = await web3.getEthers().getBlock(getBlockNumber(blockNumber));
             history.addCall(counter, address, func, callParams, block)
             try {
+                console.log("FROM", from)
                 let res = await ctx[func.name](...callParams, {
                     blockTag: getBlockNumber(blockNumber),
                     from: from,
