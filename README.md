@@ -3,7 +3,9 @@
 An opensource simple but powerful user interface to read and write contracts on EVM compatible blockchain.
 
 Try an hosted version:
-* https://ethcmd.com
+* https://ethcmd.com (Ethereum Mainnet)
+* https://arbitrum.ethcmd.com/
+* https://optimism.ethcmd.com/
 
 A tool made by the MuseDAO
 https://twitter.com/NiftyMuseum
