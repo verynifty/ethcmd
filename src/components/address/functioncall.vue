@@ -22,13 +22,31 @@
       </h3>
       <p class="mt-1 max-w-2xl text-sm text-gray-500"></p>
     </div>
-    <div  v-if="func.stateMutability != null" class="">
+    <div v-if="func.stateMutability != null" class="">
       <dl>
         <div
           v-for="(input, index) in func.inputs"
           class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
         >
-          <dt class="text-sm font-medium text-gray-500">{{ input.name }}</dt>
+          <dt class="text-sm font-medium text-gray-500">
+            {{ input.types }}
+            <span
+              class="
+                text-xs
+                font-semibold
+                inline-block
+                py-1
+                px-2
+                rounded
+                text-slate-600
+                bg-slate-200
+                last:mr-0
+                mr-1
+              "
+            >
+              {{ input.type }}</span
+            >
+          </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
             <input
               v-model="inputs[index].value"
@@ -49,7 +67,11 @@
             />
           </dd>
         </div>
-        <div v-if="func.stateMutability != null  && !showMore" @click="showMore = !showMore" class="relative">
+        <div
+          v-if="func.stateMutability != null && !showMore"
+          @click="showMore = !showMore"
+          class="relative"
+        >
           <div class="absolute inset-0 flex items-center" aria-hidden="true">
             <div class="w-full border-t border-gray-300" />
           </div>
@@ -95,13 +117,13 @@
             </button>
           </div>
         </div>
-        <div v-else-if="func.stateMutability != null ">
+        <div v-else-if="func.stateMutability != null">
           <div class="relative">
             <div class="absolute inset-0 flex items-center" aria-hidden="true">
               <div class="w-full border-t border-gray-300" />
             </div>
           </div>
-           <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt class="text-sm font-medium text-gray-500">Value (Wei)</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
@@ -123,7 +145,10 @@
               />
             </dd>
           </div>
-          <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"  v-if="func.stateMutability == 'view'">
+          <div
+            class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+            v-if="func.stateMutability == 'view'"
+          >
             <dt class="text-sm font-medium text-gray-500">Block Number</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
@@ -145,7 +170,10 @@
               />
             </dd>
           </div>
-           <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" v-if="func.stateMutability == 'view'">
+          <div
+            class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+            v-if="func.stateMutability == 'view'"
+          >
             <dt class="text-sm font-medium text-gray-500">From address</dt>
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
@@ -216,23 +244,11 @@
           </div>
         </div>
         <div class="sm:col-span-2 sm:flex sm:justify-end">
-          <div v-if="func.stateMutability != null && func.stateMutability != 'view'">
-            <!--<button
-              class="
-                bg-transparent
-                hover:bg-blue-500
-                text-blue-700
-                font-semibold
-                hover:text-white
-                py-2
-                px-4
-                border border-blue-500
-                hover:border-transparent
-                rounded
-              "
-            >
-              Simulate
-            </button> -->
+          <div
+            v-if="
+              func.stateMutability != null && func.stateMutability != 'view'
+            "
+          >
             <button
               @click="send"
               class="
@@ -251,7 +267,11 @@
               Send tx
             </button>
           </div>
-          <div v-if="func.stateMutability != null && func.stateMutability == 'view'">
+          <div
+            v-if="
+              func.stateMutability != null && func.stateMutability == 'view'
+            "
+          >
             <button
               @click="call"
               class="
@@ -286,7 +306,7 @@ import { useWeb3Store } from "@/stores/web3";
 const web3 = useWeb3Store();
 let inputs = ref([]);
 
-let fromAddress = ref(web3.account)
+let fromAddress = ref(web3.account);
 let blockNumber = ref("latest");
 let weiValue = ref("0");
 
@@ -298,7 +318,14 @@ async function call() {
     web3.setWeb3();
     return;
   }
-  await contracts.callContract(props.address, props.func, inputs.value, fromAddress.value, blockNumber.value, weiValue.value);
+  await contracts.callContract(
+    props.address,
+    props.func,
+    inputs.value,
+    fromAddress.value,
+    blockNumber.value,
+    weiValue.value
+  );
 }
 
 async function send() {
@@ -307,7 +334,12 @@ async function send() {
     web3.setWeb3();
     return;
   }
-  await contracts.sendContract(props.address, props.func, inputs.value, weiValue.value);
+  await contracts.sendContract(
+    props.address,
+    props.func,
+    inputs.value,
+    weiValue.value
+  );
 }
 
 watch(
