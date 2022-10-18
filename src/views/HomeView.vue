@@ -2,8 +2,12 @@
 
 <template>
   <div class="h-full bg-gray-100">
-    <ContractSearch />
     <div class="w-full p-5">
+      <div class="w-full bg-white shadow sm:rounded-lg">
+        <ContractSearch />
+      </div>
+    </div>
+    <div class="w-full px-5">
       <div class="w-full bg-white shadow sm:rounded-lg">
         <div class="pt-2 pl-3">Favorite contracts</div>
         <div class="overflow-hidden bg-white">

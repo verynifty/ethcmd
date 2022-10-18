@@ -286,7 +286,7 @@ import { useWeb3Store } from "@/stores/web3";
 const web3 = useWeb3Store();
 let inputs = ref([]);
 
-let fromAddress = web3.account
+let fromAddress = web3.account == null ? '0xd8da6bf26964af9d7eed9e03e53415d37aa96045' : web3.account
 let blockNumber = ref("latest");
 let weiValue = ref("0");
 
@@ -299,6 +299,10 @@ async function call() {
 
 async function send() {
   console.log("SEND");
+  if (web3.account == null) {
+    web3.setWeb3();
+    return;
+  }
   await contracts.sendContract(props.address, props.func, inputs.value, weiValue.value);
 }
 

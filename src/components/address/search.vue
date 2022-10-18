@@ -2,7 +2,7 @@
   <form>
     <label
       for="default-search"
-      class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+      class="mb-2 text-sm font-medium text-gray-900 sr-only "
       >Search</label
     >
     <div class="relative">
@@ -19,7 +19,7 @@
       >
         <svg
           aria-hidden="true"
-          class="w-5 h-5 text-gray-500 dark:text-gray-400"
+          class="w-5 h-5 text-gray-500 "
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -47,12 +47,7 @@
           rounded-lg
           border border-gray-300
           focus:ring-blue-500 focus:border-blue-500
-          dark:bg-gray-700
-          dark:border-gray-600
-          dark:placeholder-gray-400
-          dark:text-white
-          dark:focus:ring-blue-500
-          dark:focus:border-blue-500
+         
         "
         placeholder="Search contract..."
         required
