@@ -47,7 +47,7 @@ export const useWeb3Store = defineStore({
                 await this.connect();
             }
             console.log("SET WEB3")
-            let RPC_URL = process.env.RPC_UR+L;
+            let RPC_URL = process.env.RPC_URL;
             // TOOD make this better later
             //console.log("www", web3Modal.cachedProvider, opt)
             if (this.web3 != null && this.account != null) {
@@ -103,7 +103,7 @@ export const useWeb3Store = defineStore({
             return toRaw(ct);
         },
         async disconnect() {
-            let RPC_URL = process.env.RPC_UR+L;
+            let RPC_URL = process.env.RPC_URL;
             this.account = null;
             this.ethers = new ethers.providers.JsonRpcProvider(RPC_URL)
             this.web3 = new Web3(
