@@ -1,7 +1,7 @@
 <template>
       <aside class="w-full flex-col h-full overflow-hidden" aria-label="Sidebar">
         <div
-          class="overflow-y-hidden h-full py-1 px-2 bg-gray-50  dark:bg-gray-800 flex flex-col h-full"
+          class="overflow-y-hidden h-full py-1 px-2 bg-gray-800 flex flex-col h-full"
         >
           <div class="relative mb-2">
             <div
@@ -16,7 +16,7 @@
               "
             >
               <svg
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                class="w-5 h-5 text-gray-400"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -37,19 +37,18 @@
               class="
                 bg-gray-50
                 border border-gray-300
-                text-gray-900 text-sm
                 rounded-lg
                 focus:ring-blue-500 focus:border-blue-500
                 block
                 w-full
                 pl-10
                 p-2.5
-                dark:bg-gray-700
-                dark:border-gray-600
-                dark:placeholder-gray-400
-                dark:text-white
-                dark:focus:ring-blue-500
-                dark:focus:border-blue-500
+                bg-gray-700
+                border-gray-600
+                placeholder-gray-400
+                text-white
+                focus:ring-blue-500
+                focus:border-blue-500
               "
               placeholder="filter"
               v-model="filter"
@@ -60,7 +59,7 @@
             <li v-for="func in getFunctions">
               <div
                 @click="onFunctionClick(func)"
-                :class="['flex items-center p-1 text-s font-light text-white rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700', func.proxyImplementation == true ? 'text-yellow-100	' : ' ']
+                :class="['flex items-center p-1 text-s font-light text-white rounded-lg  cursor-pointer	 hover:bg-gray-700', func.proxyImplementation == true ? 'text-yellow-100	' : ' ']
                 "
               >
               <span class="mr-1">

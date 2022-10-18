@@ -357,5 +357,4 @@ watch(
   }
 );
 
-console.log(props.func);
 </script>
