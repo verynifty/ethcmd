@@ -3,7 +3,7 @@
 An opensource simple but powerful user interface to read and write contracts on EVM compatible blockchain.
 
 Try an hosted version:
-* https://ethcmd.vercel.app/ (Ethereum mainnet)
+* https://ethcmd.com
 
 A tool made by the MuseDAO
 https://twitter.com/NiftyMuseum
