@@ -47,15 +47,16 @@ export const useWeb3Store = defineStore({
                 await this.connect();
             }
             console.log("SET WEB3")
+            let RPC_URL = process.env.RPC_UR+L;
             // TOOD make this better later
             //console.log("www", web3Modal.cachedProvider, opt)
             if (this.web3 != null && this.account != null) {
                 return;
             } else if (this.web3 == null && this.account == null) {
-                this.ethers = new ethers.providers.JsonRpcProvider(`https://nodes.mewapi.io/rpc/eth`)
+                this.ethers = new ethers.providers.JsonRpcProvider(RPC_URL)
                 this.web3 = new Web3(
                     new Web3.providers.HttpProvider(
-                        `https://nodes.mewapi.io/rpc/eth`
+                        RPC_URL
                     )
                 );
             } else {
@@ -102,13 +103,14 @@ export const useWeb3Store = defineStore({
             return toRaw(ct);
         },
         async disconnect() {
-            let web3 = new Web3(
-                new Web3.providers.WebsocketProvider(
-                    `wss://rinkeby.infura.io/ws/v3/446f8b2b102f40b58ce0fb2a8483209a`
+            let RPC_URL = process.env.RPC_UR+L;
+            this.account = null;
+            this.ethers = new ethers.providers.JsonRpcProvider(RPC_URL)
+            this.web3 = new Web3(
+                new Web3.providers.HttpProvider(
+                    RPC_URL
                 )
             );
-            this.account = null;
-            this.web3 = web3;
 
             console.log("disconnected");
         },
