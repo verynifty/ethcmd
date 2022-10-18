@@ -43,6 +43,7 @@ ETHERSCAN_API_KEY=YOURKEY
 CHAINID=1
 CURRENCY=ETH
 CHAINNAME=> mainnet
+RPC_URL=https://yourrpc.com
 ```
 
 ##
