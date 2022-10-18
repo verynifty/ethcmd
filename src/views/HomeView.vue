@@ -153,6 +153,28 @@
         </div>
       </div>
     </div>
+    <div class="w-full p-10">
+      <div class="m-10 text-center text-gray-600">
+        An
+        <a
+          class="underline text-indigo-800"
+          href="https://github.com/verynifty/ethcmd"
+          >open source</a
+        >
+        interface to interact with Ethereum Smart contracts. Built by the
+        <a class="underline text-indigo-800" href="https://musedao.io"
+          >MuseDAO</a
+        >.
+      </div>
+       <div class="text-xs m-5 text-center text-gray-500">
+        Data from 
+        <a
+          class="underline text-indigo-300"
+          href="https://etherscan.io/"
+          >Etherscan API</a
+        >.
+      </div>
+    </div>
   </div>
 </template>
 
