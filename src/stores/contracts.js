@@ -54,6 +54,7 @@ export const useContractStore = defineStore({
             if (ABI == null) {
                 let bytecode = await web3.getEthers().getCode(address);
                 // DO something if bytecode is empty
+                // let sContract = await this._loadContractFromSourcify(address);
                 let contract = await this._loadContractFromEtherscan(address);
                 if (contract == null) {
                     contract = {}
@@ -120,8 +121,22 @@ export const useContractStore = defineStore({
             }
             return this.$state.contracts[address.toLowerCase()]
         },
+        async _loadContractFromSourcify(address) {
+            const networkId = parseInt(process.env.CHAINID);
+            address = address.toLowerCase()
+            let obj = {}
+            const sourcifyResp = await axios.get(`https://sourcify.dev/server/files/any/${networkId}/${address}`)
+            let metadata = JSON.parse((sourcifyResp.data.files.filter((f) => f.name == "metadata.json"))[0].content);
+            obj.ABI = metadata.output.abi;
+            obj.address = address;
+            obj.compilerVersion = metadata.compiler.version;
+            obj.language = metadata.language;
+            obj.optimizationUsed = metadata.settings.optimizer.enabled;
+            obj.optimizationRuns = metadata.settings.optimizer.runs;
+            console.log(metadata)
+            console.log(obj)
+        },
         async _loadContractFromEtherscan(address) {
-            const web3 = useWeb3Store();
             let etherscan = process.env.ETHERSCAN_API_KEY;
             // We try to get it from Etherscan
             let rSourceCode = await axios.get(
@@ -147,7 +162,7 @@ export const useContractStore = defineStore({
             obj.name = result.ContractName;
             obj.compilerVersion = result.CompilerVersion
             obj.optimizationUsed = result.OptimizationUsed
-            obj.runs = result.Runs
+            obj.optimizationRuns = result.Runs
             obj.constructorArguments = result.ConstructorArguments
             obj.EVMVersion = result.EVMVersion
             obj.library = result.Library

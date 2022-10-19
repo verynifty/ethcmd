@@ -12,15 +12,15 @@ export const useFavoritesStore = defineStore({
     actions: {
         load: function() {
             let cache = localStorage.getItem("FavContracts");
-            console.log(cache)
+            // console.log(cache)
             this.$state.contracts = cache == null ? {} : JSON.parse(cache);
         },
         saveContracts: function() {
-            console.log(this.$state.contracts)
+            // console.log(this.$state.contracts)
             localStorage.setItem("FavContracts", JSON.stringify(this.$state.contracts))
         },
         isFavoriteContract: function(address) {
-            console.log("isFavoriteContract", address)
+            // console.log("isFavoriteContract", address)
             return this.$state.contracts[address.toLowerCase()] != null;
         },
         addFavoriteContract(address, name) {

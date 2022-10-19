@@ -21,7 +21,7 @@
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Optimization runs</dt>
             <dd class="mt-1 text-sm text-gray-900">
-              {{ contract.optimizationUsed == "1" ? contract.runs : "No" }}
+              {{ contract.optimizationUsed == "1" || contract.optimizationUsed == true ? contract.optimizationRuns : "No" }}
             </dd>
           </div>
           <div class="sm:col-span-1">
