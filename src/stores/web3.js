@@ -8,6 +8,7 @@ import WalletConnectProvider from "@walletconnect/web3-provider/dist/umd/index.m
 
 import { unref, toRaw } from 'vue'
 
+let pastProvider = null
 
 const providerOptions = {
     walletconnect: {
@@ -30,18 +31,22 @@ export const useWeb3Store = defineStore({
         web3: null,
         account: null,
         ethers: null,
+        chainId: null
     }),
     getters: {
-        accountShort: function(state) {
-            return (state.account.substring(0,6) + '...' + state.account.slice(-6))
+        accountShort: function (state) {
+            return (state.account.substring(0, 6) + '...' + state.account.slice(-6))
         },
-
+        currentChainId: function (state) {
+            return state.chainId;
+        }
     },
     actions: {
-        getEthers: function() {
+        getEthers: function () {
             return (toRaw(this.ethers))
         },
         async setWeb3(opt = {}) {
+            console.log("setWeb3")
             if (opt.tryFromCache == true && web3Modal.cachedProvider) {
                 console.log("Try connect from cache");
                 await this.connect();
@@ -51,6 +56,7 @@ export const useWeb3Store = defineStore({
             // TOOD make this better later
             //console.log("www", web3Modal.cachedProvider, opt)
             if (this.web3 != null && this.account != null) {
+                this.chainId = (await this.getEthers().getNetwork()).chainId
                 return;
             } else if (this.web3 == null && this.account == null) {
                 this.ethers = new ethers.providers.JsonRpcProvider(RPC_URL)
@@ -62,18 +68,30 @@ export const useWeb3Store = defineStore({
             } else {
                 await this.connect();
             }
-
+            this.chainId = (await this.getEthers().getNetwork()).chainId
         },
-
+        async chainChangedCallback(chainId)  {
+            try {
+                console.log("chainChanged", parseInt(chainId));
+                this.connect();
+                this.chainId = parseInt(chainId)
+            } catch (error) {
+                console.log("ERROR", error)
+            }
+        },
         async connect() {
+            if (pastProvider != null) {
+                console.log("THERE IS A PAST PROVIDER", pastProvider)
+                pastProvider.removeListener("chainChanged", this.chainChangedCallback)
+                pastProvider = null
+            }
             const provider = await web3Modal.connect();
             const ethersProvider = new providers.Web3Provider(provider)
             const userAddress = await ethersProvider.getSigner().getAddress()
-            console.log(ethersProvider)
+            // console.log(ethersProvider)
             this.ethers = ethersProvider;
             this.web3 = new Web3(provider);
             this.account = userAddress
-
 
             provider.on("accountsChanged", (accounts) => {
                 this.connect();
@@ -81,10 +99,7 @@ export const useWeb3Store = defineStore({
             });
 
             // Subscribe to chainId change
-            provider.on("chainChanged", (chainId) => {
-                console.log("chainChanged", chainId);
-                this.connect();
-            });
+            provider.on("chainChanged", this.chainChangedCallback);
 
             // Subscribe to provider disconnection
             provider.on("connect", (error) => {
@@ -96,10 +111,11 @@ export const useWeb3Store = defineStore({
                 console.log("disconnected");
                 this.connect();
             });
+            pastProvider = provider;
         },
         async getContract(address, ABI) {
             let ct = (new ethers.Contract(address, ABI, toRaw(this.ethers)));
-            console.log("SIGNER", toRaw(this.ethers).getSigner())
+            // console.log("SIGNER", toRaw(this.ethers).getSigner())
             ct = ct.connect(toRaw(this.ethers).getSigner())
             return toRaw(ct);
         },

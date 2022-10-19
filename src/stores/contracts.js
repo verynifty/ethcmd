@@ -37,7 +37,6 @@ export const useContractStore = defineStore({
         async guessContract(address) {
             let contract = null;
             address = address.toLowerCase()
-            console.log(address.length);
             if (address.length == 42 && address.startsWith('0x')) {
                 contract = await this.getContract(address)
                 return contract;
@@ -55,7 +54,6 @@ export const useContractStore = defineStore({
             if (ABI == null) {
                 let bytecode = await web3.getEthers().getCode(address);
                 // DO something if bytecode is empty
-                console.log("BYTECODE", bytecode)
                 let contract = await this._loadContractFromEtherscan(address);
                 if (contract == null) {
                     contract = {}
@@ -63,10 +61,8 @@ export const useContractStore = defineStore({
                     const tempabi = whatsabi.abiFromBytecode(bytecode);
                     let ABI = []
                     const signatureReturn = await axios.get(`https://sig.eth.samczsun.com/api/v1/signatures?${qs.stringify({ function: tempabi.filter(function (a) { return a.type == "function" }).map(function (a) { return a.selector }), event: tempabi.filter(function (a) { return a.type == "event" }).map(function (a) { return a.hash }) })}`);
-                    console.log(signatureReturn.data.result)
                     for (const ev of Object.values(signatureReturn.data.result.event)) {
                         if (ev.length > 0) {
-                            console.log(ev)
                             ABI.push("event " + ev[0].name)
                         }
                     }
@@ -118,7 +114,6 @@ export const useContractStore = defineStore({
                         contract.ABI[index].id = functionCount++;
                     }
                 }
-                console.log(contract)
                 this.$state.contracts[address.toLowerCase()] = contract;
             } else {
 
@@ -185,13 +180,11 @@ export const useContractStore = defineStore({
             let block = await web3.getEthers().getBlock(getBlockNumber(blockNumber));
             history.addCall(counter, address, func, callParams, block)
             try {
-                console.log("FROM", from)
                 let res = await ctx[func.name](...callParams, {
                     blockTag: getBlockNumber(blockNumber),
                     from: from,
                     value: value
                 })
-                console.log("RES", res)
                 history.pushCallResult(counter, null, res)
             } catch (e) {
                 history.pushCallResult(counter, JSON.parse(JSON.stringify(e)), null)

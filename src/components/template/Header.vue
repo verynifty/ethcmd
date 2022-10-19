@@ -1,4 +1,5 @@
 <template>
+<div>
   <Popover class="relative bg-white z-10">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div
@@ -374,10 +375,13 @@
       </PopoverPanel>
     </transition>
   </Popover>
+  <ChangeNetwork />
+  </div>
 </template>
 
 <script setup>
 import ConnectButton from "@/components/account/ConnectButton.vue";
+import ChangeNetwork from "@/components/account/ChangeNetwork.vue";
 
  const networkName = process.env.CHAINNAME;
 
