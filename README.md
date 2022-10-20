@@ -6,6 +6,7 @@ Try an hosted version:
 * https://ethcmd.com (Ethereum Mainnet)
 * https://arbitrum.ethcmd.com/
 * https://optimism.ethcmd.com/
+* https://goerli.ethcmd.com/ (Ethereum Goerli testnet)
 
 A tool made by the MuseDAO
 https://twitter.com/NiftyMuseum
