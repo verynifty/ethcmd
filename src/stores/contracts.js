@@ -124,6 +124,7 @@ export const useContractStore = defineStore({
                         contract.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(contract.ABI[index])
                         contract.ABI[index].id = eventCount++;
                     } else if (contract.ABI[index].type != "constructor") {
+                        delete contract.ABI[index].gas
                         contract.ABI[index].id = functionCount++;
                     }
                 }
