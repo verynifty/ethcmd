@@ -54,8 +54,20 @@ export const useContractStore = defineStore({
             if (ABI == null) {
                 let bytecode = await web3.getEthers().getCode(address);
                 // DO something if bytecode is empty
-                // let sContract = await this._loadContractFromSourcify(address);
-                let contract = await this._loadContractFromEtherscan(address);
+                let contract = null;
+                try {
+                    contract = await this._loadContractFromEtherscan(address);
+                } catch (error) {
+                    console.log("Error fetching from Etherscan", error)
+                }
+                if (contract == null) {
+                    try {
+                        contract = await this._loadContractFromSourcify(address);
+                    } catch (error) {
+                        console.log("Error fetching from Sourcify", error)
+                    }
+                }                
+                console.log(contract)
                 if (contract == null) {
                     contract = {}
                     console.log("ETHERSCAN FAILED")
@@ -133,8 +145,14 @@ export const useContractStore = defineStore({
             obj.language = metadata.language;
             obj.optimizationUsed = metadata.settings.optimizer.enabled;
             obj.optimizationRuns = metadata.settings.optimizer.runs;
+            obj.library = metadata.settings.libraries;
+            obj.sourceCode = {sources: {}}
+            for (const file of sourcifyResp.data.files.filter((f) => f.name != "metadata.json")) {
+                obj.sourceCode.sources[file.name] = file;
+            }
             console.log(metadata)
             console.log(obj)
+            return obj
         },
         async _loadContractFromEtherscan(address) {
             let etherscan = process.env.ETHERSCAN_API_KEY;
