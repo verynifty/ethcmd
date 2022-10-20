@@ -171,8 +171,11 @@
         <a
           class="underline text-indigo-300"
           href="https://etherscan.io/"
-          >Etherscan API</a
-        >.
+          >Etherscan</a
+        > and  <a
+          class="underline text-indigo-300"
+          href="https://sourcify.dev/"
+          >Sourcify</a>.
       </div>
     </div>
   </div>
