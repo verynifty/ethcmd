@@ -205,7 +205,7 @@ export const useContractStore = defineStore({
         async callContract(address, func, params, from, blockNumber = "latest", value = "0") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
-            var ctx = await web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
+            var ctx = await web3.getContract(address, [func]);
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
@@ -227,7 +227,7 @@ export const useContractStore = defineStore({
         async sendContract(address, func, params, value = "0") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
-            var ctx = await web3.getContract(address, this.$state.contracts[address.toLowerCase()].ABI);
+            var ctx = await web3.getContract(address, [func]);
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
