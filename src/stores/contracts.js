@@ -187,9 +187,10 @@ export const useContractStore = defineStore({
             obj.library = result.Library
             obj.licenseType = result.LicenseType
             obj.proxy = result.Proxy
-            obj.implementation = result.Implementation
             obj.swarmSource = result.SwarmSource
-            if (obj.implementation != null && obj.implementation != "") {
+            obj.implementation = result.Implementation
+            if (obj.implementation != null && obj.implementation != "" && obj.implementation.toLowerCase() != address) {
+                console.log(obj)
                 console.log("Loading proxy implementation at ", obj.implementation);
                 obj.implementationContract = await this.getContract(obj.implementation);
                 for (const abiFunc of obj.implementationContract.ABI) {

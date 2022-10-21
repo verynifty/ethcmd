@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AddressView from '../views/address/functions.vue'
 import AddressSourceView from '../views/address/sourcecode.vue'
 import AddressInformations from '../views/address/informations.vue'
+import AddressEvents from '../views/address/events.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,6 +17,11 @@ const router = createRouter({
       path: '/address/:address/sourcecode',
       name: 'addresssource',
       component: AddressSourceView
+    },
+    {
+      path: '/address/:address/events',
+      name: 'addressevents',
+      component: AddressEvents
     },
     {
       path: '/address/:address/infos',
