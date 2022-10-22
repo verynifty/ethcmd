@@ -63,7 +63,7 @@
       <ul class="h-full overflow-scroll">
         <li v-for="event in getEvents">
           <div
-            @click="onEventClick(func)"
+            @click="onEventClick(event)"
             :class="[
               'flex items-center p-1 text-s font-light text-white rounded-lg  cursor-pointer	 hover:bg-gray-700',
               event.proxyImplementation == true ? 'text-yellow-100	' : ' ',
@@ -72,8 +72,6 @@
             <span class="mr-1">
               {{ event.id }}
             </span>
-            
-
             <span class="ml-1"> {{ event.name }}</span>
           </div>
         </li>

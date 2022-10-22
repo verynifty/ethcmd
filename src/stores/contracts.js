@@ -34,6 +34,10 @@ export const useContractStore = defineStore({
         }
     },
     actions: {
+        async getABIFromAddress(address) {
+            let ct = await this.getContract(address);
+            return ct.ABI;
+        },
         async guessContract(address) {
             let contract = null;
             address = address.toLowerCase()
@@ -66,7 +70,7 @@ export const useContractStore = defineStore({
                     } catch (error) {
                         console.log("Error fetching from Sourcify", error)
                     }
-                }                
+                }
                 if (contract == null) {
                     contract = {}
                     console.log("ETHERSCAN FAILED")
@@ -146,7 +150,7 @@ export const useContractStore = defineStore({
             obj.optimizationUsed = metadata.settings.optimizer.enabled;
             obj.optimizationRuns = metadata.settings.optimizer.runs;
             obj.library = metadata.settings.libraries;
-            obj.sourceCode = {sources: {}}
+            obj.sourceCode = { sources: {} }
             for (const file of sourcifyResp.data.files.filter((f) => f.name != "metadata.json")) {
                 obj.sourceCode.sources[file.name] = file;
             }
@@ -256,6 +260,26 @@ export const useContractStore = defineStore({
             zip.generateAsync({ type: 'blob' }).then(function (content) {
                 FileSaver.saveAs(content, ct.name + '.zip');
             });
-        }
-    },
+        },
+        async getEvents(address, topic0 = "any") {
+            return this._getEventsFromEtherscan(address, topic0)
+        },
+        async _getEventsFromEtherscan(address, topic0) {
+            let etherscan = process.env.ETHERSCAN_API_KEY;
+            // We try to get it from Etherscan
+            let params = {
+                address: address.toLowerCase(),
+                apikey: etherscan,
+                module: "logs",
+                action: "getLogs"
+            }
+            if (topic0 != "any") {
+                params.topic0 = topic0
+            }
+            let eResp = await axios.get(
+                process.env.ETHERSCAN_API + `/api?${qs.stringify(params)}`
+            );
+            console.log(eResp)
+        },
+    }
 });
