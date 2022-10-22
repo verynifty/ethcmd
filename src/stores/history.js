@@ -58,7 +58,6 @@ export const useHistoryStore = defineStore({
             let index = 0
             for (const e of this.$state.history) {
                 if (e.callCounter == callCounter) {
-                    console.log("FOUND", true)
                     break
                 }
                 index++;
@@ -66,11 +65,9 @@ export const useHistoryStore = defineStore({
             }
             //let index = this.$state.history.findIndex((e) => {e.callCounter == callCounter } )
             if (error) {
-                console.log("ERRRROOOR", error.toString().toString(), error)
                 this.$state.history[index].error = error
             } else {
                 if (Array. isArray(result)) {
-                    console.log("LENGHT", result)
                     this.$state.history[index].result = []
                     for (const i of result) {
                         this.$state.history[index].result.push(i.toString())
