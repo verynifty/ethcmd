@@ -264,6 +264,24 @@ export const useContractStore = defineStore({
         async getEvents(address, topic0 = "any") {
             return this._getEventsFromEtherscan(address, topic0)
         },
+        async getEventsDecoded(address, topic0 = "any") {
+            let events = await this.getEvents(address, topic0);
+            const iface = new ethers.utils.Interface(await this.getABIFromAddress(address));
+            console.log(events)
+            events = events.map(function(log) {
+                let decoded = iface.parseLog(log)
+                console.log(decoded)
+                log.timestamp = parseInt(log.timeStamp);
+                log.blockNumber = parseInt(log.blockNumber);
+                log.name = decoded.name;
+                log.args = [];
+                for (const a of decoded.args) {
+                    log.args.push(a)
+                }
+                return log;
+            });
+            return events;
+        },
         async _getEventsFromEtherscan(address, topic0) {
             let etherscan = process.env.ETHERSCAN_API_KEY;
             // We try to get it from Etherscan
@@ -273,13 +291,14 @@ export const useContractStore = defineStore({
                 module: "logs",
                 action: "getLogs"
             }
-            if (topic0 != "any") {
+            if (topic0 != null && topic0 != "any") {
                 params.topic0 = topic0
             }
             let eResp = await axios.get(
                 process.env.ETHERSCAN_API + `/api?${qs.stringify(params)}`
             );
-            console.log(eResp)
+            // console.log(eResp)
+            return eResp.data.result;
         },
     }
 });
