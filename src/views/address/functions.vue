@@ -37,9 +37,7 @@ import { useContractStore } from "@/stores/contracts";
 let contracts = useContractStore();
 console.log(contracts);
 await contracts.getContract(address);
-console.log("OK", contracts.$state.contracts);
 contract.value = contracts.$state.contracts[address];
-console.log(contract);
 function onFuncSelected(func) {
   currentFunction.value = unref(func);
 }

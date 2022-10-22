@@ -67,7 +67,6 @@ export const useContractStore = defineStore({
                         console.log("Error fetching from Sourcify", error)
                     }
                 }                
-                console.log(contract)
                 if (contract == null) {
                     contract = {}
                     console.log("ETHERSCAN FAILED")

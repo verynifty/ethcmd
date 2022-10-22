@@ -96,7 +96,10 @@ import ValueDisplay from "@/components/common/valuedisplay.vue";
 
 import { useHistoryStore } from "@/stores/history";
 let history = useHistoryStore();
-console.log("HISTORY", history.contractHistory);
 
 const props = defineProps(["address"]);
+console.log("HISTORY", history.contractHistory(props.address))
+for (const i of history.contractHistory(props.address)) {
+  console.log(i)
+}
 </script>
