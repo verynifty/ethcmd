@@ -1,7 +1,6 @@
 <template>
   <div class="overflow-hidden bg-white">
     <div v-if="event != null">
-      {{ event }} {{ address }}
       <div class="overflow-hidden bg-white shadow sm:rounded-md">
         <ul role="list" class="divide-y divide-gray-200">
           <li v-for="ev in events">
@@ -29,39 +28,16 @@
                   </div>
                 </div>
                 <div class="mt-2 sm:flex sm:justify-between">
-                  <div class="sm:flex">
-                    <p class="flex items-center text-sm text-gray-500">
-                      <UsersIcon
-                        class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {{ ev.department }}
-                    </p>
-                    <p
-                      class="
-                        mt-2
-                        flex
-                        items-center
-                        text-sm text-gray-500
-                        sm:mt-0 sm:ml-6
-                      "
-                    >
-                      <MapPinIcon
-                        class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                        aria-hidden="true"
-                      />
-                      {{ ev.location }}
-                    </p>
+                  <div>
+                    <div v-for="a in ev.args">
+                      {{ a }}
+                    </div>
                   </div>
                   <div
                     class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0"
                   >
-                    <CalendarIcon
-                      class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                      aria-hidden="true"
-                    />
                     <p>
-                      @{{ ev.c }}
+                      @{{ ev.blockNumber }}
                       <timeago
                         class="ml-1"
                         :autoUpdate="30"
@@ -94,7 +70,10 @@ const props = defineProps(["event", "address"]);
 let events = ref([]);
 
 async function getEvents() {
-  events.value = await contracts.getEventsDecoded(props.address, props.event.signature);
+  events.value = await contracts.getEventsDecoded(
+    props.address,
+    props.event.signature
+  );
   console.log(events.value);
 }
 
