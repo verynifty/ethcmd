@@ -45,7 +45,14 @@ export const useContractStore = defineStore({
                 contract = await this.getContract(address)
                 return contract;
             }
-
+        },
+        async getContractEvents(address) {
+            let ct = await this.getContract(address);
+            let res = {}
+            for (const e of ct.ABI.filter((i) => { i.type == "event" })) {
+                res[e.signature] = e;
+            }
+            return res;
         },
         async getContract(address, ABI) {
             if (this.$state.contracts[address.toLowerCase()] != null) {
