@@ -49,7 +49,8 @@ export const useContractStore = defineStore({
         async getContractEvents(address) {
             let ct = await this.getContract(address);
             let res = {}
-            for (const e of ct.ABI.filter((i) => { i.type == "event" })) {
+            console.log( ct.ABI)
+            for (const e of ct.ABI.filter((i) => { return i.type == "event" })) {
                 res[e.signature] = e;
             }
             return res;

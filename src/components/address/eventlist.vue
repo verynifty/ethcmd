@@ -29,8 +29,12 @@
                 </div>
                 <div class="mt-2 sm:flex sm:justify-between">
                   <div>
-                    <div v-for="a in ev.args">
-                      {{ a }}
+                    <div v-for="(a, index) in ev.args">
+                      <ValueDisplay
+                        :name="contractEvents[ev.topics[0]].inputs[index].name"
+                        :type="contractEvents[ev.topics[0]].inputs[index].type"
+                        :value="a"
+                      />
                     </div>
                   </div>
                   <div
@@ -56,7 +60,7 @@
 </template>
 
 <script setup>
-import { CalendarIcon, MapPinIcon, UsersIcon } from "@heroicons/vue/20/solid";
+import ValueDisplay from "@/components/common/valuedisplay.vue";
 
 import { watch, ref } from "vue";
 import { useContractStore } from "@/stores/contracts";
@@ -67,6 +71,8 @@ const web3 = useWeb3Store();
 
 const props = defineProps(["event", "address"]);
 
+let contractEvents = await contracts.getContractEvents(props.address);
+console.log(contractEvents);
 let events = ref([]);
 
 async function getEvents() {
