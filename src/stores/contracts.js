@@ -304,7 +304,7 @@ export const useContractStore = defineStore({
                     apikey: etherscan,
                     module: "logs",
                     action: "getLogs",
-                    offset: perPage,
+                   // offset: perPage,
                     page: counter
                 }
                 if (topic0 != null && topic0 != "any") {
