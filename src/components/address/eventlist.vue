@@ -3,7 +3,7 @@
     <div v-if="event != null">
       <div class="overflow-hidden bg-white shadow sm:rounded-md">
         <ul role="list" class="divide-y divide-gray-200">
-          <li v-for="ev in events">
+          <li v-for="ev in getPaginateEvents()">
             <a href="#" class="block hover:bg-gray-50">
               <div class="px-4 py-4 sm:px-6">
                 <div class="flex items-center justify-between">
@@ -55,6 +55,13 @@
           </li>
         </ul>
       </div>
+      <vue-awesome-paginate
+        :total-items="events.length"
+        :items-per-page="perPage"
+        :max-pages-shown="5"
+        :current-page="currentPage"
+        :on-click="pageClick"
+      />
     </div>
   </div>
 </template>
@@ -68,11 +75,12 @@ import { useWeb3Store } from "@/stores/web3";
 
 let contracts = useContractStore();
 const web3 = useWeb3Store();
+const currentPage = ref(1)
+const perPage = ref(50)
 
 const props = defineProps(["event", "address"]);
 
 let contractEvents = await contracts.getContractEvents(props.address);
-console.log(contractEvents);
 let events = ref([]);
 
 async function getEvents() {
@@ -80,7 +88,18 @@ async function getEvents() {
     props.address,
     props.event.signature
   );
-  console.log(events.value);
+}
+
+function pageClick(page) {
+    console.log("PageClick", page)
+    currentPage.value = page;
+}
+
+function getPaginateEvents() {
+    let temp = events.value.sort(function (b, a) {
+        return a.blockNumber - b.blockNumber
+    })
+    return (events.value.slice((currentPage.value - 1) * perPage.value, (currentPage.value) * perPage.value))
 }
 
 watch(
@@ -90,3 +109,30 @@ watch(
   }
 );
 </script>
+
+<style>
+ .pagination-container {
+    display: flex;
+    column-gap: 10px;
+  }
+  .paginate-buttons {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgb(242, 242, 242);
+    border: 1px solid rgb(217, 217, 217);
+    color: black;
+  }
+  .paginate-buttons:hover {
+    background-color: #d8d8d8;
+  }
+  .active-page {
+    background-color: #3498db;
+    border: 1px solid #3498db;
+    color: white;
+  }
+  .active-page:hover {
+    background-color: #2988c8;
+  }
+</style>
