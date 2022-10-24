@@ -294,7 +294,7 @@ export const useContractStore = defineStore({
         },
         async _getEventsFromEtherscan(address, topic0) {
             let counter = 1;
-            const perPage = 1000;
+            const perPage = 10000;
             let etherscan = process.env.ETHERSCAN_API_KEY;
             let result = [];
             while (true) {
@@ -304,7 +304,7 @@ export const useContractStore = defineStore({
                     apikey: etherscan,
                     module: "logs",
                     action: "getLogs",
-                   // offset: perPage,
+                    offset: perPage,
                     page: counter
                 }
                 if (topic0 != null && topic0 != "any") {
