@@ -143,5 +143,10 @@ let tabs = [
     name: "Infos",
     href: "/address/" + props.contract.address + "/infos",
   },
+    {
+    id: "events",
+    name: "Events",
+    href: "/address/" + props.contract.address + "/events",
+  },
 ];
 </script>

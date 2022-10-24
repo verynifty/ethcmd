@@ -34,6 +34,10 @@ export const useContractStore = defineStore({
         }
     },
     actions: {
+        async getABIFromAddress(address) {
+            let ct = await this.getContract(address);
+            return ct.ABI;
+        },
         async guessContract(address) {
             let contract = null;
             address = address.toLowerCase()
@@ -41,7 +45,15 @@ export const useContractStore = defineStore({
                 contract = await this.getContract(address)
                 return contract;
             }
-
+        },
+        async getContractEvents(address) {
+            let ct = await this.getContract(address);
+            let res = {}
+            console.log(ct.ABI)
+            for (const e of ct.ABI.filter((i) => { return i.type == "event" })) {
+                res[e.signature] = e;
+            }
+            return res;
         },
         async getContract(address, ABI) {
             if (this.$state.contracts[address.toLowerCase()] != null) {
@@ -66,8 +78,7 @@ export const useContractStore = defineStore({
                     } catch (error) {
                         console.log("Error fetching from Sourcify", error)
                     }
-                }                
-                console.log(contract)
+                }
                 if (contract == null) {
                     contract = {}
                     console.log("ETHERSCAN FAILED")
@@ -147,7 +158,7 @@ export const useContractStore = defineStore({
             obj.optimizationUsed = metadata.settings.optimizer.enabled;
             obj.optimizationRuns = metadata.settings.optimizer.runs;
             obj.library = metadata.settings.libraries;
-            obj.sourceCode = {sources: {}}
+            obj.sourceCode = { sources: {} }
             for (const file of sourcifyResp.data.files.filter((f) => f.name != "metadata.json")) {
                 obj.sourceCode.sources[file.name] = file;
             }
@@ -187,9 +198,10 @@ export const useContractStore = defineStore({
             obj.library = result.Library
             obj.licenseType = result.LicenseType
             obj.proxy = result.Proxy
-            obj.implementation = result.Implementation
             obj.swarmSource = result.SwarmSource
-            if (obj.implementation != null && obj.implementation != "") {
+            obj.implementation = result.Implementation
+            if (obj.implementation != null && obj.implementation != "" && obj.implementation.toLowerCase() != address) {
+                console.log(obj)
                 console.log("Loading proxy implementation at ", obj.implementation);
                 obj.implementationContract = await this.getContract(obj.implementation);
                 for (const abiFunc of obj.implementationContract.ABI) {
@@ -256,6 +268,58 @@ export const useContractStore = defineStore({
             zip.generateAsync({ type: 'blob' }).then(function (content) {
                 FileSaver.saveAs(content, ct.name + '.zip');
             });
-        }
-    },
+        },
+        async getEvents(address, topic0 = "any") {
+            return this._getEventsFromEtherscan(address, topic0)
+        },
+        async getEventsDecoded(address, topic0 = "any") {
+            let events = await this.getEvents(address, topic0);
+            const iface = new ethers.utils.Interface(await this.getABIFromAddress(address));
+            console.log(events)
+            console.log("START")
+
+            events = events.map(function (log) {
+                let decoded = iface.parseLog(log)
+                log.timestamp = parseInt(log.timeStamp);
+                log.blockNumber = parseInt(log.blockNumber);
+                log.name = decoded.name;
+                log.args = [];
+                for (const a of decoded.args) {
+                    log.args.push(a)
+                }
+                return log;
+            });
+            console.log("ENDMAPPING")
+            return events;
+        },
+        async _getEventsFromEtherscan(address, topic0) {
+            let counter = 1;
+            const perPage = 10000;
+            let etherscan = process.env.ETHERSCAN_API_KEY;
+            let result = [];
+            while (true) {
+                // We try to get it from Etherscan
+                let params = {
+                    address: address.toLowerCase(),
+                    apikey: etherscan,
+                    module: "logs",
+                    action: "getLogs",
+                    offset: perPage,
+                    page: counter
+                }
+                if (topic0 != null && topic0 != "any") {
+                    params.topic0 = topic0
+                }
+                let eResp = await axios.get(
+                    process.env.ETHERSCAN_API + `/api?${qs.stringify(params)}`
+                );
+                result = result.concat(eResp.data.result)
+                counter++;
+                if (eResp.data.result.length != perPage) {
+                    break;
+                }
+            }
+            return result;
+        },
+    }
 });

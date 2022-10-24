@@ -19,6 +19,13 @@ app.component("v-ace-editor", VAceEditor)
 import JsonViewer from 'vue-json-viewer'
 app.use(JsonViewer)
 
+// import the package
+import VueAwesomePaginate from "vue-awesome-paginate";
+
+// import the necessary css file
+import "vue-awesome-paginate/dist/style.css";
+app.use(VueAwesomePaginate)
+
 app.use(createPinia())
 app.use(timeago)
 

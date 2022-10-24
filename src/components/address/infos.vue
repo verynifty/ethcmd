@@ -108,5 +108,4 @@ const props = defineProps(["contract"]);
 import { useContractStore } from "@/stores/contracts";
 let contracts = useContractStore();
 
-let expan
 </script>
