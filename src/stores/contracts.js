@@ -49,7 +49,7 @@ export const useContractStore = defineStore({
         async getContractEvents(address) {
             let ct = await this.getContract(address);
             let res = {}
-            console.log( ct.ABI)
+            console.log(ct.ABI)
             for (const e of ct.ABI.filter((i) => { return i.type == "event" })) {
                 res[e.signature] = e;
             }
@@ -276,9 +276,10 @@ export const useContractStore = defineStore({
             let events = await this.getEvents(address, topic0);
             const iface = new ethers.utils.Interface(await this.getABIFromAddress(address));
             console.log(events)
-            events = events.map(function(log) {
+            console.log("START")
+
+            events = events.map(function (log) {
                 let decoded = iface.parseLog(log)
-                console.log(decoded)
                 log.timestamp = parseInt(log.timeStamp);
                 log.blockNumber = parseInt(log.blockNumber);
                 log.name = decoded.name;
@@ -288,25 +289,37 @@ export const useContractStore = defineStore({
                 }
                 return log;
             });
+            console.log("ENDMAPPING")
             return events;
         },
         async _getEventsFromEtherscan(address, topic0) {
+            let counter = 1;
+            const perPage = 10000;
             let etherscan = process.env.ETHERSCAN_API_KEY;
-            // We try to get it from Etherscan
-            let params = {
-                address: address.toLowerCase(),
-                apikey: etherscan,
-                module: "logs",
-                action: "getLogs"
+            let result = [];
+            while (true) {
+                // We try to get it from Etherscan
+                let params = {
+                    address: address.toLowerCase(),
+                    apikey: etherscan,
+                    module: "logs",
+                    action: "getLogs",
+                    offset: perPage,
+                    page: counter
+                }
+                if (topic0 != null && topic0 != "any") {
+                    params.topic0 = topic0
+                }
+                let eResp = await axios.get(
+                    process.env.ETHERSCAN_API + `/api?${qs.stringify(params)}`
+                );
+                result = result.concat(eResp.data.result)
+                counter++;
+                if (eResp.data.result.length != perPage) {
+                    break;
+                }
             }
-            if (topic0 != null && topic0 != "any") {
-                params.topic0 = topic0
-            }
-            let eResp = await axios.get(
-                process.env.ETHERSCAN_API + `/api?${qs.stringify(params)}`
-            );
-            // console.log(eResp)
-            return eResp.data.result;
+            return result;
         },
     }
 });
