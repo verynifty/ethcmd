@@ -1,6 +1,12 @@
 <template>
   <div class="overflow-hidden bg-white">
-    <div v-if="event != null">
+    <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+        <h3 class="text-m font-medium leading-3 text-gray-900">{{event.name != null ? event.name : "All events"}} ({{events.length}})</h3>
+    </div>
+    <div v-if="isLoading">
+      <Loader class="pt-20 pb-20" />
+      </div>
+    <div v-if="!isLoading && event != null">
       <div class="overflow-hidden bg-white shadow sm:rounded-md">
         <ul role="list" class="divide-y divide-gray-200">
           <li v-for="ev in getPaginateEvents()">
@@ -50,7 +56,7 @@
           </li>
         </ul>
       </div>
-<center v-if="events.length > perPage">
+<div v-if="events.length > perPage">
       <vue-awesome-paginate
       class="mt-5 "
         :total-items="events.length"
@@ -59,13 +65,14 @@
         :current-page="currentPage"
         :on-click="pageClick"
       />
-</center>
+</div>
     </div>
   </div>
 </template>
 
 <script setup>
 import ValueDisplay from "@/components/common/valuedisplay.vue";
+import Loader from "@/components/template/Loader.vue";
 
 import { watch, ref } from "vue";
 import { useContractStore } from "@/stores/contracts";
@@ -75,6 +82,7 @@ let contracts = useContractStore();
 const web3 = useWeb3Store();
 const currentPage = ref(1);
 const perPage = ref(50);
+const isLoading = ref(true);
 
 const props = defineProps(["event", "address"]);
 
@@ -82,10 +90,12 @@ let contractEvents = await contracts.getContractEvents(props.address);
 let events = ref([]);
 
 async function getEvents() {
+    isLoading.value = true;
   events.value = await contracts.getEventsDecoded(
     props.address,
     props.event.signature
   );
+  isLoading.value = false;
 }
 
 function pageClick(page) {
