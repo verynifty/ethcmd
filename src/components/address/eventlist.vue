@@ -106,6 +106,8 @@ watch(
     await getEvents();
   }
 );
+
+getEvents();
 </script>
 
 <style>

@@ -32,6 +32,7 @@ await contracts.getContract(address);
 contract.value = contracts.$state.contracts[address];
 
 function onEventSelected(event) {
+    console.log("ON EVENT SLECTED", event)
   currentEvent.value = unref(event);
 }
 </script>

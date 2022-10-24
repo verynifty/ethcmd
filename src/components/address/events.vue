@@ -113,7 +113,6 @@ async function onEventClick(event) {
     path: router.currentRoute.value.path,
     query: { log0: event.signature },
   });
-  console.log("ONCLICK");
   selected.value = event;
   emit("selected", event);
 }
@@ -133,10 +132,10 @@ function getEventById(id) {
 let queryFunc = route.query.function;
 console.log(queryFunc);
 if (queryFunc != null) {
-  queryFunc = parseInt(queryFunc);
+  queryFunc = (queryFunc);
 } else {
-  queryFunc = 1;
+  queryFunc = "any";
 }
 
-onEventClick(getEventById(queryFunc));
+onEventClick({signature: queryFunc});
 </script>
