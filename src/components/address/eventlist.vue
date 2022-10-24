@@ -15,19 +15,25 @@
                       class="
                         inline-flex
                         rounded-full
-                        bg-green-100
                         px-2
                         text-xs
                         font-semibold
                         leading-5
-                        text-green-800
                       "
                     >
-                      {{ ev.signature }}
+
+                    <p>
+                      @{{ ev.blockNumber }}
+                      <timeago
+                        class="ml-1"
+                        :autoUpdate="30"
+                        :datetime="ev.timestamp * 1000"
+                      />
+                    </p>
                     </p>
                   </div>
                 </div>
-                <div class="mt-2 sm:flex sm:justify-between">
+                <div class="mt-2 w-full">
                   <div>
                     <div v-for="(a, index) in ev.args">
                       <ValueDisplay
@@ -37,18 +43,7 @@
                       />
                     </div>
                   </div>
-                  <div
-                    class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0"
-                  >
-                    <p>
-                      @{{ ev.blockNumber }}
-                      <timeago
-                        class="ml-1"
-                        :autoUpdate="30"
-                        :datetime="ev.timestamp * 1000"
-                      />
-                    </p>
-                  </div>
+                 
                 </div>
               </div>
             </a>
@@ -75,8 +70,8 @@ import { useWeb3Store } from "@/stores/web3";
 
 let contracts = useContractStore();
 const web3 = useWeb3Store();
-const currentPage = ref(1)
-const perPage = ref(50)
+const currentPage = ref(1);
+const perPage = ref(50);
 
 const props = defineProps(["event", "address"]);
 
@@ -91,15 +86,18 @@ async function getEvents() {
 }
 
 function pageClick(page) {
-    console.log("PageClick", page)
-    currentPage.value = page;
+  console.log("PageClick", page);
+  currentPage.value = page;
 }
 
 function getPaginateEvents() {
-    let temp = events.value.sort(function (b, a) {
-        return a.blockNumber - b.blockNumber
-    })
-    return (events.value.slice((currentPage.value - 1) * perPage.value, (currentPage.value) * perPage.value))
+  let temp = events.value.sort(function (b, a) {
+    return a.blockNumber - b.blockNumber;
+  });
+  return events.value.slice(
+    (currentPage.value - 1) * perPage.value,
+    currentPage.value * perPage.value
+  );
 }
 
 watch(
@@ -111,28 +109,28 @@ watch(
 </script>
 
 <style>
- .pagination-container {
-    display: flex;
-    column-gap: 10px;
-  }
-  .paginate-buttons {
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    cursor: pointer;
-    background-color: rgb(242, 242, 242);
-    border: 1px solid rgb(217, 217, 217);
-    color: black;
-  }
-  .paginate-buttons:hover {
-    background-color: #d8d8d8;
-  }
-  .active-page {
-    background-color: #3498db;
-    border: 1px solid #3498db;
-    color: white;
-  }
-  .active-page:hover {
-    background-color: #2988c8;
-  }
+.pagination-container {
+  display: flex;
+  column-gap: 10px;
+}
+.paginate-buttons {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: rgb(242, 242, 242);
+  border: 1px solid rgb(217, 217, 217);
+  color: black;
+}
+.paginate-buttons:hover {
+  background-color: #d8d8d8;
+}
+.active-page {
+  background-color: #3498db;
+  border: 1px solid #3498db;
+  color: white;
+}
+.active-page:hover {
+  background-color: #2988c8;
+}
 </style>
