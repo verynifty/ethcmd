@@ -294,7 +294,7 @@ export const useContractStore = defineStore({
         },
         async _getEventsFromEtherscan(address, topic0) {
             let counter = 1;
-            const perPage = 10000;
+            const perPage = 1000;
             let etherscan = process.env.ETHERSCAN_API_KEY;
             let result = [];
             while (true) {
