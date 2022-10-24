@@ -50,13 +50,16 @@
           </li>
         </ul>
       </div>
+<center v-if="events.length > perPage">
       <vue-awesome-paginate
+      class="mt-5 "
         :total-items="events.length"
         :items-per-page="perPage"
         :max-pages-shown="5"
         :current-page="currentPage"
         :on-click="pageClick"
       />
+</center>
     </div>
   </div>
 </template>

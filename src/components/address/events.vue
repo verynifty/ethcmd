@@ -61,6 +61,16 @@
       </div>
 
       <ul class="h-full overflow-scroll">
+          <li>
+                <div
+            @click="onEventClick({signature: any})"
+            :class="[
+              'flex items-center p-1 text-s font-light text-white rounded-lg  cursor-pointer	 hover:bg-gray-700'
+            ]"
+          >
+            <span class="ml-1"> All events</span>
+          </div>
+        </li>
         <li v-for="event in getEvents">
           <div
             @click="onEventClick(event)"
