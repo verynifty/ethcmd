@@ -29,12 +29,8 @@
                     >
 
                     <p>
-                      @{{ ev.blockNumber }}
-                      <timeago
-                        class="ml-1"
-                        :autoUpdate="30"
-                        :datetime="ev.timestamp * 1000"
-                      />
+                        <timeBlockDisplay :blockNumber="ev.blockNumber" :timestamp="ev.timestamp" />
+                     
                     </p>
                     </p>
                   </div>
@@ -72,6 +68,8 @@
 
 <script setup>
 import ValueDisplay from "@/components/common/valuedisplay.vue";
+import timeBlockDisplay from "@/components/common/timeBlockDisplay.vue";
+
 import Loader from "@/components/template/Loader.vue";
 
 import { watch, ref } from "vue";

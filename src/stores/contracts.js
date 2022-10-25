@@ -282,6 +282,8 @@ export const useContractStore = defineStore({
                 let decoded = iface.parseLog(log)
                 if (log.timeStamp) {
                     log.timestamp = parseInt(log.timeStamp);
+                } else {
+                    log.timestamp = 0;
                 }
                 log.blockNumber = parseInt(log.blockNumber);
                 log.name = decoded.name;
