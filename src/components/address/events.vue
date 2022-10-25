@@ -139,13 +139,13 @@ function getEventById(id) {
   };
 }
 
-let queryFunc = route.query.function;
-console.log(queryFunc);
-if (queryFunc != null) {
-  queryFunc = (queryFunc);
+let log0 = route.query.log0;
+console.log(log0);
+if (log0 != null) {
+  log0 = (log0);
 } else {
-  queryFunc = "any";
+  log0 = "any";
 }
 
-onEventClick({signature: queryFunc});
+onEventClick({signature: log0});
 </script>

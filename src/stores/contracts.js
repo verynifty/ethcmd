@@ -325,22 +325,41 @@ export const useContractStore = defineStore({
             }
             return result;
         },
-        async _getEventsFromEthersJS(address, topic0) {
-            const web3 = useWeb3Store();
-            const ethersInstance = web3.getEthers();
-            let filter = {
-                fromBlock: 0,
-                address: address,
-                topics: [
-                ]
-            };
-            if (topic0 != null && topic0 != "any") {
-                filter.topics.push(topic0);
+        async _getEventsFromEthersJS(address, topics, fromBlock = 0, toBlock = "latest") {
+            console.log("fetch events", fromBlock, toBlock)
+                const web3 = useWeb3Store();
+                const ethersInstance = web3.getEthers();
+            try {
+                let filter = {
+                    fromBlock: fromBlock,
+                    toBlock: toBlock,
+                    address: address,
+                    topics: topics
+                };
+                console.log(filter)
+                let result = await ethersInstance.getLogs(filter)
+                console.log("LOGS RESULT", result)
+                return result;
+            } catch (error) {
+                console.log("error", error)
+                let newToBlock =
+                    toBlock == "latest" ? await ethersInstance.getBlockNumber("latest") : toBlock;
+                const result = await Promise.all([
+                    this._getEventsFromEthersJS(
+                        address,
+                        topics,
+                        fromBlock,
+                        fromBlock + parseInt((newToBlock - fromBlock) / 2)
+                    ),
+                    this._getEventsFromEthersJS(
+                        address,
+                        topics,
+                        fromBlock + parseInt((newToBlock - fromBlock) / 2) + 1,
+                        newToBlock
+                    ),
+                ]);
+                return([...result[0], ...result[1]]);
             }
-            console.log(filter)
-            let result = await ethersInstance.getLogs(filter)
-            console.log("LOGS RESULT", result)
-            return result;
         },
     }
 });

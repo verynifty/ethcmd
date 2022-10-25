@@ -1,10 +1,10 @@
 <template>
   <div class="overflow-hidden bg-white">
     <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-        <h3 class="text-m font-medium leading-3 text-gray-900">{{event.name != null ? event.name : "All events"}} ({{events.length}})</h3>
+        <h3 class="text-m font-medium leading-3 text-gray-900">{{event.name != null ? event.name : "All events"}} <span v-if="!isLoading">({{events.length}})</span></h3>
     </div>
     <div v-if="isLoading">
-      <Loader class="pt-20 pb-20" />
+      <Loader message="Loading events.. It may take a while or crash your browser if the contract has a lot of usage." class="pt-20 pb-20" />
       </div>
     <div v-if="!isLoading && event != null">
       <div class="overflow-hidden bg-white shadow sm:rounded-md">
@@ -29,8 +29,7 @@
                     >
 
                     <p>
-                        <timeBlockDisplay :blockNumber="ev.blockNumber" :timestamp="ev.timestamp" />
-                     
+                    <timeBlockDisplay :blockNumber="ev.blockNumber" :timestamp="ev.timestamp" />
                     </p>
                     </p>
                   </div>
@@ -88,11 +87,10 @@ let contractEvents = await contracts.getContractEvents(props.address);
 let events = ref([]);
 
 async function getEvents() {
-    isLoading.value = true;
-  events.value = await contracts.getEventsDecoded(
-    props.address,
-    props.event.signature
-  );
+  isLoading.value = true;
+  events.value = await contracts.getEventsDecoded(props.address, [
+    props.event.signature != "any" ? props.event.signature : null,
+  ]);
   isLoading.value = false;
 }
 
