@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 import { whatsabi } from "@shazow/whatsabi";
 import axios from 'axios';
 import qs from 'querystring';
-import JSZip from 'jszip';
+import JSZip, { filter } from 'jszip';
 import FileSaver from 'file-saver';
 import { createReturnStatement } from "@vue/compiler-core";
 
@@ -270,7 +270,7 @@ export const useContractStore = defineStore({
             });
         },
         async getEvents(address, topic0 = "any") {
-            return this._getEventsFromEtherscan(address, topic0)
+            return this._getEventsFromEthersJS(address, topic0)
         },
         async getEventsDecoded(address, topic0 = "any") {
             let events = await this.getEvents(address, topic0);
@@ -280,7 +280,9 @@ export const useContractStore = defineStore({
 
             events = events.map(function (log) {
                 let decoded = iface.parseLog(log)
-                log.timestamp = parseInt(log.timeStamp);
+                if (log.timeStamp) {
+                    log.timestamp = parseInt(log.timeStamp);
+                }
                 log.blockNumber = parseInt(log.blockNumber);
                 log.name = decoded.name;
                 log.args = [];
@@ -319,6 +321,23 @@ export const useContractStore = defineStore({
                     break;
                 }
             }
+            return result;
+        },
+        async _getEventsFromEthersJS(address, topic0) {
+            const web3 = useWeb3Store();
+            const ethersInstance = web3.getEthers();
+            let filter = {
+                fromBlock: 0,
+                address: address,
+                topics: [
+                ]
+            };
+            if (topic0 != null && topic0 != "any") {
+                filter.topics.push(topic0);
+            }
+            console.log(filter)
+            let result = await ethersInstance.getLogs(filter)
+            console.log("LOGS RESULT", result)
             return result;
         },
     }
