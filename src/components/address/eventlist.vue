@@ -1,8 +1,16 @@
 <template>
   <div class="overflow-hidden bg-white">
-    <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+      <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+    <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
+      <div class="ml-4 mt-2">
         <h3 class="text-m font-medium leading-3 text-gray-900">{{event.name != null ? event.name : "All events"}} <span v-if="!isLoading">({{events.length}})</span></h3>
+      </div>
+      <div class="ml-4 mt-2 flex-shrink-0">
+        <button @click="exportToCSV" v-if="!isLoading && events.length > 0" type="button" class="relative inline-flex items-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-gray shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2">CSV export</button>
+      </div>
     </div>
+  </div>
+
     <div v-if="isLoading">
       <Loader message="Loading events.. It may take a while or crash your browser if the contract has a lot of usage." class="pt-20 pb-20" />
       </div>
@@ -71,9 +79,11 @@ import timeBlockDisplay from "@/components/common/timeBlockDisplay.vue";
 
 import Loader from "@/components/template/Loader.vue";
 
-import { watch, ref } from "vue";
+import { watch, ref, toRaw } from "vue";
 import { useContractStore } from "@/stores/contracts";
 import { useWeb3Store } from "@/stores/web3";
+
+import { ExportToCsv } from "export-to-csv";
 
 let contracts = useContractStore();
 const web3 = useWeb3Store();
@@ -107,6 +117,35 @@ function getPaginateEvents() {
     (currentPage.value - 1) * perPage.value,
     currentPage.value * perPage.value
   );
+}
+
+function exportToCSV() {
+  let tmp = [].concat(events.value);
+  tmp = tmp.map(function (e) {
+    e = toRaw(e);
+    let argCounter = 0;
+    for (const a of e.args) {
+      e["argument_" + argCounter++] = a;
+    }
+    delete e.args;
+    delete e.topics;
+    delete e.removed;
+    return e;
+  });
+  const options = {
+    fieldSeparator: ",",
+    quoteStrings: '"',
+    decimalSeparator: ".",
+    showLabels: true,
+    showTitle: true,
+    title: "My Awesome CSV",
+    useTextFile: false,
+    useBom: true,
+    useKeysAsHeaders: true,
+  };
+
+  const csvExporter = new ExportToCsv(options);
+  csvExporter.generateCsv(tmp);
 }
 
 watch(

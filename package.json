@@ -16,6 +16,7 @@
     "axios": "^0.27.2",
     "dotenv": "^16.0.3",
     "ethers": "^5.7.1",
+    "export-to-csv": "^0.2.1",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.1",
     "pinia": "^2.0.21",
