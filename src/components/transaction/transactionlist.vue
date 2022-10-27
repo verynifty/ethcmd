@@ -5,7 +5,7 @@
         <h1 class="text-xl font-semibold text-gray-900">Transactions</h1>
       </div>
       <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-        <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add user</button>
+        <button @click="exportToCSV" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Export as CSV</button>
       </div>
     </div>
     <div class="mt-8 flex flex-col">
@@ -36,9 +36,44 @@
 </template>
 
 <script setup>
+import { ExportToCsv } from "export-to-csv";
+import { watch, ref, toRaw, unref } from "vue";
+
 import AddressDisplay from "@/components/common/addressdisplay.vue";
 import TransactionHashDisplay from "@/components/common/transactionhashdisplay.vue";
 
 const props = defineProps(["transactions"]);
 
+function exportToCSV() {
+  const options = {
+    fieldSeparator: ",",
+    quoteStrings: '"',
+    decimalSeparator: ".",
+    showLabels: true,
+    showTitle: false,
+    filename: "transaction_list",
+    useTextFile: false,
+    useBom: true,
+    useKeysAsHeaders: true,
+  };
+
+  const csvExporter = new ExportToCsv(options);
+  csvExporter.generateCsv(toRaw(props.transactions).map(function(r) {
+      return {
+          blockNumber: r.blockNumber,
+          hash: r.hash,
+          transactionIndex: r.transactionIndex,
+          confirmations: r.confirmations,
+          from: r.from,
+          to: r.to,
+          gasPrice: r.gasPrice,
+          gasLimit: r.gasLimit,
+          value: r.value,
+          nonce: r.nonce,
+          data: r.data,
+          chainId: r.chainId,
+          creates: r.creates
+      }
+  }));
+}
 </script>
