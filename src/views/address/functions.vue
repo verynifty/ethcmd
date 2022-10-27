@@ -18,7 +18,7 @@
   </div>
 </template>
 <script setup>
-console.log("ADDRESS INIT ");
+
 import AddressHeader from "@/components/address/header.vue";
 import AddressFunctions from "@/components/address/functions.vue";
 import AddressFunctionCall from "@/components/address/functioncall.vue";

@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AddressView from '../views/address/functions.vue'
+import BlockView from '../views/block/index.vue'
+
 import AddressSourceView from '../views/address/sourcecode.vue'
 import AddressInformations from '../views/address/informations.vue'
 import AddressEvents from '../views/address/events.vue'
@@ -32,6 +34,11 @@ const router = createRouter({
       path: '/address/:address/',
       name: 'address',
       component: AddressView
+    },
+    {
+      path: '/block/:blocknumber/',
+      name: 'block',
+      component: BlockView
     },
     {
       path: '/about',

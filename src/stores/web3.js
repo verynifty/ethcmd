@@ -42,7 +42,13 @@ export const useWeb3Store = defineStore({
         }
     },
     actions: {
-        getEthers: function () {
+        async getEthersAndConnect() {
+            if (this.ethers == null) {
+                await this.setWeb3({ tryFromCache: true })
+            }
+            return (toRaw(this.ethers))
+        },
+        getEthers() {
             return (toRaw(this.ethers))
         },
         async setWeb3(opt = {}) {
@@ -70,7 +76,7 @@ export const useWeb3Store = defineStore({
             }
             this.chainId = (await this.getEthers().getNetwork()).chainId
         },
-        async chainChangedCallback(chainId)  {
+        async chainChangedCallback(chainId) {
             try {
                 console.log("chainChanged", parseInt(chainId));
                 this.connect();
