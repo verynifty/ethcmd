@@ -1,5 +1,6 @@
 <template>
-  {{ format() }}
+<router-link :to="{ name: 'transaction', params: { hash: value }}">{{ format() }}</router-link>
+  
 </template>
 
 <script setup>
