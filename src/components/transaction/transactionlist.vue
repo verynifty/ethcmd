@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="px-4 sm:px-6 lg:px-8">
+    <div class="">
       <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-          <h1 class="text-xl font-semibold text-gray-900">Transactions</h1>
+          <h1 class="text-xl font-semibold text-gray-900">Transactions <span v-if="transactions.length > 0">({{transactions.length}})</span></h1>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <button

@@ -1,21 +1,46 @@
 <template>
-  <div class="block  h-full overflow-scroll">
-        <div class="lg:flex lg:items-center lg:justify-between">
-    <div class="min-w-0 flex-1">
-      <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Block #{{block.number}}</h2>
-      <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-
-        <div class="mt-2 flex items-center text-sm text-gray-500">
-          <ClockIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-        <timeago class="ml-1" :autoUpdate="30" :datetime="block.timestamp * 1000" />
-        </div>
-        <div class="mt-2 flex items-center text-sm text-gray-500">
-          <CalendarIcon class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-            <timeago class="ml-1" :autoUpdate="30" :datetime="block.timestamp * 1000" />
+  <div class="block h-full overflow-scroll  py-4 px-4 sm:px-6 lg:px-8">
+    <div class="lg:flex lg:items-center lg:justify-between pb-6 border-b border-gray-200">
+      <div class="min-w-0 flex-1">
+        <h2
+          class="
+            text-2xl
+            font-bold
+            leading-7
+            text-gray-900
+            sm:truncate sm:text-3xl sm:tracking-tight
+          "
+        >
+          Block #{{ block.number }}
+        </h2>
+        <div
+          class="
+            mt-1
+            flex flex-col
+            sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6
+          "
+        >
+          <div class="mt-2 flex items-center text-sm text-gray-500">
+            <ClockIcon
+              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
+              aria-hidden="true"
+            />
+            <timeago
+              class="ml-1"
+              :autoUpdate="30"
+              :datetime="block.timestamp * 1000"
+            />
+          </div>
+          <div class="mt-2 flex items-center text-sm text-gray-500">
+            <CalendarIcon
+              class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
+              aria-hidden="true"
+            />
+            {{ new Date(block.timestamp * 1000).toLocaleString() }}
+          </div>
         </div>
       </div>
-    </div>
-    <!--
+      <!--
     <div class="mt-5 flex lg:mt-0 lg:ml-4">
       <span class="hidden sm:block">
         <button type="button" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -57,18 +82,15 @@
         </transition>
       </Menu>
     </div>
-    -->
-  </div>
-         
-      <div v-if="block != null">
+    --></div>
+
+    <div v-if="block != null" class="mt-5">
       <TransactionList :transactions="block.transactions" />
-      </div>
-    {{block}}
+    </div>
   </div>
 </template>
 
 <script setup>
-
 import {
   BriefcaseIcon,
   ClockIcon,
@@ -79,8 +101,8 @@ import {
   LinkIcon,
   MapPinIcon,
   PencilIcon,
-} from '@heroicons/vue/20/solid'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+} from "@heroicons/vue/20/solid";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 
 import TransactionList from "@/components/transaction/transactionList.vue";
 
@@ -89,13 +111,12 @@ import { ref, unref, onMounted } from "vue";
 import { useWeb3Store } from "@/stores/web3";
 
 const route = useRoute();
-const blockNumber = parseInt(route.params.blocknumber)
+const blockNumber = parseInt(route.params.blocknumber);
 
 const web3 = useWeb3Store();
 const ethers = await web3.getEthersAndConnect();
 
 const block = await ethers.getBlockWithTransactions(blockNumber);
-
 </script>
 
 <style>
