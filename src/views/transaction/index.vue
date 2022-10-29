@@ -1,6 +1,12 @@
 <template>
-  <div class="block h-full overflow-scroll  py-4 px-4 sm:px-6 lg:px-8">
-    <div class="lg:flex lg:items-center lg:justify-between pb-6 border-b border-gray-200">
+  <div class="block h-full overflow-scroll py-4 px-4 sm:px-6 lg:px-8">
+    <div
+      class="
+        lg:flex lg:items-center lg:justify-between
+        pb-6
+        border-b border-gray-200
+      "
+    >
       <div class="min-w-0 flex-1">
         <h2
           class="
@@ -20,6 +26,9 @@
             sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6
           "
         >
+         <div class="mt-2 flex items-center text-sm text-gray-500">
+           <router-link :to="{ name: 'block', params: { blocknumber: block.number }}">Block #{{block.number}}</router-link>
+          </div>
           <div class="mt-2 flex items-center text-sm text-gray-500">
             <ClockIcon
               class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
@@ -83,8 +92,13 @@
       </Menu>
     </div>
     --></div>
-
-
+    <h1 class="text-2xl">Events:</h1>
+    <json-viewer
+      :value="tx.logs"
+      :expand-depth="3"
+      copyable
+      boxed
+    ></json-viewer>
   </div>
 </template>
 
@@ -102,18 +116,18 @@ import {
 } from "@heroicons/vue/20/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 
-
 import { useRoute } from "vue-router";
 import { ref, unref, onMounted } from "vue";
 import { useWeb3Store } from "@/stores/web3";
 
 const route = useRoute();
-const hash = (route.params.hash);
+const hash = route.params.hash;
 
 const web3 = useWeb3Store();
 const ethers = await web3.getEthersAndConnect();
-const tx = await ethers.getTransactionReceipt(hash)
+const tx = await ethers.getTransactionReceipt(hash);
 const block = await ethers.getBlockWithTransactions(tx.blockHash);
+
 </script>
 
 <style>
