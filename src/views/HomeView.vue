@@ -7,6 +7,7 @@
         <ContractSearch />
       </div>
     </div>
+    <interestingFunctions />
     <div class="w-full px-5">
       <div class="w-full bg-white shadow sm:rounded-lg">
         <div class="pt-2 pl-3">Favorite contracts</div>
@@ -183,6 +184,8 @@
 
 <script setup>
 import ContractSearch from "@/components/address/search.vue";
+import interestingFunctions from "@/components/transaction/lastblocks.vue";
+
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { ChevronDownIcon } from "@heroicons/vue/20/solid";
 
