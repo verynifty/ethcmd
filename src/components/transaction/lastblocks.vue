@@ -1,13 +1,12 @@
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
+  <div class="">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-xl font-semibold text-gray-900">
-          Interesting functions
+          🔥 Hot functions
         </h1>
         <p class="mt-2 text-sm text-gray-700">
-          A list of all the users in your account including their name, title,
-          email and role.
+          A list of the most called function in the last 10 blocks.
         </p>
       </div>
     </div>
@@ -73,14 +72,13 @@
                       text-gray-900
                     "
                   >
-                     # Callers
+                    # Callers
                   </th>
                 </tr>
               </thead>
               <tbody class="bg-white">
                 <tr
                   v-for="(func, funcId) in getSelectors()"
-                  :key="funcId"
                   :class="funcId % 2 === 0 ? undefined : 'bg-gray-50'"
                 >
                   <td
@@ -104,7 +102,7 @@
                     {{ func.length }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ uniqueItems(func, 'from') }}
+                    {{ uniqueItems(func, "from") }}
                   </td>
                 </tr>
               </tbody>
@@ -141,22 +139,24 @@ let targetContract = {};
 let targetFunction = {};
 let funcSelectors = {};
 
-const uniqueItems = (list, keyFn) => list.reduce((resultSet, item) =>
-    resultSet.add(typeof keyFn === 'string' ? item[keyFn] : keyFn(item)),
-  new Set).size;
+const uniqueItems = (list, keyFn) =>
+  list.reduce(
+    (resultSet, item) =>
+      resultSet.add(typeof keyFn === "string" ? item[keyFn] : keyFn(item)),
+    new Set()
+  ).size;
 
 for (const b of blocks) {
   for (const t of b.transactions) {
-    if (t.data == null) continue;
     let funcSelector = t.data.substring(0, 10).toLowerCase();
-    if (funcSelector.length != 10) continue;
-    if (t.to == null) continue;
-    let to = t.to.toLowerCase()
-    let from = t.from.toLowerCase();
-    let id = to + "_" + funcSelector;
-    if (targetContract[to] == null) {
-      targetContract[to] = [];
+
+    if (funcSelector.length != 10 || t.to == null) {
+      continue;
     }
+    let to = t.to.toLowerCase();
+    let from = t.from.toLowerCase();
+    let identifier = to + "_" + funcSelector;
+
     let call = {
       funcSelector: funcSelector,
       from: from,
@@ -164,25 +164,35 @@ for (const b of blocks) {
       data: t.data,
       nonce: t.nonce,
       blockNumber: t.blockNumber,
+      id: identifier,
     };
-    targetContract[to].push();
-    if (targetFunction[id] == null) {
-      targetFunction[id] = [];
+    /*
+    if (targetContract[to] == null) {
+      targetContract[to] = [];
     }
-    targetFunction[id].push(call);
+    targetContract[to].push(call);
+*/
+    if (targetFunction[identifier] == null) {
+      targetFunction[identifier] = [];
+    }
+    targetFunction[identifier].push(call);
 
-    if (funcSelectors[funcSelector] == null) {
+    /*if (funcSelectors[funcSelector] == null) {
       funcSelectors[funcSelector] = true;
     }
+    */
     //funcSelectors[funcSelector].push(funcSelectors[funcSelector])
   }
-  targetFunction = Object.values(targetFunction);
-  console.log(targetFunction);
 }
 
+//console.log(targetFunction)
+targetFunction = Object.values(targetFunction);
+
 function getSelectors() {
-  return targetFunction.sort(function (b, a) {
-    return a.length - b.length;
-  }).slice(0, 15);;
+  return targetFunction
+    .sort(function (b, a) {
+      return a.length - b.length;
+    })
+    .slice(0, 15);
 }
 </script>
