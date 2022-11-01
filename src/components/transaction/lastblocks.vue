@@ -98,7 +98,7 @@
                     <AddressDisplay :value="func[0].to" />
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {{ func[0].funcSelector }}
+                    <FuncSelectorDisplay :value="func[0].funcSelector" />
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                     {{ func.length }}
@@ -118,6 +118,7 @@
 
 <script setup>
 import AddressDisplay from "@/components/common/addressdisplay.vue";
+import FuncSelectorDisplay from "@/components/common/functionselectordisplay.vue";
 
 import { useWeb3Store } from "@/stores/web3";
 
@@ -149,10 +150,8 @@ for (const b of blocks) {
     if (t.data == null) continue;
     let funcSelector = t.data.substring(0, 10).toLowerCase();
     if (funcSelector.length != 10) continue;
-    let to =
-      t.to != null
-        ? t.to.toLowerCase()
-        : "0x0000000000000000000000000000000000000000";
+    if (t.to == null) continue;
+    let to = t.to.toLowerCase()
     let from = t.from.toLowerCase();
     let id = to + "_" + funcSelector;
     if (targetContract[to] == null) {

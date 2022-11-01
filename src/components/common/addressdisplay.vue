@@ -1,5 +1,5 @@
 <template>
-   <router-link :to="{ name: 'address', params: { address: value }}">{{ format() }}</router-link>
+   <router-link :to="{ name: 'addressinfos', params: { address: value }}">{{ format() }}</router-link>
 </template>
 
 <script setup>
