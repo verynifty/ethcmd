@@ -104,7 +104,7 @@ import {
 } from "@heroicons/vue/20/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 
-import TransactionList from "@/components/transaction/transactionList.vue";
+import TransactionList from "@/components/transaction/transactionlist.vue";
 
 import { useRoute } from "vue-router";
 import { ref, unref, onMounted } from "vue";
