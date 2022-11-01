@@ -1,7 +1,7 @@
 
 
 <template>
-  <div class="h-full bg-gray-100">
+  <div class="h-full bg-gray-100 overflow-scroll">
     <div class="w-full p-5">
       <div class="w-full bg-white shadow sm:rounded-lg">
         <ContractSearch />
