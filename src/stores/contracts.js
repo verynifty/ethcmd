@@ -126,6 +126,7 @@ export const useContractStore = defineStore({
                     */
                     contract.ABI = jsonAbi;
                     contract.address = address;
+                    contract.contractInformations = "Guessed"
                 }
                 contract.ABI = contract.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
                 let eventCount = 1;
@@ -162,8 +163,7 @@ export const useContractStore = defineStore({
             for (const file of sourcifyResp.data.files.filter((f) => f.name != "metadata.json")) {
                 obj.sourceCode.sources[file.name] = file;
             }
-            console.log(metadata)
-            console.log(obj)
+            obj.contractInformations = "Sourcify"
             return obj
         },
         async _loadContractFromEtherscan(address) {
@@ -212,6 +212,7 @@ export const useContractStore = defineStore({
             } else {
                 obj.implementation = null;
             }
+            obj.contractInformations = "Etherscan"
             return obj;
         },
         async callContract(address, func, params, from, blockNumber = "latest", value = "0") {
