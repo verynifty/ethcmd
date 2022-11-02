@@ -131,6 +131,9 @@ export const useContractStore = defineStore({
                 contract.ABI = contract.ABI.sort((a, b) => typeof a.name == 'string' ? a.name.localeCompare(b.name) : false)
                 let eventCount = 1;
                 let functionCount = 1;
+                if (contract.name == null) {
+                    contract.name = "Unknown contract"
+                }
                 for (let index = 0; index < contract.ABI.length; index++) {
                     if (contract.ABI[index].type == "event") {
                         contract.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(contract.ABI[index])

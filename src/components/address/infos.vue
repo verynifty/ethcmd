@@ -15,7 +15,7 @@
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Compiler version</dt>
             <dd class="mt-1 text-sm text-gray-900">
-              {{ contract.compilerVersion }}
+              {{ contract.compilerVersion != null ? contract.compilerVersion : "Unknown" }}
             </dd>
           </div>
           <div class="sm:col-span-1">
@@ -27,7 +27,7 @@
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Language</dt>
             <dd class="mt-1 text-sm text-gray-900">
-              {{ contract.sourceCode.language }}
+              {{ contract.sourceCode != null ? contract.sourceCode.language : "Unknown"}}
             </dd>
           </div>
           <div class="sm:col-span-1">
