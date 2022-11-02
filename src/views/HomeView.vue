@@ -153,11 +153,11 @@
         </div>
       </div>
     </div>
-     <div class="w-full px-5 mt-5">
+    <div class="w-full px-5 mt-5">
       <div class="w-full bg-white shadow sm:rounded-lg">
-        <hotFunctions class="px-5 py-8"/>
+        <hotFunctions class="px-5 py-8" />
       </div>
-      </div>
+    </div>
     <div class="w-full p-10">
       <div class="m-10 text-center text-gray-600">
         An
@@ -171,16 +171,15 @@
           >MuseDAO</a
         >.
       </div>
-       <div class="text-xs m-5 text-center text-gray-500">
-        Data from 
-        <a
-          class="underline text-indigo-300"
-          href="https://etherscan.io/"
+      <div class="text-xs m-5 text-center text-gray-500">
+        Data from
+        <a class="underline text-indigo-300" href="https://etherscan.io/"
           >Etherscan</a
-        > and  <a
-          class="underline text-indigo-300"
-          href="https://sourcify.dev/"
-          >Sourcify</a>.
+        >
+        and
+        <a class="underline text-indigo-300" href="https://sourcify.dev/"
+          >Sourcify</a
+        >.
       </div>
     </div>
   </div>

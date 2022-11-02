@@ -2,15 +2,13 @@
   <div class="">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
-        <h1 class="text-xl font-semibold text-gray-900">
-          🔥 Hot functions
-        </h1>
+        <h1 class="text-xl font-semibold text-gray-900">🔥 Hot functions</h1>
         <p class="mt-2 text-sm text-gray-700">
           A list of the most called function in the last 10 blocks.
         </p>
       </div>
     </div>
-    <div class="mt-8 flex flex-col">
+    <div v-if="!isLoading" class="mt-8 flex flex-col">
       <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
           <div
@@ -115,6 +113,8 @@
 </template>
 
 <script setup>
+import { ref, unref, onMounted } from "vue";
+
 import AddressDisplay from "@/components/common/addressdisplay.vue";
 import FuncSelectorDisplay from "@/components/common/functionselectordisplay.vue";
 
@@ -123,20 +123,10 @@ import { useWeb3Store } from "@/stores/web3";
 const web3 = useWeb3Store();
 const ethers = await web3.getEthersAndConnect();
 
-let isLoading = true;
-let toBlock = await ethers.getBlockNumber("latest");
-let fromBlock = toBlock - 10;
-
-let blocksPromises = [];
-for (let index = fromBlock; index < toBlock; index++) {
-  blocksPromises.push(ethers.getBlockWithTransactions(index));
-}
-console.log(blocksPromises);
-const blocks = await Promise.all(blocksPromises);
-console.log(blocks);
+let isLoading = ref(true);
 
 let targetContract = {};
-let targetFunction = {};
+let targetFunction = ref([]);
 let funcSelectors = {};
 
 const uniqueItems = (list, keyFn) =>
@@ -146,53 +136,58 @@ const uniqueItems = (list, keyFn) =>
     new Set()
   ).size;
 
-for (const b of blocks) {
-  for (const t of b.transactions) {
-    let funcSelector = t.data.substring(0, 10).toLowerCase();
+async function loadData() {
+  isLoading.value = true;
+  let tmpFunctions = {};
+  let toBlock = await ethers.getBlockNumber("latest");
+  let fromBlock = toBlock - 10;
 
-    if (funcSelector.length != 10 || t.to == null) {
-      continue;
-    }
-    let to = t.to.toLowerCase();
-    let from = t.from.toLowerCase();
-    let identifier = to + "_" + funcSelector;
-
-    let call = {
-      funcSelector: funcSelector,
-      from: from,
-      to: to,
-      data: t.data,
-      nonce: t.nonce,
-      blockNumber: t.blockNumber,
-      id: identifier,
-    };
-    /*
-    if (targetContract[to] == null) {
-      targetContract[to] = [];
-    }
-    targetContract[to].push(call);
-*/
-    if (targetFunction[identifier] == null) {
-      targetFunction[identifier] = [];
-    }
-    targetFunction[identifier].push(call);
-
-    /*if (funcSelectors[funcSelector] == null) {
-      funcSelectors[funcSelector] = true;
-    }
-    */
-    //funcSelectors[funcSelector].push(funcSelectors[funcSelector])
+  let blocksPromises = [];
+  for (let index = fromBlock; index < toBlock; index++) {
+    blocksPromises.push(ethers.getBlockWithTransactions(index));
   }
+  console.log(blocksPromises);
+  const blocks = await Promise.all(blocksPromises);
+  console.log(blocks);
+
+  for (const b of blocks) {
+    for (const t of b.transactions) {
+      let funcSelector = t.data.substring(0, 10).toLowerCase();
+
+      if (funcSelector.length != 10 || t.to == null) {
+        continue;
+      }
+      let to = t.to.toLowerCase();
+      let from = t.from.toLowerCase();
+      let identifier = to + "_" + funcSelector;
+
+      let call = {
+        funcSelector: funcSelector,
+        from: from,
+        to: to,
+        data: t.data,
+        nonce: t.nonce,
+        blockNumber: t.blockNumber,
+        id: identifier,
+      };
+
+      if (tmpFunctions[identifier] == null) {
+        tmpFunctions[identifier] = [];
+      }
+      tmpFunctions[identifier].push(call);
+    }
+  }
+  targetFunction.value = Object.values(tmpFunctions);
+  isLoading.value = false;
 }
 
-//console.log(targetFunction)
-targetFunction = Object.values(targetFunction);
-
 function getSelectors() {
-  return targetFunction
+  return targetFunction.value
     .sort(function (b, a) {
       return a.length - b.length;
     })
     .slice(0, 15);
 }
+
+loadData();
 </script>

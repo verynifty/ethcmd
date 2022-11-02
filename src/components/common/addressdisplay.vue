@@ -34,7 +34,14 @@
             name: "ENS",
             tags: []
         },
-
+        "0x74312363e45dcaba76c59ec49a7aa8a65a67eed3": {
+            name: "X2Y2",
+            tags: []
+        },
+        "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
+            name: "USDC",
+            tags: ["ERC20", "StableCoin"]
+        }
     }
 
     function format() {
