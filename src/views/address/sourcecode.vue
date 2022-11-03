@@ -1,7 +1,10 @@
 <template>
   <div class="address flex flex-col h-full">
     <AddressHeader activeTab="source_code" :contract="contract" />
-    <div class="grid grid-cols-12 h-full overflow-hidden">
+    <div
+      v-if="contract.sourceCode != null && contract.sourceCode.sources != null"
+      class="grid grid-cols-12 h-full overflow-hidden"
+    >
       <div class="col-span-4 h-full overflow-y-hidden">
         <AddressSources :contract="contract" @selected="onSourceSelected" />
       </div>
@@ -24,6 +27,21 @@
           </div>
         </div>
         <AddressSourceView :contract="contract" :sourceFile="currentSource" />
+      </div>
+    </div>
+    <div v-else>
+      <div class="bg-white">
+        <div class="mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <p class="mt-1 text-2xl font-bold tracking-tight text-gray-900">
+              No sources for this contract.
+            </p>
+            <p class="mx-auto mt-5 max-w-xl text-xl text-gray-500">
+              Verify the contract on Etherscan or Sourcify to see the source
+              code here.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
