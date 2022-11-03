@@ -41,6 +41,14 @@
         "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
             name: "USDC",
             tags: ["ERC20", "StableCoin"]
+        },
+        "0x881d40237659c251811cec9c364ef91dc08d300c": {
+            name: "MetamaskRouter",
+            tags: []
+        },
+        "0x4dbd4fc535ac27206064b68ffcf827b0a60bab3f": {
+            name: "Arbitrum Birdge",
+            tags: []
         }
     }
 
