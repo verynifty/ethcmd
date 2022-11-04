@@ -19,7 +19,7 @@
           >
             {{ func.id }}
           </span>
-          {{ func.name }}
+          {{ currentDef }}
         </h3>
         <p class="mt-1 max-w-2xl text-sm text-gray-500"></p>
       </div>
@@ -319,6 +319,7 @@ let fromAddress = ref(web3.account);
 let blockNumber = ref("latest");
 let weiValue = ref("0");
 let showMore = ref(false);
+let currentDef = ref("")
 
 async function call() {
   if (web3.account == null) {
@@ -357,6 +358,13 @@ watch(
       console.log(input);
       inputs.value.push({ value: "" });
     }
+    let def = await contracts.ABItoHuman(props.func);
+    console.log(def)
+    if (def.startsWith("function ")) {
+      def = def.replace("function ", "")
+    }
+    currentDef.value = def;
+    
     if (inputs.value.length == 0 && props.func.stateMutability == "view") {
       console.log("CALL");
       await call();
