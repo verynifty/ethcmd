@@ -284,9 +284,7 @@ export const useContractStore = defineStore({
         },
         async decodeConstructor(address, data) {
             try {
-                let abi = await this.getABIFromAddress(address);
-                let constructor = abi.find(e => e.type == 'constructor');
-                console.log(constructor)
+                let constructor = await this.getContructor(address);
                 let res = ethers.utils.defaultAbiCoder.decode(
                     constructor.inputs.map(x => x.type),
                     data
@@ -295,6 +293,18 @@ export const useContractStore = defineStore({
             } catch (error) {
                 return null;
             }
+        },
+        async getConstructor(address) {
+            let abi = await this.getABIFromAddress(address);
+            let constructor = abi.find(e => e.type == 'constructor');
+            return constructor;
+        },
+        async ABItoHuman(abi) {
+            if (abi == null) {
+                return null;
+            }
+            const iface = new ethers.utils.Interface([abi]);
+            return (iface.format(ethers.utils.FormatTypes.full)[0]);
         },
         async getEventsDecoded(address, topic0 = "any") {
             let events = await this.getEvents(address, topic0);

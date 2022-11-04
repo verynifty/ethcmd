@@ -15,19 +15,32 @@
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Compiler version</dt>
             <dd class="mt-1 text-sm text-gray-900">
-              {{ contract.compilerVersion != null ? contract.compilerVersion : "Unknown" }}
+              {{
+                contract.compilerVersion != null
+                  ? contract.compilerVersion
+                  : "Unknown"
+              }}
             </dd>
           </div>
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Optimization runs</dt>
             <dd class="mt-1 text-sm text-gray-900">
-              {{ contract.optimizationUsed == "1" || contract.optimizationUsed == true ? contract.optimizationRuns : "No" }}
+              {{
+                contract.optimizationUsed == "1" ||
+                contract.optimizationUsed == true
+                  ? contract.optimizationRuns
+                  : "No"
+              }}
             </dd>
           </div>
           <div class="sm:col-span-1">
             <dt class="text-sm font-medium text-gray-500">Language</dt>
             <dd class="mt-1 text-sm text-gray-900">
-              {{ contract.sourceCode != null ? contract.sourceCode.language : "Unknown"}}
+              {{
+                contract.sourceCode != null
+                  ? contract.sourceCode.language
+                  : "Unknown"
+              }}
             </dd>
           </div>
           <div class="sm:col-span-1">
@@ -39,23 +52,29 @@
             </dd>
           </div>
           <div class="sm:col-span-2">
-            <dt class="text-sm font-medium text-gray-500">
+            <div v-if="humanConstructor != null">
+              <dt class="text-sm font-medium text-gray-500">Constructor</dt>
+              <dd class="mt-1 text-sm text-gray-900 break-all">
+                {{ humanConstructor }}
+              </dd>
+            </div>
+            <dt class="text-sm mt-2 font-medium text-gray-500">
               Constructor Arguments
             </dt>
             <dd class="mt-1 text-sm text-gray-900 break-all">
               0x{{ contract.constructorArguments }}
             </dd>
             <div v-if="decodedContructor != null">
-                <dt class="text-sm mt-2 font-medium text-gray-500">
-              Constructor Arguments Decoded
-            </dt>
-             <json-viewer
+              <dt class="text-sm mt-2 font-medium text-gray-500">
+                Constructor Arguments Decoded
+              </dt>
+              <json-viewer
                 :value="decodedContructor"
                 :expand-depth="2"
                 copyable
                 boxed
               ></json-viewer>
-              </div>
+            </div>
           </div>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">
@@ -119,5 +138,8 @@ const props = defineProps(["contract"]);
 import { useContractStore } from "@/stores/contracts";
 let contracts = useContractStore();
 
-let decodedContructor = await contracts.decodeConstructor(props.contract.address, "0x" + props.contract.constructorArguments);
+//let decodedContructor = await contracts.decodeConstructor(props.contract.address, "0x" + props.contract.constructorArguments);
+let humanConstructor = await contracts.ABItoHuman(
+  await contracts.getConstructor(props.contract.address)
+);
 </script>
