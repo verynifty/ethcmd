@@ -45,6 +45,17 @@
             <dd class="mt-1 text-sm text-gray-900 break-all">
               0x{{ contract.constructorArguments }}
             </dd>
+            <div v-if="decodedContructor != null">
+                <dt class="text-sm mt-2 font-medium text-gray-500">
+              Constructor Arguments Decoded
+            </dt>
+             <json-viewer
+                :value="decodedContructor"
+                :expand-depth="2"
+                copyable
+                boxed
+              ></json-viewer>
+              </div>
           </div>
           <div class="sm:col-span-2">
             <dt class="text-sm font-medium text-gray-500">
@@ -108,4 +119,5 @@ const props = defineProps(["contract"]);
 import { useContractStore } from "@/stores/contracts";
 let contracts = useContractStore();
 
+let decodedContructor = await contracts.decodeConstructor(props.contract.address, "0x" + props.contract.constructorArguments);
 </script>

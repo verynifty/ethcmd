@@ -276,12 +276,29 @@ export const useContractStore = defineStore({
         async getEvents(address, topic0 = "any") {
             return this._getEventsFromEthersJS(address, topic0)
         },
+        async decodeTransaction(address, data) {
+            const iface = new ethers.utils.Interface(await this.getABIFromAddress(address));
+            return iface.decodeFunctionData({
+                data: data,
+            })
+        },
+        async decodeConstructor(address, data) {
+            try {
+                let abi = await this.getABIFromAddress(address);
+                let constructor = abi.find(e => e.type == 'constructor');
+                console.log(constructor)
+                let res = ethers.utils.defaultAbiCoder.decode(
+                    constructor.inputs.map(x => x.type),
+                    data
+                )
+                return res;
+            } catch (error) {
+                return null;
+            }
+        },
         async getEventsDecoded(address, topic0 = "any") {
             let events = await this.getEvents(address, topic0);
             const iface = new ethers.utils.Interface(await this.getABIFromAddress(address));
-            console.log(events)
-            console.log("START")
-
             events = events.map(function (log) {
                 let decoded = iface.parseLog(log)
                 if (log.timeStamp) {
@@ -297,7 +314,6 @@ export const useContractStore = defineStore({
                 }
                 return log;
             });
-            console.log("ENDMAPPING")
             return events;
         },
         async _getEventsFromEtherscan(address, topic0) {

@@ -49,6 +49,22 @@
         "0x4dbd4fc535ac27206064b68ffcf827b0a60bab3f": {
             name: "Arbitrum Birdge",
             tags: []
+        },
+        "0x000000000000ad05ccc4f10045630fb830b95127": {
+            name: "Blur.io",
+            tags: []
+        },
+        "0x0000000000c2d145a2526bd8c716263bfebe1a72": {
+            name: "NFT bulk transfer",
+            tags: []
+        },
+        "0x5e4e65926ba27467555eb562121fac00d24e9dd2": {
+            name: "Optimism Sequencer",
+            tags: []
+        },
+        "0x39da41747a83aee658334415666f3ef92dd0d541": {
+            name: "Blur.io swap",
+            tags: []
         }
     }
 
