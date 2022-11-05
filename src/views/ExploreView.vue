@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="overflow-scroll">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-xl font-semibold text-gray-900">🔥 Hot functions</h1>
@@ -105,6 +105,14 @@
                 </tr>
               </tbody>
             </table>
+             <vue-awesome-paginate
+      class="mt-5 "
+        :total-items="100"
+        :items-per-page="5"
+        :max-pages-shown="5"
+        :current-page="currentPage"
+        :on-click="pageClick"
+      />
           </div>
         </div>
       </div>
