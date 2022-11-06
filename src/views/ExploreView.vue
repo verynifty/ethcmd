@@ -6,6 +6,33 @@
         <p class="mt-2 text-sm text-gray-700">
           A list of the most called function in the last 10 blocks.
         </p>
+        <div>
+          <label for="location" class="block text-sm font-medium text-gray-700"
+            >Number of blocks</label
+          >
+          <select
+            v-model="blockRange"
+            id="location"
+            name="location"
+            class="
+              mt-1
+              block
+              w-full
+              rounded-md
+              border-gray-300
+              py-2
+              pl-3
+              pr-10
+              text-base
+              focus:border-indigo-500 focus:outline-none focus:ring-indigo-500
+              sm:text-sm
+            "
+          >
+            <option>10</option>
+            <option>20</option>
+            <option>100</option>
+          </select>
+        </div>
       </div>
     </div>
     <div v-if="!isLoading" class="mt-8 flex flex-col">
@@ -105,26 +132,29 @@
                 </tr>
               </tbody>
             </table>
-             <vue-awesome-paginate
-      class="mt-5 "
-        :total-items="100"
-        :items-per-page="5"
-        :max-pages-shown="5"
-        :current-page="currentPage"
-        :on-click="pageClick"
-      />
+            <vue-awesome-paginate
+              class="mt-5"
+              :total-items="100"
+              :items-per-page="5"
+              :max-pages-shown="5"
+              :current-page="currentPage"
+              :on-click="pageClick"
+            />
           </div>
         </div>
       </div>
     </div>
     <div v-else>
-      <Loader message="Scrapping latest blocks for alpha..." class="pt-20 pb-20" />
+      <Loader
+        message="Scrapping latest blocks for alpha..."
+        class="pt-20 pb-20"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, unref, onMounted } from "vue";
+import { ref, unref, onMounted, watch } from "vue";
 
 import AddressDisplay from "@/components/common/addressdisplay.vue";
 import FuncSelectorDisplay from "@/components/common/functionselectordisplay.vue";
@@ -139,6 +169,8 @@ let isLoading = ref(true);
 
 let targetFunction = ref([]);
 
+let blockRange = ref(10);
+
 const uniqueItems = (list, keyFn) =>
   list.reduce(
     (resultSet, item) =>
@@ -150,8 +182,7 @@ async function loadData() {
   isLoading.value = true;
   let tmpFunctions = {};
   let toBlock = await ethers.getBlockNumber("latest");
-  let fromBlock = toBlock - 10;
-
+  let fromBlock = toBlock - parseInt(blockRange.value);
   let blocksPromises = [];
   for (let index = fromBlock; index < toBlock; index++) {
     blocksPromises.push(ethers.getBlockWithTransactions(index));
@@ -198,6 +229,14 @@ function getSelectors() {
     })
     .slice(0, 15);
 }
+
+watch(
+  blockRange,
+  async function (a, b, d) {
+    console.log("changed")
+    loadData();
+  }
+);
 
 loadData();
 </script>

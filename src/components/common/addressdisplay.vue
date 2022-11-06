@@ -65,6 +65,10 @@
         "0x39da41747a83aee658334415666f3ef92dd0d541": {
             name: "Blur.io swap",
             tags: []
+        },
+        "0xe66b31678d6c16e9ebf358268a790b763c133750": {
+            name:"Coinbase Wallet Proxy",
+            tags: []
         }
     }
 
