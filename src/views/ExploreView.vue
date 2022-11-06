@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-scroll">
+  <div class="h-full overflow-scroll">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-xl font-semibold text-gray-900">🔥 Hot functions</h1>
@@ -7,31 +7,40 @@
           A list of the most called function in the last 10 blocks.
         </p>
         <div>
-          <label for="location" class="block text-sm font-medium text-gray-700"
-            >Number of blocks</label
-          >
-          <select
-            v-model="blockRange"
-            id="location"
-            name="location"
-            class="
-              mt-1
-              block
-              w-full
-              rounded-md
-              border-gray-300
-              py-2
-              pl-3
-              pr-10
-              text-base
-              focus:border-indigo-500 focus:outline-none focus:ring-indigo-500
-              sm:text-sm
-            "
-          >
-            <option>10</option>
-            <option>20</option>
-            <option>100</option>
-          </select>
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-3">
+              <label
+                for="location"
+                class="block text-sm font-medium text-gray-700"
+                >Number of blocks</label
+              >
+              <select
+                v-model="blockRange"
+                id="location"
+                name="location"
+                class="
+                  mt-1
+                  block
+                  w-full
+                  rounded-md
+                  border-gray-300
+                  py-2
+                  pl-3
+                  pr-10
+                  text-base
+                  focus:border-indigo-500
+                  focus:outline-none
+                  focus:ring-indigo-500
+                  sm:text-sm
+                "
+              >
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+                <option>100</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -132,14 +141,6 @@
                 </tr>
               </tbody>
             </table>
-            <vue-awesome-paginate
-              class="mt-5"
-              :total-items="100"
-              :items-per-page="5"
-              :max-pages-shown="5"
-              :current-page="currentPage"
-              :on-click="pageClick"
-            />
           </div>
         </div>
       </div>
@@ -227,16 +228,12 @@ function getSelectors() {
     .sort(function (b, a) {
       return a.length - b.length;
     })
-    .slice(0, 15);
 }
 
-watch(
-  blockRange,
-  async function (a, b, d) {
-    console.log("changed")
-    loadData();
-  }
-);
+watch(blockRange, async function (a, b, d) {
+  console.log("changed");
+  loadData();
+});
 
 loadData();
 </script>
