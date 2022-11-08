@@ -24,6 +24,10 @@ let known_addresses = {
     name: "UniswapV3Router",
     tags: ["Uniswap"],
   },
+  "0xc36442b4a4522e871399cd717abdd847ab11fe88": {
+    name: "UniswapV3PositionManager",
+    tags: ["Uniswap"],
+  },
   "0x00000000006c3852cbef3e08e8df289169ede581": {
     name: "Seaport",
     tags: [],
@@ -42,6 +46,14 @@ let known_addresses = {
   },
   "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
     name: "USDC",
+    tags: ["ERC20", "StableCoin"],
+  },
+  "0x4fabb145d64652a948d72533023f6e7a623c7c53": {
+    name: "BUSD",
+    tags: ["ERC20", "StableCoin"],
+  },
+  "0x6b175474e89094c44da98b954eedeac495271d0f": {
+    name: "Dai",
     tags: ["ERC20", "StableCoin"],
   },
   "0x881d40237659c251811cec9c364ef91dc08d300c": {
@@ -77,21 +89,25 @@ let known_addresses = {
     tags: [],
   },
   "0xc4448b71118c9071bcb9734a0eac55d18a153949": {
-      name: "Arbitrum Nova bridge",
-      tags: []
+    name: "Arbitrum Nova bridge",
+    tags: [],
+  },
+  "0xd4b80c3d7240325d18e645b49e6535a3bf95cc58": {
+    name: "Arbitrum Nova Outbox",
+    tags: [],
   },
   "0x6f922284798de645e8bc1040450d32bde963c992": {
-      name: "Debank L2 register",
-      tags: []
+    name: "Debank L2 register",
+    tags: [],
   },
   "0xb8901acb165ed027e32754e0ffe830802919727f": {
-      name: "Hop Protocol Bridge",
-      tags: []
+    name: "Hop Protocol Bridge",
+    tags: [],
   },
   "0xdef171fe48cf0115b1d80b88dc8eab59176fee57": {
-      name: "Paraswap V5",
-      tags: []
-  }
+    name: "Paraswap V5",
+    tags: [],
+  },
 };
 
 function format() {
