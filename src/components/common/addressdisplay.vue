@@ -24,9 +24,49 @@ let known_addresses = {
     name: "UniswapV3Router",
     tags: ["Uniswap"],
   },
+  "0x0e42acbd23faee03249daff896b78d7e79fbd58e": {
+    name: "Curve Finance Voting",
+    tags: [],
+  },
+  "0xe592427a0aece92de3edee1f18e0157c05861564": {
+    name: "UniswapV3Router",
+    tags: ["Uniswap"],
+  },
+  "0x0711a9767a41290d7f52714204618345c584f450": {
+    name: "ArtBlock Minter",
+    tags: [],
+  },
+  "0x76f4eed9fe41262669d0250b2a97db79712ad855": {
+    name: "Odos Router",
+    tags: [],
+  },
+  "0xff1f2b4adb9df6fc8eafecdcbf96a2b351680455": {
+    name: "Aztec Deposit",
+    tags: [],
+  },
   "0xc36442b4a4522e871399cd717abdd847ab11fe88": {
     name: "UniswapV3PositionManager",
     tags: ["Uniswap"],
+  },
+  "0xabea9132b05a70803a4e85094fd0e1800777fbef": {
+    name: "zkSync",
+    tags: [],
+  },
+  "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f": {
+    name: "Sushiswap Router",
+    tags: [],
+  },
+  "0xcda72070e455bb31c7690a170224ce43623d0b6f": {
+    name: "Foundation Market",
+    tags: [],
+  },
+  "0xa0c68c638235ee32657e8f720a23cec1bfc77c77": {
+    name: "Polygon Bridge",
+    tags: [],
+  },
+  "0xc30141b657f4216252dc59af2e7cdb9d8792e1b0": {
+    name: "Socket registry",
+    tags: [],
   },
   "0x00000000006c3852cbef3e08e8df289169ede581": {
     name: "Seaport",
@@ -106,6 +146,10 @@ let known_addresses = {
   },
   "0xdef171fe48cf0115b1d80b88dc8eab59176fee57": {
     name: "Paraswap V5",
+    tags: [],
+  },
+  "0x00000000219ab540356cbb839cbe05303d7705fa": {
+    name: "Beacon Deposit Contract",
     tags: [],
   },
 };
