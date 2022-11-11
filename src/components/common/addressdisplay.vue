@@ -84,6 +84,10 @@ let known_addresses = {
     name: "X2Y2",
     tags: [],
   },
+  "0x902f09715b6303d4173037652fa7377e5b98089e": {
+    name: "Layer0 Relayer",
+    tags: [],
+  },
   "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
     name: "USDC",
     tags: ["ERC20", "StableCoin"],
