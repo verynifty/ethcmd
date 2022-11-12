@@ -52,6 +52,10 @@ let known_addresses = {
     name: "zkSync",
     tags: [],
   },
+  "0xec568fffba86c094cf06b22134b23074dfe2252c": {
+    name: "Aave Governance V2",
+    tags: [],
+  },
   "0xd9e1ce17f2641f24ae83637ab66a2cca9c378b9f": {
     name: "Sushiswap Router",
     tags: [],
