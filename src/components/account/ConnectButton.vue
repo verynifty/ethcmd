@@ -37,7 +37,6 @@
 </template>
 
 <script setup>
-console.log("COnn")
 import { useWeb3Store } from "@/stores/web3";
 const web3 = useWeb3Store();
 // console.log("store ", web3);
