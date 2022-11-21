@@ -1,8 +1,9 @@
 <template>
   <router-link :to="{ name: 'addressinfos', params: { address: value } }"
     >{{ format() }}
-    <span v-if="rolodethResult != null && rolodethResult.tags != null"
-    v-for="tag in rolodethResult.tags"
+    <span
+      v-if="rolodethResult != null && rolodethResult.tags != null"
+      v-for="tag in rolodethResult.tags"
       class="
         text-xs
         font-semibold
@@ -18,7 +19,7 @@
         mr-1
       "
     >
-      {{tag}}
+      {{ tag }}
     </span>
   </router-link>
 </template>
@@ -28,11 +29,13 @@ import axios from "axios";
 
 const props = defineProps(["value"]);
 let rolodethResult;
-
-let rolodeth = await axios.get(
-  "https://rolodeth.vercel.app/address/" + props.value
-);
-rolodethResult = rolodeth.data;
+try {
+  let rolodeth = await axios.get(
+    "https://raw.githubusercontent.com/verynifty/RolodETH/main/data/" +
+      props.value.toLowerCase()
+  );
+  rolodethResult = rolodeth.data;
+} catch (error) {}
 
 function format() {
   if (rolodethResult != null && rolodethResult.name != null) {
