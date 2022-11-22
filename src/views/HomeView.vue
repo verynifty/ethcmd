@@ -173,6 +173,11 @@
       </div>
       <div class="text-xs m-5 text-center text-gray-500">
         Data from
+        <a
+          class="underline text-indigo-300"
+          href="https://github.com/verynifty/RolodETH"
+          >RolodETH</a
+        >,
         <a class="underline text-indigo-300" href="https://etherscan.io/"
           >Etherscan</a
         >

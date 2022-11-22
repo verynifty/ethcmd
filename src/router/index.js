@@ -10,6 +10,8 @@ import AddressSourceView from '../views/address/sourcecode.vue'
 import AddressInformations from '../views/address/informations.vue'
 import AddressEvents from '../views/address/events.vue'
 
+import MevStats from '../views/mev.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -17,6 +19,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/mev-stats',
+      name: 'mev_stats',
+      component: MevStats
     },
     {
       path: '/explore',
