@@ -106,6 +106,7 @@
             </router-link>
           </div>
             <router-link to="/explore" class="text-base font-medium text-gray-500 hover:text-gray-900">Hot contracts</router-link>
+
           <div class="-my-2 -mr-2 md:hidden">
             <PopoverButton
               class="
@@ -453,6 +454,7 @@ import ConnectButton from "@/components/account/ConnectButton.vue";
 import ChangeNetwork from "@/components/account/ChangeNetwork.vue";
 
 const networkName = process.env.CHAINNAME;
+const chainId = process.env.CHAINID;
 
 import {
   Popover,

@@ -11,6 +11,7 @@ import AddressInformations from '../views/address/informations.vue'
 import AddressEvents from '../views/address/events.vue'
 
 import MevStats from '../views/mev.vue'
+import GasStats from '../views/gas.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
       path: '/mev-stats',
       name: 'mev_stats',
       component: MevStats
+    },
+    {
+      path: '/gas-stats',
+      name: 'gas_stats',
+      component: GasStats
     },
     {
       path: '/explore',
