@@ -81,6 +81,7 @@ export const useContractStore = defineStore({
                 }
                 if (contract == null) {
                     contract = {}
+                    contract.unknownABI = true;
                     console.log("ETHERSCAN FAILED")
                     const tempabi = whatsabi.abiFromBytecode(bytecode);
                     let ABI = []
@@ -92,28 +93,9 @@ export const useContractStore = defineStore({
                     }
                     for (const fnc of Object.values(signatureReturn.data.result.function)) {
                         if (fnc.length > 0) {
-                            ABI.push("function " + fnc[0].name)
+                            ABI.push("function " + fnc[0].name + " view returns (bytes)")
                         }
                     }
-                    /*
-                    const signatureLookup = new whatsabi.loaders.Byte4SignatureLookup();
-                    for (const abiObj of tempabi) {
-                        console.log(abiObj)
-                        if (abiObj.type == "function") {
-                            let fnc = await signatureLookup.loadFunctions(abiObj.selector)
-                            if (fnc.length > 0) {
-                                console.log(fnc[0])
-                                ABI.push("function " + fnc[0])
-                            }
-                        } else if (abiObj.type == "event") {
-                            let ev = await signatureLookup.loadEvents(abiObj.hash);
-                            if (ev.length > 0) {
-                                console.log(ev[0])
-                               ABI.push("function " + fnc[0])
-                            }
-                        }
-                    }
-                    */
                     ABI = ABI.map((text_signature) => `${text_signature.replaceAll('[]', '[] calldata')}`);
                     const iface = new ethers.utils.Interface(ABI);
                     let jsonAbi = JSON.parse(iface.format(ethers.utils.FormatTypes.json));
