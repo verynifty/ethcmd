@@ -9,6 +9,7 @@ import TransactionView from '../views/transaction/index.vue'
 import AddressSourceView from '../views/address/sourcecode.vue'
 import AddressInformations from '../views/address/informations.vue'
 import AddressEvents from '../views/address/events.vue'
+import AddressTransactions from '../views/address/AddressTransactions.vue'
 
 import MevStats from '../views/mev.vue'
 import GasStats from '../views/gas.vue'
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/address/:address/infos',
       name: 'addressinfos',
       component: AddressInformations
+    },
+    {
+      path: '/address/:address/transactions',
+      name: 'addressTransactions',
+      component: AddressTransactions
     },
     {
       path: '/address/:address/',

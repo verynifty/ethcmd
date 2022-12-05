@@ -38,8 +38,14 @@ try {
 } catch (error) {}
 
 function format() {
+  if (rolodethResult != null) {
+    console.log(rolodethResult)
+  }
   if (rolodethResult != null && rolodethResult.name != null) {
     return rolodethResult.name;
+  }
+  if (rolodethResult != null && rolodethResult.ens != null) {
+    return rolodethResult.ens;
   }
   return props.value.substring(0, 6) + "..." + props.value.slice(-6);
 }
