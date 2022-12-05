@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
+import 'floating-vue/dist/style.css'
 
 const app = createApp(App)
 
@@ -28,6 +29,9 @@ app.use(VueAwesomePaginate)
 
 app.use(createPinia())
 app.use(timeago)
+
+import FloatingVue from 'floating-vue'
+app.use(FloatingVue)
 
 app.use(router)
 

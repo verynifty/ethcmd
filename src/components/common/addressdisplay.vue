@@ -1,27 +1,39 @@
 <template>
-  <router-link :to="{ name: 'addressinfos', params: { address: value } }"
-    >{{ format() }}
-    <span
-      v-if="rolodethResult != null && rolodethResult.tags != null"
-      v-for="tag in rolodethResult.tags"
-      class="
-        text-xs
-        font-semibold
-        inline-block
-        py-1
-        px-2
-        uppercase
-        rounded
-        text-slate-600
-        bg-slate-200
-        uppercase
-        last:mr-0
-        mr-1
-      "
-    >
-      {{ tag }}
-    </span>
-  </router-link>
+  <div class="w-min">
+    <VTooltip>
+      <router-link :to="{ name: 'addressinfos', params: { address: value } }"
+        >{{ format() }}
+      </router-link>
+      <template   v-if="rolodethResult != null && rolodethResult.tags != null" #popper
+        >
+        {{value}}
+        <div>
+        <span
+        
+          v-for="tag in rolodethResult.tags"
+          class="
+            text-xs
+            font-semibold
+            inline-block
+            py-1
+            px-2
+            uppercase
+            rounded
+            text-slate-600
+            bg-slate-200
+            uppercase
+            last:mr-0
+            mr-1
+          "
+        >
+          {{ tag }}
+        </span></div></template
+      >
+       <template   v-else #popper
+        >{{value}}</template
+      >
+    </VTooltip>
+  </div>
 </template>
 
 <script setup>
