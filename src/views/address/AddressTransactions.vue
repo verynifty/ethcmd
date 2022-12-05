@@ -112,21 +112,18 @@
           </div>
         </div>
         <div v-if="txs.length > perPage">
-      <vue-awesome-paginate
-      class="mt-5 "
-        :total-items="txs.length"
-        :items-per-page="perPage"
-        :max-pages-shown="5"
-        :current-page="currentPage"
-        :on-click="pageClick"
-      />
-</div>
+          <vue-awesome-paginate
+            class="mt-5"
+            :total-items="txs.length"
+            :items-per-page="perPage"
+            :max-pages-shown="5"
+            :current-page="currentPage"
+            :on-click="pageClick"
+          />
+        </div>
       </div>
       <div v-else>
-        <Loader
-          message="Scrapping latest blocks for alpha..."
-          class="pt-20 pb-20"
-        />
+        <Loader message="Loading transactions" class="pt-20 pb-20" />
       </div>
     </div>
   </div>
@@ -156,7 +153,6 @@ function pageClick(page) {
   currentPage.value = page;
 }
 
-
 import { useContractStore } from "@/stores/contracts";
 let contracts = useContractStore();
 console.log(contracts);
@@ -164,13 +160,16 @@ await contracts.getContract(address);
 contract.value = contracts.$state.contracts[address];
 let etherscan = process.env.ETHERSCAN_API_KEY;
 
-let txsResult = await axios.get(
-  process.env.ETHERSCAN_API +
-    `/api?module=account&action=txlist&address=${address}&apikey=${etherscan}&sort=desc`
-);
-txs.value = txsResult.data.result;
-isLoading.value = false;
-console.log(txs);
+axios
+  .get(
+    process.env.ETHERSCAN_API +
+      `/api?module=account&action=txlist&address=${address}&apikey=${etherscan}&sort=desc`
+  )
+  .then(function (res) {
+    console.log("RES, ", res);
+    txs.value = res.data.result;
+    isLoading.value = false;
+  });
 
 function getPaginateTXs() {
   return txs.value.slice(

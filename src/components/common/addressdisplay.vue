@@ -26,20 +26,24 @@
 
 <script setup>
 import axios from "axios";
-
 const props = defineProps(["value"]);
-let rolodethResult;
-try {
-  let rolodeth = await axios.get(
-    "https://raw.githubusercontent.com/verynifty/RolodETH/main/data/" +
-      props.value.toLowerCase()
-  );
-  rolodethResult = rolodeth.data;
-} catch (error) {}
+import { ref, watch, onMounted } from "vue";
+
+let rolodethResult = ref(null);
+
+async function loadAddress() {
+  try {
+    let rolodeth = await axios.get(
+      "https://raw.githubusercontent.com/verynifty/RolodETH/main/data/" +
+        props.value.toLowerCase()
+    );
+    rolodethResult.value = rolodeth.data;
+  } catch (error) {}
+}
 
 function format() {
   if (rolodethResult != null) {
-    console.log(rolodethResult)
+    console.log(rolodethResult);
   }
   if (rolodethResult != null && rolodethResult.name != null) {
     return rolodethResult.name;
@@ -49,4 +53,14 @@ function format() {
   }
   return props.value.substring(0, 6) + "..." + props.value.slice(-6);
 }
+
+loadAddress();
+
+watch(
+  () => props.value,
+  async function () {
+    rolodethResult.value = null;
+    loadAddress();
+  }
+);
 </script>
