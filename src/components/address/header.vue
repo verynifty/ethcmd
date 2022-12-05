@@ -96,6 +96,14 @@
         >
           Remove from favorites
         </button>
+        <a
+          class="inline-flex items-center px-4 py-2 hover:bg-gray-50"
+          :href="'https://etherscan.io/address/' + contract.address"
+          target="_blank"
+          ><img
+            class="w-5 h-5"
+            src="https://etherscan.io/images/brandassets/etherscan-logo-circle.png"
+        /></a>
       </div>
     </div>
     <div class="mt-4">
@@ -117,14 +125,20 @@
         </nav>
       </div>
     </div>
-    <div v-if="contract.contractInformations == null || contract.contractInformations == 'Guessed'" class="relative bg-indigo-600">
+    <div
+      v-if="
+        contract.contractInformations == null ||
+        contract.contractInformations == 'Guessed'
+      "
+      class="relative bg-indigo-600"
+    >
       <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
         <div class="pr-16 sm:px-16 sm:text-center">
           <p class="font-medium text-white">
             <span class="hidden md:inline"
               >No ABI found for this contract.</span
             >
-          <!--  <span class="block sm:ml-2 sm:inline-block">
+            <!--  <span class="block sm:ml-2 sm:inline-block">
               <a href="#" class="font-bold text-white underline">
                 Add a custom ABI
                 <span aria-hidden="true"> &rarr;</span>
