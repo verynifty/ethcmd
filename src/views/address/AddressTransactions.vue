@@ -95,10 +95,16 @@
                       "
                     >
                       <AddressDisplay :value="tx.from" />
+                      {{ tx }}
                     </td>
                     <td
                       class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
-                    ></td>
+                    >
+                      <timeBlockDisplay
+                        :blockNumber="tx.blockNumber"
+                        :timestamp="tx.timeStamp"
+                      />
+                    </td>
                     <td
                       class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                     ></td>
@@ -138,6 +144,7 @@ import axios from "axios";
 import AddressDisplay from "@/components/common/addressdisplay.vue";
 import AddressHeader from "@/components/address/header.vue";
 import Loader from "@/components/template/Loader.vue";
+import timeBlockDisplay from "@/components/common/timeBlockDisplay.vue";
 
 import { useRoute } from "vue-router";
 import { ref, unref, onMounted } from "vue";

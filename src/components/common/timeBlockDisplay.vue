@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <a :href="'/block/' + blockNumber">
     @{{ blockNumber }}
     <span v-if="time != 0">
-        <timeago class="ml-1" :autoUpdate="30" :datetime="time * 1000" />
+        (<timeago class="ml-1" :autoUpdate="30" :datetime="time * 1000" />)
     </span>
-  </div>
+  </a>
 </template>
 
 <script setup>
@@ -22,6 +22,6 @@ if (props.timestamp == null || props.timestamp == 0) {
     let block = await ethers.getBlock(props.blockNumber)
     time.value = block.timestamp;
 } else {
-    time.value = props.timestamp;
+    time.value = parseInt(props.timestamp);
 }
 </script>
