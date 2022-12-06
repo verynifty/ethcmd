@@ -3,6 +3,52 @@
     <VTooltip>
       <router-link :to="{ name: 'addressinfos', params: { address: value } }"
         >{{ format }}
+        <span
+          v-if="
+            rolodethResult != null &&
+            rolodethResult.tags != null &&
+            rolodethResult.tags.includes('erc20')
+          "
+          class="
+            text-xs
+            font-semibold
+            inline-block
+            py-1
+            px-2
+            uppercase
+            rounded
+            text-cyan-600
+            bg-cyan-200
+            uppercase
+            last:mr-0
+            mr-1
+          "
+        >
+          ERC20
+        </span>
+        <span
+          v-if="
+            rolodethResult != null &&
+            rolodethResult.tags != null &&
+            rolodethResult.tags.includes('erc721')
+          "
+          class="
+            text-xs
+            font-semibold
+            inline-block
+            py-1
+            px-2
+            uppercase
+            rounded
+            text-stone-600
+            bg-stone-200
+            uppercase
+            last:mr-0
+            mr-1
+          "
+        >
+          ERC721
+        </span>
       </router-link>
       <template
         v-if="rolodethResult != null && rolodethResult.tags != null"
@@ -77,7 +123,7 @@ loadAddress();
 watch(
   () => props.value,
   async function () {
-    rolodethResult = null;
+    rolodethResult.value = null;
     loaded.value = false;
     loadAddress();
   }
