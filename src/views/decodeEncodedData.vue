@@ -30,28 +30,19 @@
     <label
       for="message"
       class="block mb-2 text-sm font-medium text-gray-900 mt-2"
-      >Guessed ABI</label
+      >Guessed ABI:</label
     >
-    <textarea
-      :value="decodedFragment"
-      rows="10"
-      class="
-        block
-        p-2.5
-        w-full
-        text-sm text-gray-900
-        bg-gray-50
-        rounded-lg
-        border border-gray-300
-        focus:ring-blue-500 focus:border-blue-500
-      "
-      disabled
-      placeholder="Incorrect calldata"
-    ></textarea>
+   <json-viewer
+                :value="decodedFragment"
+                :expand-depth="4"
+                copyable
+                boxed
+              ></json-viewer>
+    
       <label
       for="message"
       class="block mb-2 text-sm font-medium text-gray-900 mt-2"
-      >Decoded params</label
+      >Decoded params:</label
     >
    <json-viewer
                 :value="decodedParams"
@@ -84,7 +75,7 @@ const decodedFragment = computed(() => {
         rawTypes.push(i.type)
     }
     console.log(ethers.utils.defaultAbiCoder.decode(rawTypes, ethers.utils.hexDataSlice(calldata.value, 4)));
-    return JSON.stringify(types);
+    return (types);
   } catch (error) {
       console.log(error)
   }
