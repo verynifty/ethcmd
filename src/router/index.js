@@ -14,6 +14,8 @@ import AddressTransactions from '../views/address/AddressTransactions.vue'
 import MevStats from '../views/mev.vue'
 import GasStats from '../views/gas.vue'
 
+import decodeEncodedData from '../views/decodeEncodedData.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -71,6 +73,11 @@ const router = createRouter({
       path: '/tx/:hash/',
       name: 'transaction',
       component: TransactionView
+    },
+    {
+      path: '/tools/decode-calldata/',
+      name: 'decodeEncodedData',
+      component: decodeEncodedData
     },
     {
       path: '/about',

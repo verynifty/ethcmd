@@ -9,6 +9,7 @@ import qs from 'querystring';
 import JSZip, { filter } from 'jszip';
 import FileSaver from 'file-saver';
 import { createReturnStatement } from "@vue/compiler-core";
+import { guessAbiEncodedData, guessFragment } from '@samczsun/abi-guesser/dist/encode-guesser';
 
 function getBlockNumber(x, base) {
     const parsed = Number.parseInt(x, base);
@@ -203,7 +204,9 @@ export const useContractStore = defineStore({
         async callContract(address, func, params, from, blockNumber = "latest", value = "0") {
             const web3 = useWeb3Store();
             const history = useHistoryStore();
+            const contract = await this.getContract(address)
             var ctx = await web3.getContract(address, [func]);
+            console.log(contract)
             let callParams = []
             for (const p of params) {
                 callParams.push(p.value)
@@ -217,8 +220,14 @@ export const useContractStore = defineStore({
                     from: from,
                     value: value
                 })
+                if (contract.unknownABI) {
+                    let guessedABI = guessAbiEncodedData(res);
+                    console.log("GUESSED ABI", guessedABI)
+                }
+                console.log(res)
                 history.pushCallResult(counter, null, res)
             } catch (e) {
+                console.log(e)
                 history.pushCallResult(counter, JSON.parse(JSON.stringify(e)), null)
             }
         },

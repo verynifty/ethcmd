@@ -62,12 +62,6 @@ function loadAddress() {
 
 const format = computed(() => {
   if (loaded && rolodethResult != null && rolodethResult.value != null) {
-    console.log(
-      rolodethResult != null,
-      "COMPUTED",
-      props.value,
-      rolodethResult
-    );
     if (rolodethResult.value.name != null) {
       return rolodethResult.value.name;
     }
