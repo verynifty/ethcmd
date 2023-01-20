@@ -94,7 +94,7 @@ function loadAddress() {
   try {
     let rolodeth = axios
       .get(
-        "http://rolodeth.ethcmd.com/address/" +
+        "https://rolodeth.ethcmd.com/address/" +
           props.value.toLowerCase()
       )
       .then(function (rolodeth) {
