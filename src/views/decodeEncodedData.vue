@@ -91,7 +91,11 @@ const decodedParams = computed(() => {
     }
     let decoded = ethers.utils.defaultAbiCoder.decode(rawTypes, ethers.utils.hexDataSlice(calldata.value, 4))
     console.log(decoded)
-    return (decoded);
+    let res = []
+    for (const d of decoded) {
+      res.push(d.toString());
+    }
+    return (res);
   } catch (error) {
       console.log(error)
   }
