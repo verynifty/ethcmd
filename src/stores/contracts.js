@@ -275,7 +275,7 @@ export const useContractStore = defineStore({
         },
         async decodeConstructor(address, data) {
             try {
-                let constructor = await this.getContructor(address);
+                let constructor = await this.getConstructor(address);
                 let res = ethers.utils.defaultAbiCoder.decode(
                     constructor.inputs.map(x => x.type),
                     data
