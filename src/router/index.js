@@ -17,6 +17,8 @@ import GasStats from '../views/gas.vue'
 import decodeEncodedData from '../views/decodeEncodedData.vue'
 import unitConverter from '../views/unitConverter.vue'
 
+import intent from '../views/intent.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -29,6 +31,11 @@ const router = createRouter({
       path: '/mev-stats',
       name: 'mev_stats',
       component: MevStats
+    },
+    {
+      path: '/intent',
+      name: 'intent',
+      component: intent
     },
     {
       path: '/gas-stats',

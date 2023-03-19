@@ -7,6 +7,7 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider/dist/umd/index.min.js";
 
 import { unref, toRaw } from 'vue'
+import { data } from "autoprefixer";
 
 let pastProvider = null
 
@@ -118,6 +119,19 @@ export const useWeb3Store = defineStore({
                 this.connect();
             });
             pastProvider = provider;
+        },
+        async sendIntent(to, value, data) {
+            if (this.account == null) {
+                await this.connect();
+            }
+            const tx = await (this.getEthers()).getSigner().sendTransaction({
+                to: to,
+                value: value,
+                data: data,
+                from: this.account,
+            });
+            console.log(tx)
+            return (tx)
         },
         async getContract(address, ABI) {
             let ct = (new ethers.Contract(address, ABI, toRaw(this.ethers)));
