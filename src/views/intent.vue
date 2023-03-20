@@ -62,7 +62,7 @@
       How to create an int3nt
     </p>
     <p class="mb-1">
-      Simply create a URL with the following query parameters:
+      Simply edit and share the URL with the following query parameters (to, data, value):
     </p>
       <p class="mb-1">
      <a class="font-medium text-blue-600 underline" href="https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x">https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x</a>
