@@ -3,12 +3,11 @@
 <template>
   <div class="h-full bg-gray-100 overflow-scroll p-10">
     <p class="font-semibold leading-1 text-gray-900 mb-5 text-2xl">
-      Transaction INTENT
+      Transaction int3nt
     </p>
     <p class="mb-5">
-      ETHCMD INTENT is an easy way to share transactions to be executed by
-      someone else. Someone can create an URL containing what smart contract to
-      call with which payload and value for a user to execute in a click.
+      Int3nt is an easy way to share transactions to be executed by
+      someone else. Execute a transaction shared by someone else in one click.
     </p>
     <p class="mb-5 text-orange-500">
       ⚠️ You should only execute transactions that were shared to you by someone
@@ -58,6 +57,16 @@
     >
       Send transaction
     </button>
+
+     <p class="mt-20 font-semibold leading-1 text-gray-900 mb-5 text-2xl">
+      How to create an int3nt
+    </p>
+    <p class="mb-1">
+      Simply create a URL with the following query parameters:
+    </p>
+      <p class="mb-1">
+     <a class="font-medium text-blue-600 underline" href="https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x">https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x</a>
+    </p>
   </div>
 </template>
 

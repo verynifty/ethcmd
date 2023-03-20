@@ -33,7 +33,7 @@ const router = createRouter({
       component: MevStats
     },
     {
-      path: '/intent',
+      path: '/int3nt',
       name: 'intent',
       component: intent
     },
