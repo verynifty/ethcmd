@@ -14,6 +14,7 @@ import AddressTransactions from '../views/address/AddressTransactions.vue'
 import MevStats from '../views/mev.vue'
 import GasStats from '../views/gas.vue'
 
+import tools from '../views/tools.vue'
 import decodeEncodedData from '../views/decodeEncodedData.vue'
 import unitConverter from '../views/unitConverter.vue'
 
@@ -81,6 +82,11 @@ const router = createRouter({
       path: '/tx/:hash/',
       name: 'transaction',
       component: TransactionView
+    },
+    {
+      path: '/tools/',
+      name: 'tools',
+      component: tools
     },
     {
       path: '/tools/decode-calldata/',

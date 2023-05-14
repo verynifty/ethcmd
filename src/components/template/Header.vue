@@ -106,6 +106,7 @@
             </router-link>
           </div>
             <router-link to="/explore" class="text-base font-medium text-gray-500 hover:text-gray-900">Hot contracts</router-link>
+            <router-link to="/tools" class="text-base font-medium text-gray-500 hover:text-gray-900">Tools</router-link>
 
           <div class="-my-2 -mr-2 md:hidden">
             <PopoverButton
