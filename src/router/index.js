@@ -39,8 +39,8 @@ const router = createRouter({
       component: intent
     },
     {
-      path: '/gas-stats',
-      name: 'gas_stats',
+      path: '/tools/gas-price',
+      name: 'gas_price',
       component: GasStats
     },
     {

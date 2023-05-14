@@ -5,7 +5,7 @@
     <div class="mx-auto max-w-7xl px-6 py-24 sm:pt-32 lg:px-8 lg:py-40">
       <div class="lg:grid lg:grid-cols-12 lg:gap-8">
         <div class="lg:col-span-5">
-          <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">Tools</h2>
+          <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">🛠️ Tools</h2>
           <p class="mt-4 text-base leading-7 text-gray-600">A collection of tools for Ethereum users and developers.</p>
         </div>
         <div class="mt-10 lg:col-span-7 lg:mt-0">
@@ -30,6 +30,12 @@ const tools = [
     path: "/tools/ethereum-unit-converter",
     description:
       "Convert easily between Ether, Gwei and Wei.",
+  },
+    {
+    title: "Gas price",
+    path: "/tools/gas-price",
+    description:
+      "Recommended gas prices for sending Ethereum transactions.",
   },
    {
     title: "Calldata decoder",
