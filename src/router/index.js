@@ -15,6 +15,7 @@ import MevStats from '../views/mev.vue'
 import GasStats from '../views/gas.vue'
 
 import tools from '../views/tools.vue'
+import copytx from '../views/tools/copytx.vue'
 import decodeEncodedData from '../views/decodeEncodedData.vue'
 import unitConverter from '../views/unitConverter.vue'
 
@@ -92,6 +93,11 @@ const router = createRouter({
       path: '/tools/decode-calldata/',
       name: 'decodeEncodedData',
       component: decodeEncodedData
+    },
+    {
+      path: '/tools/copy-transaction/',
+      name: 'copytx',
+      component: copytx
     },
     {
       path: '/tools/ethereum-unit-converter/',

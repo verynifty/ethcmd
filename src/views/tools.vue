@@ -37,6 +37,12 @@ const tools = [
     description:
       "Recommended gas prices for sending Ethereum transactions.",
   },
+     {
+    title: "Copy a transaction",
+    path: "/tools/copy-transaction",
+    description:
+      "Execute an existing transaction on the Ethereum network from you own address.",
+  },
    {
     title: "Calldata decoder",
     path: "/tools/decode-calldata",
