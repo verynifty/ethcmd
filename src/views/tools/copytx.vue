@@ -5,8 +5,8 @@
     <h1 class="text-2xl font-bold mb-2">Copy an existing transaction</h1>
 
     <p class="mb-5">
-      Paste an existing transaction hash and we'll redirect you to a new page where you'll
-      be able to send the same transaction.
+      Paste an existing transaction hash and we'll redirect you to a new page
+      where you'll be able to send the same transaction.
     </p>
     <div>
       <label for="ether" class="block text-sm font-medium text-gray-700"
@@ -29,9 +29,10 @@
 <script setup>
 import { ethers } from "ethers";
 
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
+const route = useRoute();
 
 import { useWeb3Store } from "@/stores/web3";
 
@@ -41,9 +42,23 @@ async function setHash(a) {
   let ethers = await web3.getEthers();
   const hash = a.target.value;
   let tx = await ethers.getTransaction(hash);
-  console.log(tx);
-    if (tx) {
-        router.push({ name: "intent", query: { data: tx.data, value: tx.value, to: tx.to } });
-    }
+  if (tx) {
+    router.push({
+      name: "intent",
+      query: { data: tx.data, value: tx.value, to: tx.to },
+    });
+  }
+}
+
+if (route.query.txHash != null && route.query.txHash != "") {
+  let ethers = await web3.getEthers();
+  const hash = route.query.txHash;
+  let tx = await ethers.getTransaction(hash);
+  if (tx) {
+    router.push({
+      name: "intent",
+      query: { data: tx.data, value: tx.value, to: tx.to },
+    });
+  }
 }
 </script>

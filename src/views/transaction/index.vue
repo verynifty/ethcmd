@@ -47,6 +47,9 @@
             />
             {{ new Date(block.timestamp * 1000).toLocaleString() }}
           </div>
+           <div class="bg-white hover:bg-gray-100 text-gray-800  py-1 px-2 border border-gray-400 rounded shadow">
+            <router-link :to="{ name: 'copytx', query: { txHash: tx.transactionHash }}">Copy</router-link>
+          </div>
         </div>
       </div>
       <!--
