@@ -37,9 +37,35 @@
                         sm:pl-6
                       "
                     >
+                      Hash
+                    </th>
+                    <th
+                      scope="col"
+                      class="
+                        py-3.5
+                        pl-4
+                        pr-3
+                        text-left text-sm
+                        font-semibold
+                        text-gray-900
+                        sm:pl-6
+                      "
+                    >
                       From
                     </th>
                     <th
+                      scope="col"
+                      class="
+                        px-3
+                        py-3.5
+                        text-left text-sm
+                        font-semibold
+                        text-gray-900
+                      "
+                    >
+                      To
+                    </th>
+                       <th
                       scope="col"
                       class="
                         px-3
@@ -63,18 +89,6 @@
                     >
                       Calls
                     </th>
-                    <th
-                      scope="col"
-                      class="
-                        px-3
-                        py-3.5
-                        text-left text-sm
-                        font-semibold
-                        text-gray-900
-                      "
-                    >
-                      # Callers
-                    </th>
                   </tr>
                 </thead>
                 <tbody class="bg-white">
@@ -94,8 +108,49 @@
                         sm:pl-6
                       "
                     >
+                      <TransactionHashDisplay :value="tx.hash" />
+                    </td>
+                    <td
+                      class="
+                        whitespace-nowrap
+                        py-4
+                        pl-4
+                        pr-3
+                        text-sm
+                        font-medium
+                        text-gray-900
+                        sm:pl-6
+                      "
+                    >
                       <AddressDisplay :value="tx.from" />
-                      {{ tx }}
+                    </td>
+                     <td
+                      class="
+                        whitespace-nowrap
+                        py-4
+                        pl-4
+                        pr-3
+                        text-sm
+                        font-medium
+                        text-gray-900
+                        sm:pl-6
+                      "
+                    >
+                      <AddressDisplay :value="tx.to" />
+                    </td>
+                      <td
+                      class="
+                        whitespace-nowrap
+                        py-4
+                        pl-4
+                        pr-3
+                        text-sm
+                        font-medium
+                        text-gray-900
+                        sm:pl-6
+                      "
+                    >
+                    <FuncSelectorDisplay :value="tx.funcSelector" />
                     </td>
                     <td
                       class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
@@ -145,6 +200,8 @@ import AddressDisplay from "@/components/common/addressdisplay.vue";
 import AddressHeader from "@/components/address/header.vue";
 import Loader from "@/components/template/Loader.vue";
 import timeBlockDisplay from "@/components/common/timeBlockDisplay.vue";
+import FuncSelectorDisplay from "@/components/common/functionselectordisplay.vue";
+import TransactionHashDisplay from "@/components/common/transactionhashdisplay.vue";
 
 import { useRoute } from "vue-router";
 import { ref, unref, onMounted } from "vue";
@@ -174,6 +231,10 @@ axios
   )
   .then(function (res) {
     console.log("RES, ", res);
+    for (let i = 0; i < res.data.result.length; i++) {
+      console.log(res.data.result[i])
+      res.data.result[i].funcSelector = res.data.result[i].input.substring(0, 10).toLowerCase();
+    }
     txs.value = res.data.result;
     isLoading.value = false;
   });
