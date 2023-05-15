@@ -51,11 +51,11 @@ async function setHash(a) {
 }
 
 if (route.query.txHash != null && route.query.txHash != "") {
-  let ethers = await web3.getEthers();
+  let ethers = await web3.getEthersAndConnect();
   const hash = route.query.txHash;
   let tx = await ethers.getTransaction(hash);
   if (tx) {
-    router.push({
+    await router.replace({
       name: "intent",
       query: { data: tx.data, value: tx.value, to: tx.to },
     });
