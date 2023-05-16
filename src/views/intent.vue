@@ -6,8 +6,8 @@
       Transaction int3nt
     </p>
     <p class="mb-5">
-      Int3nt is an easy way to share transactions to be executed by
-      someone else. Execute a transaction shared by someone else in one click.
+      Int3nt is an easy way to share transactions to be executed by someone
+      else. Execute a transaction shared by someone else in one click.
     </p>
     <p class="mb-5 text-orange-500">
       ⚠️ You should only execute transactions that were shared to you by someone
@@ -50,6 +50,12 @@
       rows="4"
       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
     ></textarea>
+    <p v-if="funcSelector != null && funcSelector != '0x' && funcSelector != ''">
+    Guessed function selector:
+    <span class="font-bold">
+    <FuncSelectorDisplay  :value="funcSelector" />
+    </span>
+    </p>
 
     <button
       @click="onSend()"
@@ -58,14 +64,19 @@
       Send transaction
     </button>
 
-     <p class="mt-20 font-semibold leading-1 text-gray-900 mb-5 text-2xl">
+    <p class="mt-20 font-semibold leading-1 text-gray-900 mb-5 text-2xl">
       How to create an int3nt
     </p>
     <p class="mb-1">
-      Simply edit and share the URL with the following query parameters (to, data, value):
+      Simply edit and share the URL with the following query parameters (to,
+      data, value):
     </p>
-      <p class="mb-1">
-     <a class="font-medium text-blue-600 underline" href="https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x">https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x</a>
+    <p class="mb-1">
+      <a
+        class="font-medium text-blue-600 underline"
+        href="https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x"
+        >https://ethcmd.com/int3nt?to=0x0000000000000000000000000000000000000000&value=0&data=0x</a
+      >
     </p>
   </div>
 </template>
@@ -74,6 +85,7 @@
 import { useRoute } from "vue-router";
 import { ref, watch, computed } from "vue";
 import { useWeb3Store } from "@/stores/web3";
+import FuncSelectorDisplay from "@/components/common/functionselectordisplay.vue";
 
 const web3 = useWeb3Store();
 
@@ -82,7 +94,6 @@ let to = ref("0x0000000000000000000000000000000000000000");
 let calldata = ref("0x");
 
 let value = ref("0x0");
-
 
 const route = useRoute();
 if (route.query.to != null) {
@@ -94,6 +105,11 @@ if (route.query.data != null) {
 if (route.query.value != null) {
   value.value = route.query.value;
 }
+
+let getFunctionsSelector = function () {
+  return calldata.value.substring(0, 10).toLowerCase();
+};
+let funcSelector = computed(getFunctionsSelector);
 
 async function onSend() {
   let tx = await web3.sendIntent(to.value, value.value, calldata.value);
