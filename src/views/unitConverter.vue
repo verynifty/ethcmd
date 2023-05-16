@@ -100,6 +100,8 @@ import { ethers } from "ethers";
 
 import { ref, watch, computed } from "vue";
 
+document.title = "Ethereum unit converter - ETHCMD";
+
 let ether = ref("1");
 let gwei = ref("1000000000");
 let wei = ref("1000000000000000000");

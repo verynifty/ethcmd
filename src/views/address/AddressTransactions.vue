@@ -208,6 +208,8 @@ import { ref, unref, onMounted } from "vue";
 
 const route = useRoute();
 const address = route.params.address.toLowerCase();
+document.title = "Transactions for " + address + " - ETHCMD";
+
 let contract = ref({ name: "" });
 const currentPage = ref(1);
 const perPage = ref(50);

@@ -126,6 +126,8 @@ import { useWeb3Store } from "@/stores/web3";
 const route = useRoute();
 const hash = route.params.hash;
 
+document.title = "Transaction " + hash + " - ETHCMD";
+
 const web3 = useWeb3Store();
 const ethers = await web3.getEthersAndConnect();
 const tx = await ethers.getTransactionReceipt(hash);

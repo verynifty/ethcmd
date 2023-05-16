@@ -61,6 +61,8 @@ import {
 
 import { ethers } from "ethers";
 
+document.title = "Call data decoder - ETHCMD";
+
 import { ref, watch, computed } from "vue";
 
 let calldata = ref(

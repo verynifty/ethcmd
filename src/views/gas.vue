@@ -72,6 +72,8 @@
 </template>
 
 <script setup>
+document.title = "Gas prices - ETHCMD";
+
 import axios from "axios";
 let stats = [];
 let etherscan = process.env.ETHERSCAN_API_KEY;

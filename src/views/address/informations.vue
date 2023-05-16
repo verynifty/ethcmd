@@ -19,6 +19,8 @@ let currentSource = ref(null);
 
 const route = useRoute();
 const address = route.params.address.toLowerCase();
+document.title = "Infos for " + address + " - ETHCMD";
+
 let contract = ref({ name: "" });
 
 let currentFunction = ref(null);

@@ -82,6 +82,7 @@
 </template>
 
 <script setup>
+document.title = "Int3nt - ETHCMD";
 import { useRoute } from "vue-router";
 import { ref, watch, computed } from "vue";
 import { useWeb3Store } from "@/stores/web3";

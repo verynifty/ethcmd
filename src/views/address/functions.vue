@@ -29,6 +29,8 @@ import { ref, unref, onMounted } from "vue";
 
 const route = useRoute();
 const address = route.params.address.toLowerCase();
+document.title = "Functions for " + address + " - ETHCMD";
+
 let contract = ref({ name: "" });
 
 let currentFunction = ref(null);

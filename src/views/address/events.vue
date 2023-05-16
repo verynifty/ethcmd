@@ -23,6 +23,9 @@ let currentEvent = ref(null);
 
 const route = useRoute();
 const address = route.params.address.toLowerCase();
+
+document.title = "Events for " + address + " - ETHCMD";
+
 let contract = ref({ name: "" });
 
 import { useContractStore } from "@/stores/contracts";

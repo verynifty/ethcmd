@@ -27,6 +27,8 @@
 </template>
 
 <script setup>
+document.title = "Copy a transaction - ETHCMD";
+
 import { ethers } from "ethers";
 
 import { useRouter, useRoute } from "vue-router";

@@ -191,6 +191,8 @@
 </template>
 
 <script setup>
+document.title = "ETHCMD";
+
 import ContractSearch from "@/components/address/search.vue";
 import hotFunctions from "@/components/transaction/lastblocks.vue";
 

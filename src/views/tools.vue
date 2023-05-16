@@ -24,6 +24,8 @@
 </template>
 
 <script setup>
+document.title = "Tools - ETHCMD";
+
 const tools = [
   {
     title: "Ethereum unit converter",
@@ -42,6 +44,12 @@ const tools = [
     path: "/tools/copy-transaction",
     description:
       "Execute an existing transaction on the Ethereum network from you own address.",
+  },
+       {
+    title: "Int3nt, share transactions",
+    path: "/int3nt",
+    description:
+      "An easy way to build transactions and share them with others to execute.",
   },
    {
     title: "Calldata decoder",
