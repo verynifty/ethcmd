@@ -50,7 +50,7 @@
       rows="4"
       class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
     ></textarea>
-    <p v-if="funcSelector != null && funcSelector != '0x' && funcSelector != ''">
+    <p v-if="funcSelector != null && funcSelector != '0x' && funcSelector != '' && funcSelector.length == 10">
     Guessed function selector:
     <span class="font-bold">
     <FuncSelectorDisplay  :value="funcSelector" />
@@ -88,6 +88,11 @@ import { ref, watch, computed } from "vue";
 import { useWeb3Store } from "@/stores/web3";
 import FuncSelectorDisplay from "@/components/common/functionselectordisplay.vue";
 
+import {
+  guessAbiEncodedData,
+  guessFragment,
+} from "@samczsun/abi-guesser/dist/encode-guesser";
+
 const web3 = useWeb3Store();
 
 let to = ref("0x0000000000000000000000000000000000000000");
@@ -95,6 +100,7 @@ let to = ref("0x0000000000000000000000000000000000000000");
 let calldata = ref("0x");
 
 let value = ref("0x0");
+let abi = ref(null);
 
 const route = useRoute();
 if (route.query.to != null) {
@@ -108,9 +114,17 @@ if (route.query.value != null) {
 }
 
 let getFunctionsSelector = function () {
+  const types = guessFragment(calldata.value);
+    let rawTypes = []
+    for (const i of types.inputs) {
+        rawTypes.push(i.type)
+    }
+    console.log(types)
   return calldata.value.substring(0, 10).toLowerCase();
 };
 let funcSelector = computed(getFunctionsSelector);
+
+
 
 async function onSend() {
   let tx = await web3.sendIntent(to.value, value.value, calldata.value);
