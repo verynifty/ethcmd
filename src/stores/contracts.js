@@ -118,12 +118,17 @@ export const useContractStore = defineStore({
                     contract.name = "Unknown contract"
                 }
                 for (let index = 0; index < contract.ABI.length; index++) {
+                    console.log(contract.ABI[index].type);
                     if (contract.ABI[index].type == "event") {
                         contract.ABI[index].signature = web3.web3.eth.abi.encodeEventSignature(contract.ABI[index])
                         contract.ABI[index].id = eventCount++;
                     } else if (contract.ABI[index].type != "constructor") {
                         delete contract.ABI[index].gas
                         contract.ABI[index].id = functionCount++;
+                        if (contract.ABI[index].type == "function") {
+                            contract.ABI[index].signature = web3.web3.eth.abi.encodeFunctionSignature(contract.ABI[index])
+                           // console.log("Signature", contract.ABI[index].signature)
+                        }
                     }
                 }
                 this.$state.contracts[address.toLowerCase()] = contract;
@@ -348,8 +353,8 @@ export const useContractStore = defineStore({
         },
         async _getEventsFromEthersJS(address, topics, fromBlock = 0, toBlock = "latest") {
             console.log("fetch events", fromBlock, toBlock)
-                const web3 = useWeb3Store();
-                const ethersInstance = web3.getEthers();
+            const web3 = useWeb3Store();
+            const ethersInstance = web3.getEthers();
             try {
                 let filter = {
                     fromBlock: fromBlock,
@@ -379,7 +384,7 @@ export const useContractStore = defineStore({
                         newToBlock
                     ),
                 ]);
-                return([...result[0], ...result[1]]);
+                return ([...result[0], ...result[1]]);
             }
         },
     }
