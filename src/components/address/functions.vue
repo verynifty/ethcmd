@@ -156,7 +156,7 @@ let getFunctions = computed(getFunctionsRaw);
 
 let selected = ref({})
 async function onFunctionClick(func) {
-  router.push({path: router.currentRoute.value.path, query: {function: func.id} });
+  router.push({path: router.currentRoute.value.path, query: {function: func.signature} });
   console.log("ONCLICK");
   selected.value = func;
   emit("selected", func);
@@ -165,7 +165,7 @@ async function onFunctionClick(func) {
 function getFuncById(id) {
  let fs = getFunctionsRaw();
  for (const f of fs) {
-   if (f.id == id) {
+   if (f.signature.toLowerCase() == id.toLowerCase()) {
      return f;
    }
  }
@@ -175,7 +175,7 @@ function getFuncById(id) {
 let queryFunc = route.query.function
 console.log(queryFunc)
 if (queryFunc != null) {
-  queryFunc = parseInt(queryFunc)
+  queryFunc = (queryFunc)
 } else {
   queryFunc = 1;
 }
