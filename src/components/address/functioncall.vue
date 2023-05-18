@@ -306,9 +306,15 @@
 
 <script setup>
 import { watch, ref } from "vue";
+import { useRoute } from "vue-router";
 import { useContractStore } from "@/stores/contracts";
 import { useWeb3Store } from "@/stores/web3";
 
+const route = useRoute();
+
+const paramsData = route.query.calldata;
+
+console.log("paramsData", paramsData);
 let contracts = useContractStore();
 const web3 = useWeb3Store();
 
