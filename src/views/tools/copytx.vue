@@ -37,30 +37,42 @@ const router = useRouter();
 const route = useRoute();
 
 import { useWeb3Store } from "@/stores/web3";
+import { useContractStore } from "@/stores/contracts";
 
 const web3 = useWeb3Store();
+let contracts = useContractStore();
 
 async function setHash(a) {
-  let ethers = await web3.getEthers();
+  let ethers = await web3.getEthersAndConnect();
   const hash = a.target.value;
   let tx = await ethers.getTransaction(hash);
   if (tx) {
-    router.push({
-      name: "intent",
-      query: { data: tx.data, value: tx.value, to: tx.to },
-    });
+    let contract = await contracts.getContract(tx.to);
+    if (
+      tx.data != null &&
+      tx.data.length >= 10 &&
+      contract != null &&
+      !contract.unknownABI
+    ) {
+        console.log("GO to address page")
+      await router.replace({
+        name: "address",
+        params: { address: tx.to },
+        query: {
+          function: tx.data.substring(0, 10).toLowerCase(),
+          calldata: "0x" + tx.data.substring(10),
+        },
+      });
+    } else {
+      await router.replace({
+        name: "intent",
+        query: { data: tx.data, value: tx.value, to: tx.to },
+      });
+    }
   }
 }
 
 if (route.query.txHash != null && route.query.txHash != "") {
-  let ethers = await web3.getEthersAndConnect();
-  const hash = route.query.txHash;
-  let tx = await ethers.getTransaction(hash);
-  if (tx) {
-    await router.replace({
-      name: "intent",
-      query: { data: tx.data, value: tx.value, to: tx.to },
-    });
-  }
+  setHash({ target: { value: route.query.txHash } });
 }
 </script>

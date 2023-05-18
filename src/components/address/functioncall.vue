@@ -4,18 +4,7 @@
       <div class="px-4 py-5 sm:px-6">
         <h3 class="text-lg font-medium leading-6 text-gray-900">
           <span
-            class="
-              bg-gray-100
-              text-gray-800 text-xs
-              font-medium
-              inline-flex
-              items-center
-              px-2.5
-              py-0.5
-              rounded
-              mr-2
-              dark:bg-gray-700 dark:text-gray-300
-            "
+            class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded mr-2 dark:bg-gray-700 dark:text-gray-300"
           >
             {{ func.id }}
           </span>
@@ -32,18 +21,7 @@
             <dt class="text-sm font-medium text-gray-500">
               {{ input.types }}
               <span
-                class="
-                  text-xs
-                  font-semibold
-                  inline-block
-                  py-1
-                  px-2
-                  rounded
-                  text-slate-600
-                  bg-slate-200
-                  last:mr-0
-                  mr-1
-                "
+                class="text-xs font-semibold inline-block py-1 px-2 rounded text-slate-600 bg-slate-200 last:mr-0 mr-1"
               >
                 {{ input.type }}</span
               >
@@ -51,18 +29,7 @@
             <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <input
                 v-model="inputs[index].value"
-                class="
-                  shadow
-                  appearance-none
-                  border
-                  rounded
-                  w-full
-                  py-2
-                  px-3
-                  text-gray-700
-                  leading-tight
-                  focus:outline-none focus:shadow-outline
-                "
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
                 placeholder=""
               />
@@ -79,25 +46,7 @@
             <div class="relative flex justify-center">
               <button
                 type="button"
-                class="
-                  inline-flex
-                  items-center
-                  rounded-full
-                  border border-gray-300
-                  bg-white
-                  px-4
-                  py-1.5
-                  text-sm
-                  font-medium
-                  leading-5
-                  text-gray-700
-                  shadow-sm
-                  hover:bg-gray-50
-                  focus:outline-none
-                  focus:ring-2
-                  focus:ring-indigo-500
-                  focus:ring-offset-2
-                "
+                class="inline-flex items-center rounded-full border border-gray-300 bg-white px-4 py-1.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 <svg
                   class="-ml-1.5 mr-1 h-5 w-5 text-gray-400"
@@ -132,18 +81,7 @@
               <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 <input
                   v-model="weiValue"
-                  class="
-                    shadow
-                    appearance-none
-                    border
-                    rounded
-                    w-full
-                    py-2
-                    px-3
-                    text-gray-700
-                    leading-tight
-                    focus:outline-none focus:shadow-outline
-                  "
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   placeholder=""
                 />
@@ -157,18 +95,7 @@
               <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 <input
                   v-model="blockNumber"
-                  class="
-                    shadow
-                    appearance-none
-                    border
-                    rounded
-                    w-full
-                    py-2
-                    px-3
-                    text-gray-700
-                    leading-tight
-                    focus:outline-none focus:shadow-outline
-                  "
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   placeholder=""
                 />
@@ -182,18 +109,7 @@
               <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                 <input
                   v-model="fromAddress"
-                  class="
-                    shadow
-                    appearance-none
-                    border
-                    rounded
-                    w-full
-                    py-2
-                    px-3
-                    text-gray-700
-                    leading-tight
-                    focus:outline-none focus:shadow-outline
-                  "
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   placeholder=""
                 />
@@ -209,25 +125,7 @@
               <div class="relative flex justify-center">
                 <button
                   type="button"
-                  class="
-                    inline-flex
-                    items-center
-                    rounded-full
-                    border border-gray-300
-                    bg-white
-                    px-4
-                    py-1.5
-                    text-sm
-                    font-medium
-                    leading-5
-                    text-gray-700
-                    shadow-sm
-                    hover:bg-gray-50
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-indigo-500
-                    focus:ring-offset-2
-                  "
+                  class="inline-flex items-center rounded-full border border-gray-300 bg-white px-4 py-1.5 text-sm font-medium leading-5 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <svg
                     class="-ml-1.5 mr-1 h-5 w-5 text-gray-400"
@@ -258,18 +156,7 @@
             >
               <button
                 @click="send"
-                class="
-                  bg-transparent
-                  hover:bg-blue-500
-                  text-blue-700
-                  font-semibold
-                  hover:text-white
-                  py-2
-                  px-4
-                  border border-blue-500
-                  hover:border-transparent
-                  rounded
-                "
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
               >
                 Send tx
               </button>
@@ -281,18 +168,7 @@
             >
               <button
                 @click="call"
-                class="
-                  bg-transparent
-                  hover:bg-blue-500
-                  text-blue-700
-                  font-semibold
-                  hover:text-white
-                  py-2
-                  px-4
-                  border border-blue-500
-                  hover:border-transparent
-                  rounded
-                "
+                class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
               >
                 Read
               </button>
@@ -309,12 +185,12 @@ import { watch, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useContractStore } from "@/stores/contracts";
 import { useWeb3Store } from "@/stores/web3";
+import { ethers } from "ethers";
 
 const route = useRoute();
 
 const paramsData = route.query.calldata;
 
-console.log("paramsData", paramsData);
 let contracts = useContractStore();
 const web3 = useWeb3Store();
 
@@ -325,7 +201,8 @@ let fromAddress = ref(web3.account);
 let blockNumber = ref("latest");
 let weiValue = ref("0");
 let showMore = ref(false);
-let currentDef = ref("")
+let currentDef = ref("");
+let contract = await contracts.getContract(props.address);
 
 async function call() {
   if (web3.account == null) {
@@ -355,26 +232,42 @@ async function send() {
   );
 }
 
+async function setInputs() {
+  console.log("FUNC WATCH", props.func);
+
+  let inputTypes = []
+
+  inputs.value = [];
+  for (const input of props.func.inputs) {
+    console.log(input);
+    inputs.value.push({ value: "" });
+    inputTypes.push(input.type);
+  }
+  if (paramsData != null) {
+    let params = ethers.utils.defaultAbiCoder.decode(inputTypes, paramsData);
+    console.log(params);
+    for (let i = 0; i < params.length; i++) {
+      inputs.value[i].value = params[i];
+    }
+  }
+  console.log(inputTypes);
+  let def = await contracts.ABItoHuman(props.func);
+  console.log(def);
+  if (def.startsWith("function ")) {
+    def = def.replace("function ", "");
+  }
+  currentDef.value = def;
+
+  if (inputs.value.length == 0 && props.func.stateMutability == "view") {
+    console.log("CALL");
+    await call();
+  }
+}
 watch(
   () => props.func,
   async function () {
-    console.log("FUNC WATCH", props.func);
-    inputs.value = [];
-    for (const input of props.func.inputs) {
-      console.log(input);
-      inputs.value.push({ value: "" });
-    }
-    let def = await contracts.ABItoHuman(props.func);
-    console.log(def)
-    if (def.startsWith("function ")) {
-      def = def.replace("function ", "")
-    }
-    currentDef.value = def;
-    
-    if (inputs.value.length == 0 && props.func.stateMutability == "view") {
-      console.log("CALL");
-      await call();
-    }
+    setInputs();
   }
 );
+setInputs();
 </script>
